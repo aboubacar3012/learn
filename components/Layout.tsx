@@ -18,13 +18,12 @@ export default function Layout({
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <Header
+      {/* <Header
         content={content}
         courses={courses}
         progressService={progressService}
-      />
+      /> */}
       {children}
-     
     </>
   )
 }

@@ -10,12 +10,12 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(" ")
 }
 
-export default function Header({ content, courses, progressService }) {
-  const coursesJsonCourses = Object.keys(coursesJson)
+export default function Header() {
+  // const coursesJsonCourses = Object.keys(coursesJson)
 
   return (
     <>
-      <Popover className="relative bg-white  lg:block">
+      {/* <Popover className="relative bg-white  lg:block">
         <div
           className="absolute inset-0 shadow z-30 pointer-events-none"
           aria-hidden="true"
@@ -29,8 +29,9 @@ export default function Header({ content, courses, progressService }) {
                   <CodeIcon className="h-8 w-auto sm:h-10 text-blue-500" />
                 </a>
               </Link>
-            </div>
-            {/* <div className="md:hidden">
+            </div> */}
+
+      {/* <div className="md:hidden">
               <Popover.Button className="bg-white rounded-md p-2 inline-flex items-center justify-center text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-blue-500">
                 <span className="sr-only">Open menu</span>
                 <MenuIcon className="h-6 w-6" aria-hidden="true" />
@@ -106,16 +107,74 @@ export default function Header({ content, courses, progressService }) {
                 </Popover>
               </Popover.Group>
             </div> */}
-            <h1>Innotech Academy </h1>
+      {/* <h1>Innotech Academy </h1>
             
           </div>
         </div>
-      </Popover>
+      </Popover> */}
+
       {/* <MobileNav
         content={content}
         courses={courses}
         progressService={progressService}
       /> */}
+
+      <div className="bg-white shadow">
+        <div className="container mx-auto px-4 ">
+          <div className="flex items-center justify-between py-4">
+            <div>
+              <div>
+                <Link href="/">
+                  <a className="flex mr-5 items-center space-x-5">
+                    <span className="sr-only">Innotech Academy</span>
+                    <CodeIcon className="h-8 w-auto sm:h-10 text-blue-500" />
+                    <h1 className="hidden md:block">Innotech Academy</h1>
+                  </a>
+                </Link>
+              </div>
+            </div>
+            <div className="md:flex items-center hidden">
+              <Link href="/">
+                <a className="text-gray-800 text-sm font-semibold hover:text-purple-600 mr-4">
+                  Formation
+                </a>
+              </Link>
+              {/* <a
+                href="#"
+                className="text-gray-800 text-sm font-semibold hover:text-purple-600 mr-4"
+              >
+                Emploie
+              </a> */}
+              <Link href="/contact">
+                <a
+                  href="#"
+                  className="text-gray-800 text-sm font-semibold hover:text-purple-600 mr-4"
+                >
+                  Contact
+                </a>
+              </Link>
+            </div>
+            <div className="flex items-center">
+              <Link href="/sign-in">
+                <a
+                  href="#"
+                  className="text-gray-800 text-sm font-semibold hover:text-purple-600 mr-4"
+                >
+                  Connexion
+                </a>
+              </Link>
+              <Link href="/sign-up">
+                <a
+                  href="#"
+                  className="text-gray-800 text-sm font-semibold border px-4 py-2 rounded-lg hover:text-purple-600 hover:border-purple-600"
+                >
+                  Inscription
+                </a>
+              </Link>
+            </div>
+          </div>
+        </div>
+      </div>
     </>
   )
 }
