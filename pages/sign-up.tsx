@@ -21,7 +21,13 @@ const SignUp = () => {
       body: JSON.stringify({ email, password, firstName, lastName, dateOfBirth, phone }),
     })
     const data = await response.json()
-    console.log(data)
+    if (data.success) {
+      // show success toast
+      // redirect to login page
+    } else {
+      // show error toast
+      // not redirect
+    }
   }
   return (
     <>

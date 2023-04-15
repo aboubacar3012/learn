@@ -1,9 +1,17 @@
 import Link from "next/link"
 import { useState } from "react"
 
+import type { RootState } from "../redux/store"
+import { useSelector, useDispatch } from "react-redux"
+import { login } from "../redux/slices/auth.slice"
+import Toast from "../components/ui/toast"
+
 const SignIn = () => {
   const [email, setEmail] = useState<string>("")
   const [password, setPassword] = useState<string>("")
+
+  const auth = useSelector((state: RootState) => state.auth)
+  const dispatch = useDispatch()
 
   const handleSubmit = async (event) => {
     const url = `${process.env.NEXT_PUBLIC_API_URL}/auth/signin`
@@ -16,7 +24,12 @@ const SignIn = () => {
       body: JSON.stringify({ email, password }),
     })
     const data = await response.json()
-    console.log(data)
+    if (data.success) {
+      dispatch(login({ user: data.user }))
+      // show success toast
+    } else {
+      // show error toast
+    }
   }
   return (
     <>
@@ -40,8 +53,8 @@ const SignIn = () => {
                   value={email}
                   onChange={(event) => setEmail(event.target.value)}
                   type="email"
-                  name=""
-                  id=""
+                  name="email"
+                  id="email"
                   placeholder="Entrez votre adresse email"
                   className="w-full px-4 py-3 rounded-lg bg-gray-200 mt-2 border focus:border-blue-500 focus:bg-white focus:outline-none"
                   autoComplete=""
@@ -54,8 +67,8 @@ const SignIn = () => {
                   value={password}
                   onChange={(event) => setPassword(event.target.value)}
                   type="password"
-                  name=""
-                  id=""
+                  name="password"
+                  id="password"
                   placeholder="Entrez votre mot de passe"
                   minLength={6}
                   className="w-full px-4 py-3 rounded-lg bg-gray-200 mt-2 border focus:border-blue-500 focus:bg-white focus:outline-none"
@@ -116,6 +129,7 @@ const SignIn = () => {
             </p>
           </div>
         </div>
+        {/* <Toast onClick /> */}
       </section>
     </>
   )

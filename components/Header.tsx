@@ -6,11 +6,17 @@ import coursesJson from "../data/courses.json"
 import { MenuIcon } from "@heroicons/react/outline"
 import { ChevronDownIcon, CodeIcon } from "@heroicons/react/solid"
 
+import type { RootState } from "../redux/store"
+import { useSelector, useDispatch } from "react-redux"
+import { logout } from "../redux/slices/auth.slice"
+
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ")
 }
 
 export default function Header() {
+  const auth = useSelector((state: RootState) => state.auth)
+  const dispatch = useDispatch()
   // const coursesJsonCourses = Object.keys(coursesJson)
 
   return (
@@ -125,10 +131,10 @@ export default function Header() {
             <div>
               <div>
                 <Link href="/">
-                  <a className="flex mr-5 items-center space-x-5">
+                  <a className="flex mr-5 items-center space-x-1 md:space-x-5">
                     <span className="sr-only">Innotech Academy</span>
                     <CodeIcon className="h-8 w-auto sm:h-10 text-blue-500" />
-                    <h1 className="hidden md:block">Innotech Academy</h1>
+                    <h1>Innotech Academy</h1>
                   </a>
                 </Link>
               </div>
@@ -154,18 +160,26 @@ export default function Header() {
                 </a>
               </Link>
             </div>
-            <div className="flex items-center">
-              <Link href="/sign-in">
-                <a className="text-gray-800 text-sm font-semibold hover:text-purple-600 mr-4">
-                  Connexion
-                </a>
-              </Link>
-              <Link href="/sign-up">
-                <a className="text-gray-800 text-sm font-semibold border px-4 py-2 rounded-lg hover:text-purple-600 hover:border-purple-600">
-                  Inscription
-                </a>
-              </Link>
-            </div>
+            {auth.isConnected ? (
+              <div className="flex items-center" onClick={() => dispatch(logout())}>
+                <p className="text-red-500 text-sm font-semibold border px-4 py-2 rounded-lg hover:text-red-600 hover:border-red-600">
+                  Deconnexion
+                </p>
+              </div>
+            ) : (
+              <div className="flex items-center">
+                <Link href="/sign-in">
+                  <a className="text-gray-800 text-sm font-semibold hover:text-purple-600 mr-4">
+                    Connexion
+                  </a>
+                </Link>
+                <Link href="/sign-up">
+                  <a className="text-gray-800 text-sm font-semibold border px-4 py-2 rounded-lg hover:text-purple-600 hover:border-purple-600">
+                    Inscription
+                  </a>
+                </Link>
+              </div>
+            )}
           </div>
         </div>
       </div>
