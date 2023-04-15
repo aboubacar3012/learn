@@ -10,6 +10,8 @@ import { useEffect, useState } from "react"
 export default function Home({ content, courses }) {
   const [courseSlugToShow, setCourseSlugToShow] = useState(courses[0]);
   const courseDetailToShow = content[courseSlugToShow]
+  // console.log(courses);
+  // console.log(content)
   return (
     <Layout
       content={content}
@@ -24,23 +26,24 @@ export default function Home({ content, courses }) {
         />
       </Head>
 
-      {/* <HomeHero />
+      <HomeHero />
       <HomeFeatures />
       <HomeCourses
         courses={courses}
         content={content}
         progressService={progressService}
-      /> */}
+      />
       <div
         id="courses"
-        className="features mx-auto hidden w-full px-3 lg:block xl:py-15 xl:px-44"
+        className="features mx-auto w-full px-3 lg:block xl:py-15 xl:px-44"
       >
-        <div className="mx-auto max-w-md px-4 sm:max-w-3xl sm:px-6 lg:max-w-full lg:px-8">
-          <h3 className="mt-2 py-8 text-center text-3xl font-bold tracking-tight text-gray-900 sm:text-5xl lg:py-12 xl:mb-24">
-            Developpeur full stack web & movile
+        <div className="mx-auto max-w-md px-4 sm:max-w-3xl sm:px-6 lg:max-w-full lg:px-8 lg:py-12 xl:mb-10">
+          <h3 className="mt-2 py-8 text-center text-3xl font-bold tracking-tight text-gray-900 sm:text-5xl  ">
+            Développeur full stack web & movile
           </h3>
+            <hr />
         </div>
-        <div className="mx-auto max-w-3xl sm:px-6 lg:grid lg:max-w-full lg:grid-cols-12 lg:gap-8 lg:px-8">
+        <div className="mx-auto max-w-3xl sm:px-6 lg:grid lg:max-w-full lg:grid-cols-12 lg:gap-8 lg:px-8 lg:mb-10">
           <div className="course-selector lg:col-span-6 lg:block">
             <div className="sticky top-2">
               <div id="headlessui-radiogroup-25" role="radiogroup">
@@ -80,13 +83,13 @@ export default function Home({ content, courses }) {
                             >
                               <img
                                 alt=""
-                                aria-hidden="true"
-                                src="https://learn.cypress.io/images/home/course-icons/testing-your-first-application.svg"
+                                // aria-hidden="true"
+                                src={content[course].image}
                                 style={{
                                   display: "block",
                                   maxWidth: "100%",
-                                  width: "initial",
-                                  height: "initial",
+                                  width: 80,
+                                  height: 80,
                                   background: "none",
                                   opacity: 1,
                                   border: 0,
@@ -101,6 +104,9 @@ export default function Home({ content, courses }) {
                           className="text-gray-500"
                           id="headlessui-description-28"
                         />
+                        
+          
+           
                       </div>
                     </div>
                     <div
@@ -135,13 +141,15 @@ export default function Home({ content, courses }) {
               <div className="relative lg:px-8">
                 <nav aria-label="Progress" className="" data-test="course-progress">
                   <div className="what-you-will-learn my-8 rounded bg-jade-50 p-8 lg:mb-8 lg:mt-0">
+                    {/* Ceci est remettre plus tard */}
                     <img
                       src="/images/book-icon.svg"
                       alt="book icon"
                     />
-                    <p className="py-6 font-bold text-gray-800">YOU WILL LEARN</p>
+                    {courseDetailToShow.description}
+                    {/* <p className="py-6 font-bold text-gray-800">VOUS APPRENDREZ</p> */}
                     <div className="font-normal text-gray-600">
-                      <dl className="">
+                      {/* <dl className="">
                          {courseDetailToShow.learnFeatures.map((feature,index) => (
                         <div className="relative mb-6" key={index}>
                            <dt>
@@ -167,7 +175,7 @@ export default function Home({ content, courses }) {
                         </div>
                          ))}
                       
-                      </dl>
+                      </dl> */}
                     </div>
                   </div>
                   <div className="overflow-hidden">

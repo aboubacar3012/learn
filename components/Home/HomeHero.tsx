@@ -5,15 +5,23 @@ import Subscribe from "../Subscribe"
 
 const features = [
   {
-    name: "4 Courses",
+    name: "12 Modules",
     description: "",
   },
   {
-    name: "25+ Lessons",
+    name: "25+ Chapitres",
     description: "",
   },
   {
-    name: "Free and Open Source",
+    name: "Accessible 24/24",
+    description: "",
+  },
+  {
+    name: "Seulement 10€ par mois",
+    description: "",
+  },
+  {
+    name: "Diplome réconnue par l'Etat",
     description: "",
   },
 ]
@@ -61,11 +69,11 @@ export default function HomeHero() {
                       className="mt-4 text-4xl tracking-tight font-extrabold text-white sm:mt-5 sm:text-6xl lg:mt-6 xl:text-6xl"
                     >
                       <span className="block text-gray-900">
-                        Testing Next.js Applications with Cypress
+                        Devenez un développeur fullstack web & mobile
                       </span>
                     </h1>
                     <p className="mt-3 text-base text-gray-500 sm:mt-5 sm:text-xl lg:text-lg xl:text-xl">
-                      Lorem ipsum dolor sit, amet consectetur adipisicing elit.
+                      Apprenez à créer des applications web et mobiles de qualité professionnelle
                     </p>
 
                     {/* Features */}
@@ -98,8 +106,8 @@ export default function HomeHero() {
                 <div className="mt-12 -mb-16 sm:-mb-48 lg:m-0 lg:relative">
                   <div className="mx-auto max-w-md px-4 sm:max-w-2xl sm:px-6 lg:max-w-none lg:px-0">
                     <img
-                      className="w-full lg:absolute lg:inset-y-0 lg:left-0 lg:h-full lg:w-auto lg:max-w-none"
-                      src="https://tailwindui.com/img/component-images/inbox-app-screenshot-1.jpg"
+                      className="w-full rounded lg:absolute lg:inset-y-0 lg:left-0 lg:h-full lg:w-auto lg:max-w-none"
+                      src="/images/home-hero.jpg"
                     />
                   </div>
                 </div>

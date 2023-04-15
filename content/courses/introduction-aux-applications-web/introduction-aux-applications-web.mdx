@@ -1,0 +1,83 @@
+# Introduction aux applications Web
+
+Avant de commencer la programmation, nous passerons en revue certains principes de développement Web 
+en examinant un exemple d'application sur [https://studies.cs.helsinki.fi/exampleapp](https://studies.cs.helsinki.fi/exampleapp).
+
+L'application n'existe que pour démontrer certains concepts de base du cours et n'est en aucun cas un exemple de comment une application Web 
+moderne doit être créée. Au contraire, il démontre certaines anciennes techniques de développement Web, 
+qui pourraient même être considérées comme de mauvaises pratiques de nos jours.
+
+Ouvrez l'[exemple d'application](https://studies.cs.helsinki.fi/exampleapp) dans votre navigateur. Parfois, cela prend un certain temps.
+
+**La 1ère règle du développement Web**: gardez toujours la Developer Console ouverte sur votre navigateur Web. 
+Sur macOS, ouvrez la console en appuyant simultanément sur *F12 ou option-cmd-i*. Sous Windows ou Linux, 
+ouvrez la console en appuyant simultanément sur *F12 ou ctrl-shift-i*. La console peut également être ouverte via le menu contextuel.
+
+N'oubliez pas de toujours garder la Developer Console ouverte lors du développement d'applications Web.
+
+La console ressemble à ceci :
+
+![alt premier image](/images/courses/1e.png)
+
+Assurez-vous que l'onglet Réseau est ouvert et cochez l'option *Désactiver le cache* comme indiqué. *Conserver le journal* peut également être utile : 
+il enregistre les journaux imprimés par l'application lorsque la page est rechargée.
+
+**NB** : L'onglet le plus important est l'onglet Console. Cependant, dans cette introduction, nous utiliserons un peu l'onglet Réseau.
+
+## HTTP GET
+
+Le serveur et le navigateur Web communiquent entre eux à l'aide du protocole [HTTP](https://developer.mozilla.org/fr/docs/Web/HTTP). 
+L'onglet Réseau montre comment le navigateur et le serveur communiquent.
+
+Lorsque vous rechargez la page (appuyez sur la touche F5 ou sur le symbole ↻ de votre navigateur), 
+la console indique que deux événements se sont produits :
+
+* Le navigateur a récupéré le contenu de la page studies.cs.helsinki.fi/exampleapp du serveur
+* Et a téléchargé l'image kuva.png
+
+![alt deuxieme image](/images/courses/2e.png)
+
+Sur un petit écran, vous devrez peut-être élargir la fenêtre de la console pour les voir.
+
+Cliquer sur le premier événement révèle plus d'informations sur ce qui se passe :
+
+![alt troisieme image](/images/courses/3e.png)
+
+La partie supérieure, Général, montre que le navigateur a fait une requête à l'adresse 
+[https://studies.cs.helsinki.fi/exampleapp](https://studies.cs.helsinki.fi/exampleapp) 
+(bien que l'adresse ait légèrement changé depuis que cette photo a été prise) 
+en utilisant la méthode GET, et que la requête a réussi, car la réponse du serveur avait le code de statut 200.
+
+La requête et la réponse du serveur ont plusieurs **en-têtes** :
+
+![alt quatrieme image](/images/courses/4e.png)
+
+Les en-têtes de réponse en haut nous indiquent par ex. la taille de la réponse en octets et l'heure exacte de la réponse. 
+Un en-tête important **Content-Type** nous indique que la réponse est un fichier texte en **utf-8-format**, dont le contenu a été formaté avec HTML. 
+De cette façon, le navigateur sait que la réponse est une page **HTML** normale et la restitue au navigateur "comme une page Web".
+
+L'onglet Réponse affiche les données de réponse, une page HTML normale. La section body détermine la structure de la page rendue à l'écran :
+
+![alt cinquieme image](/images/courses/5e.png)
+
+La page contient un élément *div*, qui à son tour contient un titre, un lien vers la page notes et une balise img et affiche le nombre de notes créées.
+
+En raison de la balise *img*, le navigateur effectue une seconde requête *HTTP* pour récupérer l'image *kuva.png* du serveur. Les détails de la demande sont les suivants :
+
+![alt sixieme image](/images/courses/6e.png)
+
+La requête a été faite à l'adresse [https://studies.cs.helsinki.fi/exampleapp/kuva.png](https://studies.cs.helsinki.fi/exampleapp/kuva.png) 
+et son type est HTTP GET. Les en-têtes de réponse nous indiquent que la taille de la réponse est de 89350 octets et que son *Content-type* est *image/png*, 
+c'est donc une image png. Le navigateur utilise ces informations pour restituer correctement l'image à l'écran.
+
+La chaîne d'événements provoquée par l'ouverture de la page [https://studies.cs.helsinki.fi/exampleapp](https://studies.cs.helsinki.fi/exampleapp )
+sur un navigateur se présente comme suit diagramme de séquence:
+
+![alt septieme image](/images/courses/7e.png)
+
+Tout d'abord, le navigateur envoie une requête HTTP GET au serveur pour récupérer le code HTML de la page. 
+La balise img dans le code HTML invite le navigateur à récupérer l'image kuva.png. Le navigateur affiche la page HTML et l'image à l'écran.
+
+Même s'il est difficile de s'en apercevoir, la page HTML commence à s'afficher avant que l'image n'ait été extraite du serveur.
+
+## Applications Web traditionnelles

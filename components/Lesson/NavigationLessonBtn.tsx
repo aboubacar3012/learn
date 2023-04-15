@@ -5,8 +5,7 @@ export default function NavigationLessonBtn({ lessons, path }) {
     const currentPathIndex = paths.indexOf(currentPath)
     const next = paths[currentPathIndex + 1] ?? null;
     const prev = paths[currentPathIndex - 1] ?? null;
-    console.log(next)
-    console.log(prev)
+
     return (
       <div
         className="flex justify-center space-x-28 my-5"

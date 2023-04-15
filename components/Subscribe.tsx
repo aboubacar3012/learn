@@ -2,7 +2,7 @@ import React from "react"
 import { useForm, SubmitHandler } from "react-hook-form"
 
 type Inputs = {
-  email: string
+  number: string
 }
 
 export default function Subscribe() {
@@ -33,23 +33,23 @@ export default function Subscribe() {
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="sm:flex">
       <div className="min-w-0 flex-1">
-        <label htmlFor="email" className="sr-only">
-          Subscribe for Updates
+        <label htmlFor="number" className="sr-only">
+          Entrez votre numéro de téléphone pour être contacté
         </label>
         <input
-          data-test="email-input"
-          {...register("email", {
-            required: "Email is required",
+          data-test="number-input"
+          {...register("number", {
+            required: "Numero telephone non valide, ex: +224 623 00 00 00",
           })}
-          id="email"
-          type="email"
-          name="email"
-          placeholder="Subscribe for Updates"
+          id="number"
+          type="number"
+          name="number"
+          placeholder="Entrez votre numéro de téléphone pour être contacté"
           className="block w-full px-4 py-3 rounded-md border-2text-base text-gray-900 placeholder-gray-500"
         />
-        {errors.email && (
+        {errors.number && (
           <span className="text-red-500" data-test="error-message">
-            {errors.email.message}
+            {errors.number.message}
           </span>
         )}
         {formState.isSubmitted && isSubmitted.includes("Success:") && (
@@ -67,7 +67,7 @@ export default function Subscribe() {
         <input
           data-test="submit-button"
           type="submit"
-          value="Subscribe"
+          value="Envoyer"
           className="block w-full py-3 px-4 rounded-md shadow bg-blue-500 text-white font-medium hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-300 focus:ring-offset-gray-900"
         />
       </div>

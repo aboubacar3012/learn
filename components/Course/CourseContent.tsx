@@ -14,7 +14,7 @@ export default function CourseContent({
   progressService,
   course,
 }) {
-  const stats = [{ label: "Lessons", value: lessons.length }]
+  const stats = [{ label: "Chapitres", value: lessons.length }, {label:"Heures", value:Math.floor(Math.random() * 5 + 4)}]
 
   return (
     <>
@@ -41,7 +41,7 @@ export default function CourseContent({
                 {/* Content area */}
                 <div className="">
                   <h2 className="text-3xl text-gray-900 font-extrabold tracking-tight sm:text-4xl">
-                    What You Will Learn
+                  Ce que vous apprendrez
                   </h2>
 
                   {/* Features */}
