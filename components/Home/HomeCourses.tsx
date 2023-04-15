@@ -20,10 +20,7 @@ export default function HomeCourses({ courses, content, progressService }) {
                       >
                         {content[course].title}
                       </h2>
-                      <p
-                        data-test={`course-description`}
-                        className="mt-4 text-lg text-gray-500"
-                      >
+                      <p data-test={`course-description`} className="mt-4 text-lg text-gray-500">
                         {content[course].description}
                       </p>
                       <HomeProgress
@@ -31,14 +28,14 @@ export default function HomeCourses({ courses, content, progressService }) {
                         content={content[course]}
                         progressService={progressService}
                       />
-                      <div className="mt-6">
+                      {/* <div className="mt-6">
                         <a
                           href={`/${content[course].slug}`}
                           className="inline-flex px-4 py-2 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-blue-500 hover:bg-blue-600"
                         >
                           Get started
                         </a>
-                      </div>
+                      </div> */}
                     </div>
                   </div>
                 </div>
@@ -64,10 +61,7 @@ export default function HomeCourses({ courses, content, progressService }) {
                       >
                         {content[course].title}
                       </h2>
-                      <p
-                        data-test={`course-description`}
-                        className="mt-4 text-lg text-gray-500"
-                      >
+                      <p data-test={`course-description`} className="mt-4 text-lg text-gray-500">
                         {content[course].description}
                       </p>
                       <HomeProgress
@@ -75,14 +69,14 @@ export default function HomeCourses({ courses, content, progressService }) {
                         content={content[course]}
                         progressService={progressService}
                       />
-                      <div className="mt-6">
+                      {/* <div className="mt-6">
                         <a
                           href={`/${content[course].slug}`}
                           className="inline-flex px-4 py-2 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-blue-500 hover:bg-blue-600"
                         >
                           Get started
                         </a>
-                      </div>
+                      </div> */}
                     </div>
                   </div>
                 </div>

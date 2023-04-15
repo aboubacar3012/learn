@@ -1,5 +1,9 @@
 import Link from "next/link"
-import { useState } from "react"
+import { useRouter } from "next/router"
+import { useState, useEffect } from "react"
+import type { RootState } from "../redux/store"
+import { useSelector, useDispatch } from "react-redux"
+import { login } from "../redux/slices/auth.slice"
 
 const SignUp = () => {
   const [firstName, setFirstName] = useState<string>("")
@@ -9,6 +13,15 @@ const SignUp = () => {
   const [email, setEmail] = useState<string>("")
   const [password, setPassword] = useState<string>("")
   const [repeatPassword, setRepeatPassword] = useState<string>("")
+
+  const auth = useSelector((state: RootState) => state.auth)
+  // const dispatch = useDispatch()
+
+  const router = useRouter()
+
+  useEffect(() => {
+    if (auth.isConnected) router.push("/")
+  }, [auth])
 
   const handleSubmit = async (event) => {
     const url = `${process.env.NEXT_PUBLIC_API_URL}/auth/signup`

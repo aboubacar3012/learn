@@ -24,14 +24,18 @@ const features = [
     name: "Accessible 24/24",
     description: "",
   },
+  // {
+  //   name: "Seulement 10€ (100.000 GNF) par mois",
+  //   description: "",
+  // },
   {
-    name: "Seulement 10€ (100.000 GNF) par mois",
+    name: "100% Gratuit", // ceci est temporaire jusqu'a la finalisation de la premiere partie du projet
     description: "",
   },
-  {
-    name: "Diplome réconnue par l'Etat",
-    description: "",
-  },
+  // {
+  //   name: "Diplôme reconnue par l'État",
+  //   description: "",
+  // },
 ]
 
 type Inputs = {

@@ -29,40 +29,30 @@ export default function HomeProgress({ course, content, progressService }) {
           <li
             data-test={`lesson-${index}`}
             key={lesson.title}
-            className={classNames(
-              index !== content?.lessons.length - 1 ? "pb-10" : "",
-              "relative"
-            )}
+            className={classNames(index !== content?.lessons.length - 1 ? "pb-10" : "", "relative")}
           >
             {/* Solid Line that connects the checkmarks */}
             <ProgressLine
               index={index}
               lessons={content.lessons}
-              isCompleted={isLessonCompleted(
-                progressService,
-                `${course}/${lesson.slug}`
-              )}
+              isCompleted={isLessonCompleted(progressService, `${course}/${lesson.slug}`)}
             />
 
             <div className="relative flex items-start group">
-              {isLessonCompleted(
-                progressService,
-                `${course}/${lesson.slug}`
-              ) && <CompletedLesson index={index} />}
+              {isLessonCompleted(progressService, `${course}/${lesson.slug}`) && (
+                <CompletedLesson index={index} />
+              )}
 
-              {!isLessonCompleted(
-                progressService,
-                `${course}/${lesson.slug}`
-              ) && <IncompleteLesson index={index} />}
+              {!isLessonCompleted(progressService, `${course}/${lesson.slug}`) && (
+                <IncompleteLesson index={index} />
+              )}
 
               {/* Lesson Title */}
-              <span className="ml-4 min-w-0 flex flex-col">
+              <span className="ml-4 mt-3 min-w-0 flex flex-col">
                 <span className="text-xs font-semibold tracking-wide uppercase">
-                  <Link href={`/${course}/${lesson.slug}`}>
-                    <a data-test={`lesson-progress-link-${index}`}>
-                      {lesson.title}
-                    </a>
-                  </Link>
+                  {/* <Link href={`/${course}/${lesson.slug}`}> */}
+                  <a data-test={`lesson-progress-link-${index}`}>{lesson.title}</a>
+                  {/* </Link> */}
                 </span>
               </span>
             </div>

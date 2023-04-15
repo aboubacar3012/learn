@@ -8,6 +8,9 @@ import { fetchCourses } from "../lib/fetch-courses"
 import { useEffect, useState } from "react"
 import CallToAction from "../components/call-to-action"
 import Footer from "../components/Footer"
+import type { RootState } from "../redux/store"
+import { useSelector, useDispatch } from "react-redux"
+import Link from "next/link"
 
 export default function Home({ content, courses }) {
   const [courseSlugToShow, setCourseSlugToShow] = useState(courses[0])
@@ -15,7 +18,9 @@ export default function Home({ content, courses }) {
   // console.log(courses);
   // console.log(content)
 
-  const isConnected = true
+  const auth = useSelector((state: RootState) => state.auth)
+  const dispatch = useDispatch()
+
   return (
     <Layout content={content} courses={courses} progressService={progressService}>
       <Head>
@@ -25,7 +30,7 @@ export default function Home({ content, courses }) {
           content="Apprenez à créer des applications web et mobiles de qualité professionnelle."
         />
       </Head>
-      {!isConnected ? (
+      {!auth.isConnected ? (
         <>
           <HomeHero />
           <HomeFeatures />
@@ -38,6 +43,9 @@ export default function Home({ content, courses }) {
             <h3 className="mt-2 py-8 text-center text-3xl font-bold tracking-tight text-gray-900 sm:text-5xl  ">
               Développeur full stack web & movile
             </h3>
+            <p className="text-center">
+              ⚠ Ce cours est en cours d'éléboration, il ya une mise à jour tout les lundi
+            </p>
             <hr />
           </div>
           <div className="mx-auto max-w-3xl sm:px-6 lg:grid lg:max-w-full lg:grid-cols-12 lg:gap-8 lg:px-8 lg:mb-10">
@@ -45,80 +53,82 @@ export default function Home({ content, courses }) {
               <div className="sticky top-2">
                 <div id="headlessui-radiogroup-25" role="radiogroup">
                   <div className="space-y-4" role="none">
-                    {courses.map((course, index) => (
-                      <div
-                        key={index}
-                        className="border-2 border-gray-200 hover:border-blue-500  bg-white opacity-50 flex cursor-pointer items-center justify-between rounded-lg px-6 py-4"
-                        id="headlessui-radiogroup-option-26"
-                        role="radio"
-                        aria-checked="false"
-                        tabIndex={-1}
-                        aria-labelledby="headlessui-label-27"
-                        aria-describedby="headlessui-description-28 headlessui-description-29"
-                      >
-                        <div className="flex items-center">
-                          <div className="text-sm" onClick={() => setCourseSlugToShow(course)}>
-                            <p
-                              className="flex items-center justify-between text-lg font-normal text-gray-900 hover:text-black "
-                              id="headlessui-label-27"
-                            >
-                              <span
-                                style={{
-                                  boxSizing: "border-box",
-                                  display: "block",
-                                  width: "initial",
-                                  height: "initial",
-                                  background: "none",
-                                  opacity: 1,
-                                  border: 0,
-                                  margin: 0,
-                                  padding: 0,
-                                  maxWidth: "100%",
-                                }}
-                              >
-                                <img
-                                  alt=""
-                                  // aria-hidden="true"
-                                  src={content[course].image}
-                                  style={{
-                                    display: "block",
-                                    maxWidth: "100%",
-                                    width: 80,
-                                    height: 80,
-                                    background: "none",
-                                    opacity: 1,
-                                    border: 0,
-                                    margin: 2,
-                                    padding: 0,
-                                  }}
-                                />
-                              </span>
-                              {content[course].title}
-                            </p>
-                            {/* <div className="text-gray-500" id="headlessui-description-28" /> */}
-                          </div>
-                        </div>
-                        <div
-                          className="mt-2 flex text-sm sm:mt-0 sm:ml-4 sm:block sm:text-right"
-                          id="headlessui-description-29"
-                        >
-                          <a
-                            href={`/${course}`}
-                            className="inline-flex px-4 py-2 text-base font-medium text-white"
+                    {courses.map(
+                      (course, index) =>
+                        index < 1 && (
+                          <div
+                            key={index}
+                            className="border-2 border-gray-200 hover:border-blue-500  bg-white opacity-50 flex cursor-pointer items-center justify-between rounded-lg px-6 py-4"
+                            id="headlessui-radiogroup-option-26"
+                            role="radio"
+                            aria-checked="false"
+                            tabIndex={-1}
+                            aria-labelledby="headlessui-label-27"
+                            aria-describedby="headlessui-description-28 headlessui-description-29"
                           >
-                            <img
-                              src="/images/chevron-right.svg"
-                              alt=""
-                              className="hidden lg:block"
+                            <div className="flex items-center">
+                              <div className="text-sm" onClick={() => setCourseSlugToShow(course)}>
+                                <p
+                                  className="flex items-center justify-between text-lg font-normal text-gray-900 hover:text-black "
+                                  id="headlessui-label-27"
+                                >
+                                  <span
+                                    style={{
+                                      boxSizing: "border-box",
+                                      display: "block",
+                                      width: "initial",
+                                      height: "initial",
+                                      background: "none",
+                                      opacity: 1,
+                                      border: 0,
+                                      margin: 0,
+                                      padding: 0,
+                                      maxWidth: "100%",
+                                    }}
+                                  >
+                                    <img
+                                      alt=""
+                                      // aria-hidden="true"
+                                      src={content[course].image}
+                                      style={{
+                                        display: "block",
+                                        maxWidth: "100%",
+                                        width: 80,
+                                        height: 80,
+                                        background: "none",
+                                        opacity: 1,
+                                        border: 0,
+                                        margin: 2,
+                                        padding: 0,
+                                      }}
+                                    />
+                                  </span>
+                                  {content[course].title}
+                                </p>
+                                {/* <div className="text-gray-500" id="headlessui-description-28" /> */}
+                              </div>
+                            </div>
+                            <div
+                              className="mt-2 flex text-sm sm:mt-0 sm:ml-4 sm:block sm:text-right"
+                              id="headlessui-description-29"
+                            >
+                              <Link href={`/${course}`}>
+                                <a className="inline-flex px-4 py-2 text-base font-medium text-white">
+                                  <img
+                                    src="/images/chevron-right.svg"
+                                    alt=""
+                                    className="hidden lg:block"
+                                  />
+                                </a>
+                              </Link>
+                            </div>
+                            <div
+                              className="border-2 border-transparent pointer-events-none absolute -inset-px rounded-lg"
+                              aria-hidden="true"
                             />
-                          </a>
-                        </div>
-                        <div
-                          className="border-2 border-transparent pointer-events-none absolute -inset-px rounded-lg"
-                          aria-hidden="true"
-                        />
-                      </div>
-                    ))}
+                          </div>
+                        )
+                    )}
                   </div>
                 </div>
               </div>
