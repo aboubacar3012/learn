@@ -156,18 +156,12 @@ export default function Header() {
             </div>
             <div className="flex items-center">
               <Link href="/sign-in">
-                <a
-                  href="#"
-                  className="text-gray-800 text-sm font-semibold hover:text-purple-600 mr-4"
-                >
+                <a className="text-gray-800 text-sm font-semibold hover:text-purple-600 mr-4">
                   Connexion
                 </a>
               </Link>
               <Link href="/sign-up">
-                <a
-                  href="#"
-                  className="text-gray-800 text-sm font-semibold border px-4 py-2 rounded-lg hover:text-purple-600 hover:border-purple-600"
-                >
+                <a className="text-gray-800 text-sm font-semibold border px-4 py-2 rounded-lg hover:text-purple-600 hover:border-purple-600">
                   Inscription
                 </a>
               </Link>

@@ -15,7 +15,7 @@ export default function Home({ content, courses }) {
   // console.log(courses);
   // console.log(content)
 
-  const isConnected = false
+  const isConnected = true
   return (
     <Layout content={content} courses={courses} progressService={progressService}>
       <Head>
@@ -203,7 +203,7 @@ export default function Home({ content, courses }) {
         </div>
       )}
 
-      <Footer />
+      {/* <Footer /> */}
     </Layout>
   )
 }

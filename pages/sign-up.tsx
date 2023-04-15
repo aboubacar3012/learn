@@ -1,6 +1,28 @@
 import Link from "next/link"
+import { useState } from "react"
 
 const SignUp = () => {
+  const [firstName, setFirstName] = useState<string>("")
+  const [lastName, setLastName] = useState<string>("")
+  const [dateOfBirth, setDateOfBirth] = useState<string>("")
+  const [phone, setPhone] = useState<string>("")
+  const [email, setEmail] = useState<string>("")
+  const [password, setPassword] = useState<string>("")
+  const [repeatPassword, setRepeatPassword] = useState<string>("")
+
+  const handleSubmit = async (event) => {
+    const url = `${process.env.NEXT_PUBLIC_API_URL}/auth/signup`
+    event.preventDefault()
+    const response = await fetch(url, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ email, password, firstName, lastName, dateOfBirth, phone }),
+    })
+    const data = await response.json()
+    console.log(data)
+  }
   return (
     <>
       {/* component */}
@@ -17,10 +39,12 @@ const SignUp = () => {
             <h1 className="text-xl md:text-2xl font-bold leading-tight mt-12 text-center md:text-left">
               Créer votre compte
             </h1>
-            <form className="mt-6" action="#" method="POST">
+            <form className="mt-6" onSubmit={handleSubmit}>
               <div>
                 <label className="block text-gray-700">Prénom</label>
                 <input
+                  value={firstName}
+                  onChange={(event) => setFirstName(event.target.value)}
                   type="text"
                   name=""
                   id=""
@@ -33,6 +57,8 @@ const SignUp = () => {
               <div>
                 <label className="block text-gray-700">Nom</label>
                 <input
+                  value={lastName}
+                  onChange={(event) => setLastName(event.target.value)}
                   type="text"
                   name=""
                   id=""
@@ -45,6 +71,8 @@ const SignUp = () => {
               <div>
                 <label className="block text-gray-700">Date de naissance</label>
                 <input
+                  value={dateOfBirth}
+                  onChange={(event) => setDateOfBirth(event.target.value)}
                   type="date"
                   name=""
                   id=""
@@ -52,23 +80,29 @@ const SignUp = () => {
                   className="w-full px-4 py-3 rounded-lg bg-gray-200 mt-2 border focus:border-blue-500 focus:bg-white focus:outline-none"
                   autoComplete=""
                   required={true}
+                  max="2010-01-01"
                 />
               </div>
               <div>
                 <label className="block text-gray-700">Téléphone</label>
                 <input
-                  type="tel"
+                  value={phone}
+                  onChange={(event) => setPhone(event.target.value)}
+                  type="text"
                   name=""
                   id=""
                   placeholder="Entrez votre numéro téléphone whatsapp"
                   className="w-full px-4 py-3 rounded-lg bg-gray-200 mt-2 border focus:border-blue-500 focus:bg-white focus:outline-none"
                   autoComplete=""
                   required={true}
+                  // pattern="^\+[1-9]{1}[0-9]{3,14}$"
                 />
               </div>
               <div>
                 <label className="block text-gray-700">Email</label>
                 <input
+                  value={email}
+                  onChange={(event) => setEmail(event.target.value)}
                   type="email"
                   name=""
                   id=""
@@ -81,6 +115,8 @@ const SignUp = () => {
               <div className="mt-4">
                 <label className="block text-gray-700">Mot de passe</label>
                 <input
+                  value={password}
+                  onChange={(event) => setPassword(event.target.value)}
                   type="password"
                   name=""
                   id=""
@@ -93,6 +129,8 @@ const SignUp = () => {
               <div className="mt-4">
                 <label className="block text-gray-700">Confirmer votre Mot de passe</label>
                 <input
+                  value={repeatPassword}
+                  onChange={(event) => setRepeatPassword(event.target.value)}
                   type="password"
                   name=""
                   id=""
@@ -140,7 +178,7 @@ const SignUp = () => {
                 <span className="ml-4">Se connecter avec Google</span>
               </div>
             </button> */}
-            <p className="m-8">
+            <p className="m-8 text-center">
               J'ai déjà un compte?{" "}
               <Link href="/sign-in">
                 <a href="#" className="text-blue-500 hover:text-blue-700 font-semibold">

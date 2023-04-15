@@ -1,9 +1,25 @@
 import Link from "next/link"
+import { useState } from "react"
 
 const SignIn = () => {
+  const [email, setEmail] = useState<string>("")
+  const [password, setPassword] = useState<string>("")
+
+  const handleSubmit = async (event) => {
+    const url = `${process.env.NEXT_PUBLIC_API_URL}/auth/signin`
+    event.preventDefault()
+    const response = await fetch(url, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ email, password }),
+    })
+    const data = await response.json()
+    console.log(data)
+  }
   return (
     <>
-      {/* component */}
       <section className="flex flex-col md:flex-row items-center">
         <div className="bg-indigo-600 hidden lg:block w-full md:w-1/2 xl:w-2/3 md:h-screen">
           <img
@@ -17,10 +33,12 @@ const SignIn = () => {
             <h1 className="text-xl md:text-2xl font-bold leading-tight mt-12 text-center md:text-left">
               Accedez à votre compte
             </h1>
-            <form className="mt-6" action="#" method="POST">
+            <form className="mt-6" onSubmit={handleSubmit}>
               <div>
                 <label className="block text-gray-700">Email</label>
                 <input
+                  value={email}
+                  onChange={(event) => setEmail(event.target.value)}
                   type="email"
                   name=""
                   id=""
@@ -33,13 +51,14 @@ const SignIn = () => {
               <div className="mt-4">
                 <label className="block text-gray-700">Mot de passe</label>
                 <input
+                  value={password}
+                  onChange={(event) => setPassword(event.target.value)}
                   type="password"
                   name=""
                   id=""
                   placeholder="Entrez votre mot de passe"
                   minLength={6}
-                  className="w-full px-4 py-3 rounded-lg bg-gray-200 mt-2 border focus:border-blue-500
-          focus:bg-white focus:outline-none"
+                  className="w-full px-4 py-3 rounded-lg bg-gray-200 mt-2 border focus:border-blue-500 focus:bg-white focus:outline-none"
                   required={true}
                 />
               </div>
@@ -53,8 +72,7 @@ const SignIn = () => {
               </div>
               <button
                 type="submit"
-                className="w-full block bg-indigo-500 hover:bg-indigo-400 focus:bg-indigo-400 text-white font-semibold rounded-lg
-        px-4 py-3 mt-6"
+                className="w-full block bg-indigo-500 hover:bg-indigo-400 focus:bg-indigo-400 text-white font-semibold rounded-lg px-4 py-3 mt-6"
               >
                 Se connecter
               </button>
@@ -88,7 +106,7 @@ const SignIn = () => {
                 <span className="ml-4">Se connecter avec Google</span>
               </div>
             </button> */}
-            <p className="mt-8">
+            <p className="mt-8 text-center">
               Pas encore de compte?{" "}
               <Link href="/sign-up">
                 <a href="#" className="text-blue-500 hover:text-blue-700 font-semibold">
