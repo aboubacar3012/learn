@@ -1,8 +1,19 @@
-import { configureStore } from "@reduxjs/toolkit"
+import { configureStore, combineReducers, AnyAction, Reducer } from "@reduxjs/toolkit"
+import storage from "redux-persist/lib/storage"
+import { persistReducer } from "redux-persist"
+//reducers
 import authSlice from "./slices/auth.slice"
 
+// reducers
+const reducers = combineReducers({
+  auth: authSlice,
+})
+
+const persistConfig = { key: "innotech", storage }
+
 export const store = configureStore({
-  reducer: { auth: authSlice },
+  reducer: persistReducer(persistConfig, reducers),
+  middleware: (getDefaultMiddleware) => getDefaultMiddleware({ serializableCheck: false }),
 })
 
 // Infer the `RootState` and `AppDispatch` types from the store itself

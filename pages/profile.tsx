@@ -1,11 +1,26 @@
+import type { RootState } from "../redux/store"
+import { useSelector, useDispatch } from "react-redux"
+import { useRouter } from "next/router"
+import { useEffect } from "react"
+
 const Profile = () => {
+  const { user, isConnected } = useSelector((state: RootState) => state.auth)
+
+  const dispatch = useDispatch()
+
+  const router = useRouter()
+
+  useEffect(() => {
+    if (!isConnected) router.push("/")
+  }, [isConnected])
+
   return (
     <div className="container mx-auto my-5 p-5">
       <div className="md:flex justify-center  no-wrap md:-mx-2 ">
         {/* Left Side */}
         <div className="w-full md:w-3/12 md:mx-2">
           {/* Profile Card */}
-          <div className="bg-white p-3 border-t-4 border-green-400">
+          <div className="bg-white p-3 border-t-4 border-blue-400">
             <div className="image overflow-hidden">
               <img
                 className="h-auto w-full mx-auto"
@@ -13,7 +28,9 @@ const Profile = () => {
                 alt=""
               />
             </div>
-            <h1 className="text-gray-900 font-bold text-xl leading-8 my-1">Aboubacar Diallo</h1>
+            <h1 className="text-gray-900 font-bold text-xl leading-8 my-1">
+              {user.firstName} {user.lastName}
+            </h1>
             <h3 className="text-gray-600 font-lg text-semibold leading-6">
               Developpeur FullStack web & mobile
             </h3>
@@ -25,12 +42,20 @@ const Profile = () => {
               <li className="flex items-center py-3">
                 <span>Status</span>
                 <span className="ml-auto">
-                  <span className="bg-green-500 py-1 px-2 rounded text-white text-sm">Active</span>
+                  {user.isActive ? (
+                    <span className="bg-green-500 py-1 px-2 rounded text-white text-sm">
+                      Active
+                    </span>
+                  ) : (
+                    <span className="bg-red-500 py-1 px-2 rounded text-white text-sm">
+                      Inactive
+                    </span>
+                  )}
                 </span>
               </li>
               <li className="flex items-center py-3">
-                <span>Member since</span>
-                <span className="ml-auto">Nov 07, 2016</span>
+                <span>Inscrit depuis</span>
+                <span className="ml-auto">{new Date(user.createdAt).toLocaleDateString()}</span>
               </li>
             </ul>
           </div>
@@ -108,7 +133,7 @@ const Profile = () => {
           {/* About Section */}
           <div className="bg-white p-3 shadow-sm rounded-sm">
             <div className="flex items-center space-x-2 font-semibold text-gray-900 leading-8">
-              <span className="text-green-500">
+              <span className="text-blue-500">
                 <svg
                   className="h-5"
                   xmlns="http://www.w3.org/2000/svg"
@@ -130,35 +155,35 @@ const Profile = () => {
               <div className="grid md:grid-cols-2 text-sm">
                 <div className="grid grid-cols-2">
                   <div className="px-4 py-2 font-semibold">Prénom</div>
-                  <div className="px-4 py-2">Jane</div>
+                  <div className="px-4 py-2">{user.firstName}</div>
                 </div>
                 <div className="grid grid-cols-2">
                   <div className="px-4 py-2 font-semibold">Nom</div>
-                  <div className="px-4 py-2">Doe</div>
+                  <div className="px-4 py-2">{user.lastName}</div>
                 </div>
                 <div className="grid grid-cols-2">
                   <div className="px-4 py-2 font-semibold">Genre</div>
-                  <div className="px-4 py-2">Female</div>
+                  <div className="px-4 py-2">{user.gender}</div>
                 </div>
                 <div className="grid grid-cols-2">
                   <div className="px-4 py-2 font-semibold">Télphone</div>
-                  <div className="px-4 py-2">+11 998001001</div>
+                  <div className="px-4 py-2">{user.phone}</div>
                 </div>
                 <div className="grid grid-cols-2">
                   <div className="px-4 py-2 font-semibold">Adresse</div>
-                  <div className="px-4 py-2">Beech Creek, PA, Pennsylvania</div>
+                  <div className="px-4 py-2">{user.address}</div>
                 </div>
                 <div className="grid grid-cols-2">
                   <div className="px-4 py-2 font-semibold">Email</div>
                   <div className="px-4 py-2">
                     <a className="text-blue-800" href="mailto:jane@example.com">
-                      jane@example.com
+                      {user.email}
                     </a>
                   </div>
                 </div>
                 <div className="grid grid-cols-2">
-                  <div className="px-4 py-2 font-semibold">Date de naissance</div>
-                  <div className="px-4 py-2">Feb 06, 1998</div>
+                  <div className="px-4 py-2 font-semibold">Né(e) le</div>
+                  <div className="px-4 py-2">{new Date(user.dateOfBirth).toLocaleDateString()}</div>
                 </div>
               </div>
             </div>
