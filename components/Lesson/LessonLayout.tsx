@@ -30,7 +30,7 @@ export default function LessonLayout({
             {/* Table of Content */}
             <div className="hidden lg:block col-span-2">
               <div className="sticky top-6">
-                <p className="font-semibold mb-4">ON THIS PAGE</p>
+                <p className="font-semibold mb-4">DANS CE CHAPITRE</p>
                 <nav aria-label="Sidebar" className="">
                   <LessonToc navigation={toc} />
                 </nav>
