@@ -1,0 +1,534 @@
+# Plongez dans le debogage d'applications React
+
+## Une note sur la version React
+
+La version 18 de React est sortie fin mars 2022. Le code du matériel devrait fonctionner tel qu'il est avec la nouvelle version de React. 
+Cependant, certaines bibliothèques peuvent ne pas encore être compatibles avec React 18.
+
+Si vous vous retrouvez dans une situation où votre application tombe en panne en raison de problèmes de compatibilité de bibliothèque, 
+rétrogradez vers l'ancien React en modifiant le fichier package.json comme suit :
+
+```js
+{
+  "dependencies": {
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "react-scripts": "5.0.0",
+    "web-vitals": "^2.1.4"
+  },
+  // ...
+}
+```
+
+Une fois la modification effectuée, réinstallez les dépendances en exécutant
+
+```js
+npm install 
+```
+
+Notez que le fichier ```index.js``` doit également être légèrement modifié. Pour React 17, cela ressemble à
+
+```js
+import ReactDOM from 'react-dom'
+import App from './App'
+
+ReactDOM.render(<App />, document.getElementById('root'))
+```
+
+mais pour React 18, la forme correcte est
+
+```js
+import React from 'react'
+import ReactDOM from 'react-dom/client'
+
+import App from './App'
+
+ReactDOM.createRoot(document.getElementById('root')).render(<App />)
+```
+
+## Etat complexe
+
+Dans notre exemple précédent, l'état de l'application était simple car il était composé d'un seul entier. 
+Et si notre application nécessite un état plus complexe ?
+
+Dans la plupart des cas, le moyen le plus simple et plus adéquat d'y parvenir est d'utiliser 
+la fonction ```useState``` plusieurs fois pour créer des "morceaux" d'état séparés.
+
+Dans le code suivant, nous créons deux éléments d'état nommés ```left``` et ```right``` qui obtiennent tous deux la valeur initiale de 0 :
+
+```js
+const App = () => {
+  const [left, setLeft] = useState(0)
+  const [right, setRight] = useState(0)
+
+  return (
+    <div>
+      {left}
+      <button onClick={() => setLeft(left + 1)}>
+        left
+      </button>
+      <button onClick={() => setRight(right + 1)}>
+        right
+      </button>
+      {right}
+    </div>
+  )
+}
+```
+
+Le composant a accès aux fonctions ```setLeft``` et ```setRight``` qu'il peut utiliser pour mettre à jour les deux états.
+
+L'état du composant ou une partie de son état peut être de n'importe quel type. 
+Nous pourrions implémenter la même fonctionnalité en enregistrant le nombre de clics des boutons ```gauche``` et ```droit``` dans un seul objet :
+
+```js
+{
+  left: 0,
+  right: 0
+}
+```
+
+Dans ce cas, l'application ressemblerait à ceci :
+
+```js
+const App = () => {
+  const [clicks, setClicks] = useState({
+    left: 0, right: 0
+  })
+
+  const handleLeftClick = () => {
+    const newClicks = { 
+      left: clicks.left + 1, 
+      right: clicks.right 
+    }
+    setClicks(newClicks)
+  }
+
+  const handleRightClick = () => {
+    const newClicks = { 
+      left: clicks.left, 
+      right: clicks.right + 1 
+    }
+    setClicks(newClicks)
+  }
+
+  return (
+    <div>
+      {clicks.left}
+      <button onClick={handleLeftClick}>left</button>
+      <button onClick={handleRightClick}>right</button>
+      {clicks.right}
+    </div>
+  )
+}
+```
+
+Désormais, le composant n'a qu'un seul état et les gestionnaires d'événements doivent s'occuper de modifier l'*état de l'ensemble de l'application*.
+
+Le gestionnaire d'événements semble un peu brouillon. Lorsque le bouton gauche est cliqué, la fonction suivante est appelée :
+
+```js
+const handleLeftClick = () => {
+  const newClicks = { 
+    left: clicks.left + 1, 
+    right: clicks.right 
+  }
+  setClicks(newClicks)
+}
+```
+
+L'objet suivant est défini comme nouvel état de l'application :
+
+```js
+{
+  left: clicks.left + 1,
+  right: clicks.right
+}
+```
+
+La nouvelle valeur de la propriété ```left``` est maintenant la même que la valeur de ```left + 1``` de l'état précédent, 
+et la valeur de la propriété ```right``` est la même que la valeur de la propriété ```right``` de l'état précédent.
+
+Nous pouvons définir le nouvel état de l'objet un peu plus précisément en utilisant la syntaxe de propagation de l'objet object spread, 
+syntaxe qui a été ajoutée à la spécification du langage à l'été 2018 :
+
+```js
+const handleLeftClick = () => {
+  const newClicks = { 
+    ...clicks, 
+    left: clicks.left + 1 
+  }
+  setClicks(newClicks)
+}
+
+const handleRightClick = () => {
+  const newClicks = { 
+    ...clicks, 
+    right: clicks.right + 1 
+  }
+  setClicks(newClicks)
+}
+```
+
+La syntaxe peut sembler un peu étrange au premier abord. En pratique, ```{ ...clicks }``` crée un nouvel objet qui a 
+des copies de toutes les propriétés de l'objet ```clicks```. Lorsque nous spécifions une propriété particulière - par ex. ```right``` in ```{ ...clicks, right: 1 }```, 
+la valeur de la propriété ```right``` dans le nouvel objet sera 1.
+
+Dans l'exemple ci-dessus, ceci :
+
+```js
+{ ...clicks, right: clicks.right + 1 }
+```
+
+crée une copie de l'objet ```clicks``` où la valeur de la propriété ```right``` est augmentée de un.
+
+L'affectation de l'objet à une variable dans les gestionnaires d'événements n'est pas nécessaire et nous pouvons 
+simplifier les fonctions sous la forme suivante :
+
+```js
+const handleLeftClick = () =>
+  setClicks({ ...clicks, left: clicks.left + 1 })
+
+const handleRightClick = () =>
+  setClicks({ ...clicks, right: clicks.right + 1 })
+```
+
+Certains lecteurs pourraient se demander pourquoi nous n'avons pas simplement mis à jour l'état directement, comme ceci :
+
+```js
+const handleLeftClick = () => {
+  clicks.left++
+  setClicks(clicks)
+}
+```
+
+L'application semble fonctionner. Cependant, *il est interdit dans React de muter directement l'état*, 
+car cela peut entraîner des effets secondaires inattendus. Le changement d'état doit toujours être effectué en définissant l'état sur un nouvel objet. 
+Si les propriétés de l'objet d'état précédent ne sont pas modifiées, elles doivent simplement être copiées, 
+ce qui se fait en copiant ces propriétés dans un nouvel objet et en le définissant comme nouvel état.
+
+Stocker tout l'état dans un seul objet d'état est un mauvais choix pour cette application particulière ; 
+il n'y a aucun avantage apparent et l'application qui en résulte est beaucoup plus complexe. 
+Dans ce cas, stocker les compteurs de clics dans des éléments d'état séparés est un choix bien plus approprié.
+
+Il existe des situations où il peut être avantageux de stocker une partie de l'état de l'application dans une structure de données plus complexe. 
+La documentation officielle de React contient des conseils utiles sur le sujet.
+
+## Gestion des tableaux
+
+Ajoutons un élément d'état à notre application contenant un tableau ```allClicks``` qui se souvient de chaque clic qui s'est produit dans l'application.
+
+```js
+const App = () => {
+  const [left, setLeft] = useState(0)
+  const [right, setRight] = useState(0)
+  const [allClicks, setAll] = useState([])
+
+  const handleLeftClick = () => {
+    setAll(allClicks.concat('L'))
+    setLeft(left + 1)
+  }
+
+  const handleRightClick = () => {
+    setAll(allClicks.concat('R'))
+    setRight(right + 1)
+  }
+
+  return (
+    <div>
+      {left}
+      <button onClick={handleLeftClick}>left</button>
+      <button onClick={handleRightClick}>right</button>
+      {right}
+      <p>{allClicks.join(' ')}</p>
+    </div>
+  )
+}
+```
+
+Chaque clic est stocké dans un élément d'état séparé appelé ```allClicks``` qui est initialisé sous la forme d'un tableau vide :
+
+```js
+const [allClicks, setAll] = useState([])
+```
+
+Lorsque le bouton gauche est cliqué, nous ajoutons la lettre L au tableau ```allClicks``` :
+
+```js
+const handleLeftClick = () => {
+  setAll(allClicks.concat('L'))
+  setLeft(left + 1)
+}
+```
+
+L'élément d'état stocké dans ```allClicks``` est désormais défini comme un tableau contenant tous les éléments du tableau d'état précédent plus la lettre L. 
+L'ajout du nouvel élément au tableau est accompli avec la méthode ```concat```, qui ne mute pas le tableau existant mais renvoie plutôt 
+une nouvelle copie du tableau avec l'élément ajouté.
+
+Comme mentionné précédemment, il est également possible en JavaScript d'ajouter des éléments à un tableau avec la méthode ```push``` . 
+Si nous ajoutons l'élément en le poussant vers le tableau ```allClicks``` puis en mettant à jour l'état, l'application semblerait toujours fonctionner :
+
+```js
+const handleLeftClick = () => {
+  allClicks.push('L')
+  setAll(allClicks)
+  setLeft(left + 1)
+}
+```
+
+Cependant, __ ne faites pas cela. Comme mentionné précédemment, l'état des composants React comme ```allClicks``` ne doit pas être muté directement. 
+Même si l'état de mutation semble fonctionner dans certains cas, cela peut entraîner des problèmes très difficiles à déboguer.
+
+Regardons de plus près comment le clic est rendu sur la page :
+
+```js
+const App = () => {
+  // ...
+
+  return (
+    <div>
+      {left}
+      <button onClick={handleLeftClick}>left</button>
+      <button onClick={handleRightClick}>right</button>
+      {right}
+      <p>{allClicks.join(' ')}</p>
+    </div>
+  )
+}
+```
+
+Nous appelons la méthode join sur le tableau ```allClicks``` qui joint tous les éléments en une seule chaîne, 
+séparés par la chaîne passée en paramètre de la fonction, qui dans notre cas est un espace vide.
+
+## Rendu conditionnel
+
+Modifions notre application pour que le rendu de l'historique des clics soit géré par un nouveau composant *History* :
+
+```js
+const History = (props) => {
+  if (props.allClicks.length === 0) {
+    return (
+      <div>
+        the app is used by pressing the buttons
+      </div>
+    )
+  }
+  return (
+    <div>
+      button press history: {props.allClicks.join(' ')}
+    </div>
+  )
+}
+
+const App = () => {
+  // ...
+
+  return (
+    <div>
+      {left}
+      <button onClick={handleLeftClick}>left</button>
+      <button onClick={handleRightClick}>right</button>
+      {right}
+      <History allClicks={allClicks} />
+    </div>
+  )
+}
+```
+
+Maintenant, le comportement du composant dépend du fait que des boutons aient été cliqués ou non. Si ce n'est pas le cas, ce qui signifie que 
+le tableau ```allClicks``` est vide, le composant restitue un élément div avec quelques instructions à la place :
+
+```js
+<div>the app is used by pressing the buttons</div>
+```
+
+Et dans tous les autres cas, le composant restitue l'historique des clics :
+
+```js
+<div>
+  button press history: {props.allClicks.join(' ')}
+</div>
+```
+
+Le composant *History* rend des éléments React complètement différents en fonction de l'état de l'application. 
+C'est ce qu'on appelle le *rendu conditionnel*.
+
+React propose également de nombreuses autres façons de faire *le rendu conditionnel*. Nous y reviendrons plus en détail dans la *partie 2*.
+
+Apportons une dernière modification à notre application en la refactorisant pour utiliser le composant *Button* que nous avons défini précédemment :
+
+```js
+const History = (props) => {
+  if (props.allClicks.length === 0) {
+    return (
+      <div>
+        the app is used by pressing the buttons
+      </div>
+    )
+  }
+
+  return (
+    <div>
+      button press history: {props.allClicks.join(' ')}
+    </div>
+  )
+}
+
+const Button = ({ handleClick, text }) => (
+  <button onClick={handleClick}>
+    {text}
+  </button>
+)
+
+const App = () => {
+  const [left, setLeft] = useState(0)
+  const [right, setRight] = useState(0)
+  const [allClicks, setAll] = useState([])
+
+  const handleLeftClick = () => {
+    setAll(allClicks.concat('L'))
+    setLeft(left + 1)
+  }
+
+  const handleRightClick = () => {
+    setAll(allClicks.concat('R'))
+    setRight(right + 1)
+  }
+
+  return (
+    <div>
+      {left}
+      <Button handleClick={handleLeftClick} text='left' />
+      <Button handleClick={handleRightClick} text='right' />
+      {right}
+      <History allClicks={allClicks} />
+    </div>
+  )
+}
+```
+
+## Ancienne version de React
+
+Dans ce cours, nous utilisons le state hook pour ajouter un état à nos composants React, qui fait partie des nouvelles versions de 
+React et est disponible à partir de la version 16.8.0 et versions ultérieures. Avant l'ajout des hooks, 
+il n'y avait aucun moyen d'ajouter un état aux composants fonctionnels. Les composants qui nécessitaient un état devaient être définis 
+en tant que composants classes, à l'aide de la syntaxe de classe JavaScript.
+
+Dans ce cours, nous avons pris la décision radicale d'utiliser exclusivement les hooks dès le premier jour, 
+pour nous assurer que nous apprenons le style actuel et futur de React. Même si les composants fonctionnels sont l'avenir de React, 
+il est toujours important d'apprendre la syntaxe de la classe, car il existe des milliards de lignes de code React que 
+vous pourriez finir par maintenir un jour. Il en va de même pour la documentation et les exemples de React que vous pouvez trouver sur Internet.
+
+Nous en apprendrons plus sur les composants classes de React plus tard dans le cours.
+
+## Debogage des applications React
+
+Une grande partie du temps d'un développeur typique est consacrée au débogage et à la lecture du code existant. 
+De temps en temps, nous écrivons une ligne ou deux de nouveau code, mais une grande partie de notre temps est consacrée à essayer 
+de comprendre pourquoi quelque chose est cassé ou comment quelque chose fonctionne. Les bonnes pratiques et les outils de débogage 
+sont extrêmement importants pour cette raison.
+
+Heureusement pour nous, React est une bibliothèque extrêmement conviviale pour les développeurs en matière de débogage.
+
+Avant de poursuivre, rappelons-nous l'une des règles les plus importantes du développement Web.
+
+### La première règle du développement Web
+
+#### Gardez la console développeur du navigateur ouverte à tout moment.
+> L'onglet Console en particulier doit toujours être ouvert, sauf s'il existe une raison spécifique d'afficher un autre onglet.
+
+Gardez votre code et la page Web ouverts ensemble **en même temps, tout le temps**.
+
+Si et quand votre code ne compile pas et que votre navigateur s'allume comme un sapin de Noël :
+
+![alt image 6](/images/courses/part1/6x.png)
+
+n'écrivez pas plus de code mais plutôt trouvez et corrigez le problème **immédiatement**. 
+Il n'y a pas encore eu de moment dans l'histoire du codage où le code qui ne compile pas commencerait miraculeusement à fonctionner 
+après avoir écrit de grandes quantités de code supplémentaire. Je doute fortement qu'un tel événement se produise au cours de ce cours non plus.
+
+Le débogage à l'ancienne, basé sur l'impression, est toujours une bonne idée. Si le composant
+
+```js
+const Button = ({ onClick, text }) => (
+  <button onClick={onClick}>
+    {text}
+  </button>
+)
+```
+
+ne fonctionne pas comme prévu, il est utile de commencer à imprimer ses variables sur la console. 
+Pour le faire efficacement, nous devons transformer notre fonction dans la forme la moins compacte et recevoir l'intégralité de 
+l'objet props sans le déstructurer immédiatement :
+
+```js
+const Button = (props) => { 
+  console.log(props)
+  const { onClick, text } = props
+  return (
+    <button onClick={onClick}>
+      {text}
+    </button>
+  )
+}
+```
+
+Cela révélera immédiatement si, par exemple, l'un des attributs a été mal orthographié lors de l'utilisation du composant.
+
+**NB** Lorsque vous utilisez ```console.log``` pour le débogage, ne combinez pas ```objects``` à la manière de Java en utilisant l'opérateur plus. 
+Au lieu d'écrire :
+
+```js
+console.log('props value is ' + props)
+```
+
+Séparez les éléments que vous souhaitez consigner dans la console par une virgule :
+
+```js
+console.log('props value is', props)
+```
+
+Si vous utilisez la manière Java de concaténer une chaîne avec un objet, vous vous retrouverez avec un message de journal plutôt peu informatif :
+
+```js
+props value is [Object object]
+```
+
+Alors que les éléments séparés par une virgule seront tous disponibles dans la console du navigateur pour une inspection plus approfondie.
+
+## Regles des Hooks
+
+Il y a quelques limitations et règles que nous devons suivre pour nous assurer que notre application utilise correctement les fonctions d'état basées sur les hooks.
+
+La fonction ```useState``` (ainsi que la fonction ```useEffect``` introduite plus tard dans le cours) ne doit pas être appelée depuis l'intérieur d'une boucle, 
+d'une expression conditionnelle ou de tout endroit qui n'est pas une fonction définissant un composant. Cela doit être fait pour s'assurer 
+que les hooks sont toujours appelés dans le même ordre, et si ce n'est pas le cas, l'application se comportera de manière erratique.
+
+Pour récapituler, les hooks ne peuvent être appelés que depuis l'intérieur d'un corps de fonction qui définit un composant React :
+
+```js
+const App = () => {
+  // ceci est ok
+  const [age, setAge] = useState(0)
+  const [name, setName] = useState('Juha Tauriainen')
+
+  if ( age > 10 ) {
+    // ceci ne marche pas!
+    const [foobar, setFoobar] = useState(null)
+  }
+
+  for ( let i = 0; i < age; i++ ) {
+    // toujours pas ok !
+    const [rightWay, setRightWay] = useState(false)
+  }
+
+  const notGood = () => {
+    // et ceci est presqu'un péché !
+    const [x, setX] = useState(-1000)
+  }
+
+  return (
+    //...
+  )
+}
+```
