@@ -6,7 +6,7 @@ export default function CourseNextLessonBtn({
   progressService,
   course,
 }) {
-  console.log(lessons)
+
   // const incompleLessons = lessons
   //   .map((lesson) => {
   //     if (!isLessonCompleted(progressService, `${course}/${lesson.slug}`)) {
