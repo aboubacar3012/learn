@@ -174,35 +174,33 @@ export default function Home({ content, courses }) {
                     </div>
                     <div className="overflow-hidden">
                       {courseDetailToShow.lessons.map((lesson, index) => (
-                        <a
-                          key={index}
-                          data-test="lesson-progress-link-0"
-                          href={`${courseSlugToShow}/${lesson.slug}`}
-                        >
-                          <div
-                            data-test="lesson-0"
-                            className="relative mb-6 rounded border py-4 pl-4 lg:py-6"
-                          >
-                            <div className="relative flex items-center">
-                              <span className="flex h-9 items-center" aria-hidden="true">
-                                <span
-                                  data-test="lesson-upcoming-0"
-                                  className="relative z-10 flex h-6 w-6 items-center justify-center rounded-full border-2 border-gray-300 bg-white group-hover:border-gray-400"
-                                >
-                                  <span className="h-2.5 w-2.5 rounded-full bg-transparent group-hover:bg-gray-300" />
+                        <Link href={`${courseSlugToShow}/${lesson.slug}`}>
+                          <a key={index} data-test="lesson-progress-link-0">
+                            <div
+                              data-test="lesson-0"
+                              className="relative mb-6 rounded border py-4 pl-4 lg:py-6"
+                            >
+                              <div className="relative flex items-center">
+                                <span className="flex h-9 items-center" aria-hidden="true">
+                                  <span
+                                    data-test="lesson-upcoming-0"
+                                    className="relative z-10 flex h-6 w-6 items-center justify-center rounded-full border-2 border-gray-300 bg-white group-hover:border-gray-400"
+                                  >
+                                    <span className="h-2.5 w-2.5 rounded-full bg-transparent group-hover:bg-gray-300" />
+                                  </span>
                                 </span>
-                              </span>
-                              <span className="ml-2 flex w-full flex-row lg:ml-4">
-                                <span className="grow font-normal">{lesson.title}</span>
-                                <img
-                                  className="mr-4"
-                                  src="/images/home/course-icons/course-play-icon.svg"
-                                  alt=""
-                                />
-                              </span>
+                                <span className="ml-2 flex w-full flex-row lg:ml-4">
+                                  <span className="grow font-normal">{lesson.title}</span>
+                                  <img
+                                    className="mr-4"
+                                    src="/images/home/course-icons/course-play-icon.svg"
+                                    alt=""
+                                  />
+                                </span>
+                              </div>
                             </div>
-                          </div>
-                        </a>
+                          </a>
+                        </Link>
                       ))}
                     </div>
                   </nav>

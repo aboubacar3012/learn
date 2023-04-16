@@ -532,3 +532,729 @@ const App = () => {
   )
 }
 ```
+## Gestion des evenements revisitee
+
+La gestion des événements s'est avérée être un sujet difficile dans les versions précédentes de ce cours.
+
+C'est pourquoi nous reviendrons sur le sujet.
+
+Supposons que nous développions cette application simple avec le composant suivant App :
+
+```js
+const App = () => {
+  const [value, setValue] = useState(10)
+
+  return (
+    <div>
+      {value}
+      <button>reset to zero</button>
+    </div>
+  )
+}
+```
+
+Nous voulons que le clic sur le bouton réinitialise l'état stocké dans la variable value.
+
+Afin de faire réagir le bouton à un événement de clic, nous devons lui ajouter un event handler.
+
+Les gestionnaires d'événements doivent toujours être une fonction ou une référence à une fonction. 
+Le bouton ne fonctionnera pas si le gestionnaire d'événements est défini sur une variable d'un autre type.
+
+Si nous devions définir notre event handler sous forme de chaîne :
+
+```js
+<button onClick="crap...">button</button>
+```
+
+React nous en avertirait dans la console :
+
+```js
+index.js:2178 Warning: Expected `onClick` listener to be a function, instead got a value of `string` type.
+    in button (at index.js:20)
+    in div (at index.js:18)
+    in App (at index.js:27)
+```
+
+La tentative suivante ne fonctionnerait pas non plus :
+
+```js
+<button onClick={value + 1}>button</button>
+```
+
+Nous avons tenté de définir le gestionnaire d'événements sur ```value + 1``` qui renvoie simplement le résultat de l'opération. 
+React nous en avertira gentiment dans la console :
+
+```js
+index.js:2178 Warning: Expected `onClick` listener to be a function, instead got a value of `number` type.
+```
+
+Cette tentative ne fonctionnerait pas non plus :
+
+Le gestionnaire d'événements n'est pas une fonction mais une affectation de variable, et React émettra à nouveau un avertissement sur la console. 
+Cette tentative est également imparfaite dans le sens où nous ne devons jamais muter l'état directement dans React.
+
+Qu'en est-il des éléments suivants :
+
+```js
+<button onClick={console.log('clicked the button')}>
+  button
+</button>
+```
+
+Le message est affiché sur la console une fois lorsque le composant est rendu, mais rien ne se passe lorsque nous cliquons sur le bouton. 
+Pourquoi cela ne fonctionne-t-il pas même lorsque notre gestionnaire d'événements contient une fonction ```console.log``` ?
+
+Le problème ici est que notre gestionnaire d'événements est défini comme un appel de fonction, ce qui signifie que 
+le gestionnaire d'événements se voit en fait attribuer la valeur renvoyée par la fonction, qui dans le cas de ```console.log``` est ```undefined```.
+
+L'appel de la fonction ```console.log``` est exécuté lorsque le composant est rendu et pour cette raison, il est imprimé une fois sur la console.
+
+La tentative suivante est également erronée :
+
+```js
+<button onClick={setValue(0)}>button</button>
+```
+
+Nous avons de nouveau essayé de définir un appel de fonction comme gestionnaire d'événements. Cela ne fonctionne pas. 
+Cette tentative particulière provoque également un autre problème. Lorsque le composant est rendu, la fonction ```setValue(0)``` est exécutée, 
+ce qui entraîne à son tour le rendu du composant. Le re-rendu appelle à son tour ```setValue(0)```, ce qui entraîne une récursivité infinie.
+
+L'exécution d'un appel de fonction particulier lorsque le bouton est cliqué peut être accompli comme ceci :
+
+```js
+<button onClick={() => console.log('clicked the button')}>
+  button
+</button>
+```
+
+Maintenant, le gestionnaire d'événements est une fonction définie avec la syntaxe de la fonction fléchée ```() => console.log('clicked the button')```. 
+Lorsque le composant est rendu, aucune fonction n'est appelée et seule la référence à la fonction fléchée est définie sur le gestionnaire d'événements. 
+L'appel de la fonction n'a lieu qu'une fois le bouton cliqué.
+
+Nous pouvons implémenter la réinitialisation de l'état dans notre application avec cette même technique :
+
+```js
+<button onClick={() => setValue(0)}>button</button>
+```
+
+Le gestionnaire d'événements est maintenant la fonction ```() => setValue(0)```.
+
+Définir les gestionnaires d'événements directement dans l'attribut du bouton n'est pas nécessairement la meilleure idée possible.
+
+Vous verrez souvent des gestionnaires d'événements définis dans un endroit séparé. 
+Dans la version suivante de notre application, nous définissons une fonction qui est ensuite affectée à la variable ```handleClick``` dans le corps 
+de la fonction composant :
+
+```js
+const App = () => {
+  const [value, setValue] = useState(10)
+
+  const handleClick = () =>
+    console.log('clicked the button')
+
+  return (
+    <div>
+      {value}
+      <button onClick={handleClick}>button</button>
+    </div>
+  )
+}
+```
+
+La variable ```handleClick``` est maintenant affectée à une référence à la fonction. La référence est transmise au bouton en tant qu'attribut ```onClick``` :
+
+```js
+<button onClick={handleClick}>button</button>
+```
+
+Naturellement, notre fonction de gestion d'événements peut être composée de plusieurs commandes. 
+Dans ces cas, nous utilisons la syntaxe des accolades plus longues pour les fonctions fléchées :
+
+```js
+const App = () => {
+  const [value, setValue] = useState(10)
+
+  const handleClick = () => {
+    console.log('clicked the button')
+    setValue(0)
+  }
+
+  return (
+    <div>
+      {value}
+      <button onClick={handleClick}>button</button>
+    </div>
+  )
+}
+```
+
+## Fonction qui renvoie une fonction
+
+Une autre façon de définir un gestionnaire d'événements consiste à utiliser fonction qui renvoie une fonction.
+
+Vous n'aurez probablement pas besoin d'utiliser des fonctions qui renvoient des fonctions dans aucun des exercices de ce cours. 
+Si le sujet semble particulièrement déroutant, vous pouvez ignorer cette section pour le moment et y revenir plus tard.
+
+Apportons les modifications suivantes à notre code :
+
+```js
+const App = () => {
+  const [value, setValue] = useState(10)
+
+  const hello = () => {
+    const handler = () => console.log('hello world')
+    return handler
+  }
+
+  return (
+    <div>
+      {value}
+      <button onClick={hello()}>button</button>
+    </div>
+  )
+}
+```
+
+Le code fonctionne correctement même s'il semble compliqué.
+
+Le gestionnaire d'événements est maintenant défini sur un appel de fonction :
+
+```js
+<button onClick={hello()}>button</button>
+```
+
+Plus tôt, nous avons déclaré qu'un gestionnaire d'événements ne peut pas être un appel à une fonction, 
+et qu'il doit être une fonction ou une référence à une fonction. Pourquoi alors un appel de fonction fonctionne-t-il dans ce cas ?
+
+Lorsque le composant est rendu, la fonction suivante est exécutée :
+
+```js
+const hello = () => {
+  const handler = () => console.log('hello world')
+
+  return handler
+}
+```
+
+La valeur de retour de la fonction est une autre fonction affectée à la variable handler.
+
+Lorsque React affiche la ligne :
+
+```js
+<button onClick={hello()}>button</button>
+```
+
+Il attribue la valeur de retour de ```hello()``` à l'attribut onClick. Essentiellement, la ligne se transforme en :
+
+```js
+<button onClick={() => console.log('hello world')}>
+  button
+</button>
+```
+
+Puisque la fonction ```hello``` renvoie une fonction, le gestionnaire d'événements est maintenant une fonction.
+
+Quel est l'intérêt de ce concept ?
+
+Modifions un tout petit peu le code :
+
+```js
+const App = () => {
+  const [value, setValue] = useState(10)
+
+  const hello = (who) => {
+    const handler = () => {
+      console.log('hello', who)
+    }
+    return handler
+  }
+
+  return (
+    <div>
+      {value}
+      <button onClick={hello('world')}>button</button>
+      <button onClick={hello('react')}>button</button>
+      <button onClick={hello('function')}>button</button>
+    </div>
+  )
+}
+```
+
+Maintenant, l'application a trois boutons avec des gestionnaires d'événements définis par la fonction ```hello``` qui accepte un paramètre.
+
+Le premier bouton est défini comme
+
+```js
+<button onClick={hello('world')}>button</button>
+```
+
+Le gestionnaire d'événements est créé en exécutant l'appel de fonction ```hello('world')```. L'appel de fonction renvoie la fonction :
+
+```js
+() => {
+  console.log('hello', 'world')
+}
+```
+
+Le deuxième bouton est défini comme :
+
+```js
+<button onClick={hello('react')}>button</button>
+```
+
+L'appel de fonction ```hello('react')``` qui crée le event handler renvoie :
+
+```js
+() => {
+  console.log('hello', 'react')
+}
+```
+
+Les deux boutons disposent de leurs propres gestionnaires d'événements individualisés.
+
+Les fonctions renvoyant des fonctions peuvent être utilisées pour définir des fonctionnalités génériques qui peuvent être personnalisées 
+avec des paramètres. La fonction ```hello``` qui crée les gestionnaires d'événements peut être considérée comme une usine qui produit des 
+event handlers personnalisés destinés à accueillir les utilisateurs.
+
+Notre définition actuelle est légèrement verbeuse :
+
+```js
+const hello = (who) => {
+  const handler = () => {
+    console.log('hello', who)
+  }
+
+  return handler
+}
+```
+
+Éliminons les variables d'assistance et renvoyons directement la fonction créée :
+
+```js
+const hello = (who) => {
+  return () => {
+    console.log('hello', who)
+  }
+}
+```
+
+Puisque notre fonction ```hello``` est composée d'une seule commande de retour, nous pouvons omettre les accolades et 
+utiliser la syntaxe plus compacte pour les fonctions fléchées :
+
+```js
+const hello = (who) =>
+  () => {
+    console.log('hello', who)
+  }
+```
+
+Enfin, écrivons toutes les flèches sur la même ligne :
+
+```js
+const hello = (who) => () => {
+  console.log('hello', who)
+}
+```
+
+Nous pouvons utiliser la même astuce pour définir des gestionnaires d'événements qui définissent l'état du composant à une valeur donnée. 
+Apportons les modifications suivantes à notre code :
+
+```js
+const App = () => {
+  const [value, setValue] = useState(10)
+  
+  const setToValue = (newValue) => () => {
+    console.log('value now', newValue)  // affiche la nouvelle valeur sur la console
+    setValue(newValue)
+  }
+  
+  return (
+    <div>
+      {value}
+      <button onClick={setToValue(1000)}>thousand</button>
+      <button onClick={setToValue(0)}>reset</button>
+      <button onClick={setToValue(value + 1)}>increment</button>
+    </div>
+  )
+}
+```
+
+Lorsque le composant est rendu, le bouton *thousand* est créé :
+
+```js
+<button onClick={setToValue(1000)}>thousand</button>
+```
+
+Le gestionnaire d'événements est défini sur la valeur de retour de ```setToValue(1000)``` qui est la fonction suivante :
+
+```js
+() => {
+  console.log('value now', 1000)
+  setValue(1000)
+}
+```
+
+Le bouton d'incrémentation est déclaré comme suit :
+
+```js
+<button onClick={setToValue(value + 1)}>increment</button>
+```
+
+Le gestionnaire d'événements est créé par l'appel de fonction ```setToValue(value + 1)``` qui reçoit en paramètre la valeur courante 
+de la variable d'état ```value``` augmentée de un. Si la valeur de ```value``` était 10, alors le gestionnaire d'événements créé serait la fonction :
+
+```js
+() => {
+  console.log('value now', 11)
+  setValue(11)
+}
+```
+
+L'utilisation de fonctions qui renvoient des fonctions n'est pas nécessaire pour obtenir cette fonctionnalité. 
+Renvoyons la fonction ```setToValue``` qui est responsable de la mise à jour de l'état, dans une fonction normale :
+
+```js
+const App = () => {
+  const [value, setValue] = useState(10)
+
+  const setToValue = (newValue) => {
+    console.log('value now', newValue)
+    setValue(newValue)
+  }
+
+  return (
+    <div>
+      {value}
+      <button onClick={() => setToValue(1000)}>
+        thousand
+      </button>
+      <button onClick={() => setToValue(0)}>
+        reset
+      </button>
+      <button onClick={() => setToValue(value + 1)}>
+        increment
+      </button>
+    </div>
+  )
+}
+```
+
+Nous pouvons maintenant définir le gestionnaire d'événements comme une fonction qui appelle la fonction ```setToValue``` avec un paramètre approprié. 
+Le gestionnaire d'événements pour réinitialiser l'état de l'application serait :
+
+```js
+<button onClick={() => setToValue(0)}>reset</button>
+```
+
+Choisir entre les deux façons présentées pour définir vos gestionnaires d'événements est surtout une question de goût.
+
+## Passer vos events handlers aux composants enfants
+
+Extrayons le bouton dans son propre composant :
+
+```js
+const Button = (props) => (
+  <button onClick={props.handleClick}>
+    {props.text}
+  </button>
+)
+```
+
+Le composant obtient la fonction de gestionnaire d'événements de la prop ```handleClick``` et le texte du bouton de la prop ```text```.
+
+L'utilisation du composant *Button* est simple, même si nous devons nous assurer que nous utilisons les noms d'attribut 
+corrects lors de la transmission des props au composant.
+
+![alt image 12](/images/courses/part1/12e.png)
+
+## Ne pas definir de composants dans les composants
+
+Commençons à afficher la valeur de l'application dans son propre composant *Display*.
+
+Nous allons changer l'application en définissant un nouveau composant à l'intérieur du composant *App*.
+
+```js
+// C'est le bon endroit pour définir un composant
+const Button = (props) => (
+  <button onClick={props.handleClick}>
+    {props.text}
+  </button>
+)
+
+const App = () => {
+  const [value, setValue] = useState(10)
+
+  const setToValue = newValue => {
+    console.log('value now', newValue)
+    setValue(newValue)
+  }
+
+  // Ne pas définir de composants à l'intérieur d'un autre composant
+  const Display = props => <div>{props.value}</div>
+
+  return (
+    <div>
+      <Display value={value} />
+      <Button handleClick={() => setToValue(1000)} text="thousand" />
+      <Button handleClick={() => setToValue(0)} text="reset" />
+      <Button handleClick={() => setToValue(value + 1)} text="increment" />
+    </div>
+  )
+}
+```
+
+L'application semble toujours fonctionner, mais *n'implémentez pas de composants comme celui-ci !* Ne définissez jamais de composants à 
+l'intérieur d'autres composants. La méthode n'offre aucun avantage et entraîne de nombreux problèmes désagréables. 
+Les plus gros problèmes sont dus au fait que React traite un composant défini à l'intérieur d'un autre composant comme un nouveau 
+composant dans chaque rendu. Cela rend impossible pour React d'optimiser le composant.
+
+Déplaçons plutôt la fonction de composant *Display* à sa place correcte, qui est en dehors de la fonction de composant *App* :
+
+```js
+const Display = props => <div>{props.value}</div>
+
+const Button = (props) => (
+  <button onClick={props.handleClick}>
+    {props.text}
+  </button>
+)
+
+const App = () => {
+  const [value, setValue] = useState(10)
+
+  const setToValue = newValue => {
+    console.log('value now', newValue)
+    setValue(newValue)
+  }
+
+  return (
+    <div>
+      <Display value={value} />
+      <Button handleClick={() => setToValue(1000)} text="thousand" />
+      <Button handleClick={() => setToValue(0)} text="reset" />
+      <Button handleClick={() => setToValue(value + 1)} text="increment" />
+    </div>
+  )
+}
+```
+
+## Exercices 1.6.-1.14.
+
+**ATTENTION** create-react-app transformera automatiquement votre projet en un référentiel git à moins que vous ne créiez 
+votre application dans un référentiel git existant. **Il est fort probable que vous ne vouliez pas que chacun de vos projets soit un référentiel distinct** , 
+il vous suffit donc d'exécuter la commande rm -rf .git à la racine de votre application.
+
+Dans certaines situations, vous devrez peut-être également exécuter la commande ci-dessous à partir de la racine du projet :
+
+```js
+rm -rf node_modules/ && npm i
+```
+
+### 1.6 : unicafe, etape1
+
+Comme la plupart des entreprises, **Unicafe** recueille les commentaires de ses clients. Votre tâche consiste à mettre en place 
+une application Web pour recueillir les commentaires des clients. Il n'y a que trois options pour les commentaires : bon, neutre et mauvais.
+
+L'application doit afficher le nombre total de commentaires recueillis pour chaque catégorie. Votre application finale pourrait ressembler à ceci :
+
+
+![alt image 13](/images/courses/part1/13e.png)
+
+Notez que votre application ne doit fonctionner que pendant une seule session de navigateur. Une fois que vous avez actualisé la page, 
+les commentaires recueillis sont autorisés à disparaître.
+
+Il est conseillé d'utiliser la même structure que celle utilisée dans le matériel et l'exercice précédent. Le fichier index.js est le suivant :
+
+```js
+import React from 'react'
+import ReactDOM from 'react-dom/client'
+
+import App from './App'
+
+ReactDOM.createRoot(document.getElementById('root')).render(<App />)
+```
+
+Vous pouvez utiliser le code ci-dessous comme point de départ pour le fichier App.js :
+
+```js
+import { useState } from 'react'
+
+const App = () => {
+  // enregistrer les clics de chaque bouton dans un état différent
+  const [good, setGood] = useState(0)
+  const [neutral, setNeutral] = useState(0)
+  const [bad, setBad] = useState(0)
+
+  return (
+    <div>
+      code here
+    </div>
+  )
+}
+
+export default App
+```
+
+### 1.7 : unicafe, etape2
+
+Développez votre application pour qu'elle affiche plus de statistiques sur les retours collectés : le nombre total de retours collectés, 
+le score moyen (bon : 1, neutre : 0, mauvais : -1) et le pourcentage de retours positifs.
+
+
+![alt image 14](/images/courses/part1/14e.png)
+
+### 1.8 : unicafe, etape3
+
+Refactorisez votre application afin que l'affichage des statistiques soit extrait dans son propre composant *Statistiques*. 
+L'état de l'application doit rester dans le composant racine *App*.
+
+N'oubliez pas que les composants ne doivent pas être définis à l'intérieur d'autres composants :
+
+```js
+// un endroit approprié pour définir un composant
+const Statistics = (props) => {
+  // ...
+}
+
+const App = () => {
+  const [good, setGood] = useState(0)
+  const [neutral, setNeutral] = useState(0)
+  const [bad, setBad] = useState(0)
+
+  // ne pas définir un composant dans un autre composant
+  const Statistics = (props) => {
+    // ...
+  }
+
+  return (
+    // ...
+  )
+}
+```
+
+### 1.9 : unicafe, etape4
+
+Modifiez votre application pour n'afficher les statistiques qu'une fois les commentaires recueillis.
+
+![alt image 15](/images/courses/part1/15e.png)
+
+### 1.10 : unicafe, etape5
+
+Continuons à refactoriser l'application. Extrayez les deux composants suivants :
+
+- Bouton pour définir les boutons utilisés pour soumettre des commentaires
+- StatisticLine pour afficher une seule statistique, par ex. la note moyenne.
+Pour être clair : le composant *StatisticLine* affiche toujours une seule statistique, ce qui signifie que l'application utilise 
+plusieurs composants pour afficher toutes les statistiques :
+
+```js
+const Statistics = (props) => {
+  /// ...
+  return(
+    <div>
+      <StatisticLine text="good" value ={...} />
+      <StatisticLine text="neutral" value ={...} />
+      <StatisticLine text="bad" value ={...} />
+      // ...
+    </div>
+  )
+}
+```
+
+L'état de l'application doit toujours être conservé dans le composant racine App.
+
+### 1.11* : unicafe, etape6
+
+Affichez les statistiques dans un tableau HTML, afin que votre application ressemble à peu près à ceci :
+
+![alt image 16](/images/courses/part1/16e.png)
+
+N'oubliez pas de garder votre console ouverte en tout temps. Si vous voyez cet avertissement dans votre console :
+
+![alt image 17](/images/courses/part1/17a.png)
+
+Effectuez ensuite les actions nécessaires pour faire disparaître l'avertissement. Essayez de coller le message d'erreur dans 
+un moteur de recherche si vous êtes bloqué.
+
+**Assurez-vous qu'à partir de maintenant, vous ne voyez plus aucun avertissement dans votre console !**
+
+### 1.12* : anecdotes, etape1
+
+Le monde de l'ingénierie logicielle est rempli d'anecdotes qui distillent des vérités intemporelles de notre domaine en de courtes lignes.
+
+Développez l'application suivante en ajoutant un bouton sur lequel cliquer pour afficher une anecdote aléatoire du domaine du génie logiciel :
+
+```js
+import { useState } from 'react'
+
+const App = () => {
+  const anecdotes = [
+    'If it hurts, do it more often.',
+    'Adding manpower to a late software project makes it later!',
+    'The first 90 percent of the code accounts for the first 10 percent of the development time...The remaining 10 percent of the code accounts for the other 90 percent of the development time.',
+    'Any fool can write code that a computer can understand. Good programmers write code that humans can understand.',
+    'Premature optimization is the root of all evil.',
+    'Debugging is twice as hard as writing the code in the first place. Therefore, if you write the code as cleverly as possible, you are, by definition, not smart enough to debug it.',
+    'Programming without an extremely heavy use of console.log is same as if a doctor would refuse to use x-rays or blood tests when diagnosing patients.'
+  ]
+   
+  const [selected, setSelected] = useState(0)
+
+  return (
+    <div>
+      {anecdotes[selected]}
+    </div>
+  )
+}
+
+export default App
+```
+
+Le contenu du fichier index.js est le même que dans les exercices précédents.
+
+Découvrez comment générer des nombres aléatoires en JavaScript, par exemple. via le moteur de recherche ou sur Mozilla Developer Network. 
+N'oubliez pas que vous pouvez tester la génération de nombres aléatoires, par ex. directement dans la console de votre navigateur.
+
+Votre application terminée pourrait ressembler à ceci :
+
+![alt image 18](/images/courses/part1/18a.png)
+
+### 1.13* : anecdotes, etape2
+
+Développez votre application afin de pouvoir voter pour l'anecdote affichée.
+
+![alt image 19](/images/courses/part1/19a.png)
+
+**NB:** stocker les votes de chaque anecdote dans un tableau ou un objet dans l'état du composant. 
+N'oubliez pas que la bonne façon de mettre à jour l'état stocké dans des structures de données complexes comme des objets et 
+des tableaux est de faire une copie de l'état.
+
+Vous pouvez créer une copie d'un objet comme ceci :
+
+```js
+const points = { 0: 1, 1: 3, 2: 4, 3: 2 }
+
+const copy = { ...points }
+// incrémenter la valeur de la propriété 2 de un
+copy[2] += 1     
+```
+
+OU une copie du tableau comme cela :
+
+```js
+const points = [1, 4, 6, 3]
+
+const copy = [...points]
+// incrémenter la valeur en position 2 de un
+copy[2] += 1  
+```
+
+*L'utilisation d'un tableau pourrait être le choix le plus simple dans ce cas. Une recherche sur Internet vous fournira de nombreux conseils sur la façon de créer un tableau rempli de zéros d'une longueur souhaitée.*
+
+### 1.14* : anecdotes, etape3
+
+Implémentez maintenant la version finale de l'application qui affiche l'anecdote avec le plus grand nombre de votes :
+
+![alt image 20](/images/courses/part1/20a.png)
+
+Si plusieurs anecdotes sont à égalité pour la première place, il suffit d'en montrer une seule.
