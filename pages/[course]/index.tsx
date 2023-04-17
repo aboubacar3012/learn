@@ -4,6 +4,10 @@ import CourseHero from "../../components/Course/CourseHero"
 import CourseContent from "../../components/Course/CourseContent"
 import { progressService } from "../../machines/progressService"
 import { fetchCourses } from "../../lib/fetch-courses"
+import { useDispatch, useSelector } from "react-redux"
+import { useRouter } from "next/router"
+import { RootState } from "../../redux/store"
+import { useEffect } from "react"
 
 export default function SectionPage({
   title,
@@ -14,23 +18,22 @@ export default function SectionPage({
   courses,
   course,
 }) {
-  
+  const { isConnected } = useSelector((state: RootState) => state.auth)
+
+  const router = useRouter()
+
+  useEffect(() => {
+    if (!isConnected) router.push("/")
+  }, [isConnected])
+
   return (
-    <Layout
-      content={content}
-      courses={courses}
-      progressService={progressService}
-    >
+    <Layout content={content} courses={courses} progressService={progressService}>
       <Head>
         <title>{title} | Testing Next.js Applications with Cypress</title>
         <meta name="description" content={description} />
       </Head>
 
-      <CourseHero
-        title={title}
-        description={description}
-        image={content[course].image}
-      />
+      <CourseHero title={title} description={description} image={content[course].image} />
       <CourseContent
         title={title}
         lessons={lessons}
@@ -44,8 +47,7 @@ export default function SectionPage({
 
 export async function getStaticProps({ params }) {
   const coursesJson = await fetchCourses()
-  const { title, lessons, description, learnFeatures } =
-    coursesJson[params.course]
+  const { title, lessons, description, learnFeatures } = coursesJson[params.course]
   const courses = Object.keys(coursesJson)
 
   return {

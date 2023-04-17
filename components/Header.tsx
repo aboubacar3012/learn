@@ -1,5 +1,5 @@
 import { Fragment } from "react"
-import { Popover, Transition } from "@headlessui/react"
+// import { Popover, Transition } from "@headlessui/react"
 import MobileNav from "./Mobile/MobileNav"
 import Link from "next/link"
 import coursesJson from "../data/courses.json"
@@ -130,20 +130,16 @@ export default function Header() {
           <div className="flex items-center justify-between py-4">
             <div>
               <div>
-                <Link href="/">
-                  <a className="flex mr-5 items-center space-x-1 md:space-x-5">
+                <Link href="/" className="flex mr-5 items-center space-x-1 md:space-x-5">
                     <span className="sr-only">Innotech Academy</span>
                     <CodeIcon className="h-8 w-auto sm:h-10 text-blue-500" />
                     <h1>Innotech Academy</h1>
-                  </a>
                 </Link>
               </div>
             </div>
             <div className="md:flex items-center hidden">
-              <Link href="/">
-                <a className="text-gray-800 text-sm font-semibold hover:text-purple-600 mr-4">
+              <Link href="/" className="text-gray-800 text-sm font-semibold hover:text-purple-600 mr-4">
                   Accueil
-                </a>
               </Link>
               {/* <a
                 href="#"
@@ -151,19 +147,13 @@ export default function Header() {
               >
                 Emploie
               </a> */}
-              <Link href="/contact">
-                <a
-                  href="#"
-                  className="text-gray-800 text-sm font-semibold hover:text-purple-600 mr-4"
-                >
+              <Link href="/contact" className="text-gray-800 text-sm font-semibold hover:text-purple-600 mr-4">
                   Contact
-                </a>
               </Link>
             </div>
             {auth.isConnected ? (
               <div className="flex items-center">
-                <Link href="/profile">
-                  <a className="text-blue-500 mx-1 text-sm font-semibold border px-4 py-2 rounded-lg hover:text-blue-600 hover:border-blue-600 cursor-pointer">
+                <Link href="/profile" className="text-blue-500 mx-1 text-sm font-semibold border px-4 py-2 rounded-lg hover:text-blue-600 hover:border-blue-600 cursor-pointer">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       viewBox="0 0 24 24"
@@ -176,7 +166,6 @@ export default function Header() {
                         clipRule="evenodd"
                       />
                     </svg>
-                  </a>
                 </Link>
                 <p
                   onClick={() => dispatch(logout())}
@@ -197,18 +186,31 @@ export default function Header() {
                 </p>
               </div>
             ) : (
-              <div className="flex items-center">
-                <Link href="/sign-in">
-                  <a className="text-gray-800 text-sm font-semibold hover:text-purple-600 mr-4">
-                    Connexion
-                  </a>
+              <>
+                <div className="hidden md:flex items-center">
+                  <Link href="/sign-in" className="text-gray-800 text-sm font-semibold hover:text-purple-600 mr-4">
+                      Connexion
+                  </Link>
+                  <Link href="/sign-up" className="text-gray-800 text-sm font-semibold border px-4 py-2 rounded-lg hover:text-purple-600 hover:border-purple-600">
+                      Inscription
+                  </Link>
+                </div>
+                <div className="md:hidden flex items-center">
+                <Link href="/sign-in" className="text-blue-500 mx-1 text-sm font-semibold border px-4 py-2 rounded-lg hover:text-blue-600 hover:border-blue-600 cursor-pointer">
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
+                  </svg>
                 </Link>
-                <Link href="/sign-up">
-                  <a className="text-gray-800 text-sm font-semibold border px-4 py-2 rounded-lg hover:text-purple-600 hover:border-purple-600">
-                    Inscription
-                  </a>
+                <Link
+                  href="/sign-up"
+                  className="text-red-500 mx-1 text-sm font-semibold border px-4 py-2 rounded-lg hover:text-red-600 hover:border-red-600 cursor-pointer"
+                >
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M19 7.5v3m0 0v3m0-3h3m-3 0h-3m-2.25-4.125a3.375 3.375 0 11-6.75 0 3.375 3.375 0 016.75 0zM4 19.235v-.11a6.375 6.375 0 0112.75 0v.109A12.318 12.318 0 0110.374 21c-2.331 0-4.512-.645-6.374-1.766z" />
+                </svg>
                 </Link>
               </div>
+              </>
             )}
           </div>
         </div>

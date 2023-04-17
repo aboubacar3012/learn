@@ -14,20 +14,17 @@ import Layout from "../../components/Layout"
 import LessonLayout from "../../components/Lesson/LessonLayout"
 import MCChallenge from "../../components/Lesson/MultipleChoiceChallenge"
 import { fetchCourses } from "../../lib/fetch-courses"
-import {
-  LessonTableOfContents,
-  MultipleChoiceChallenge,
-} from "../../types/common"
-import {
-  CONTENT_PATH,
-  allContentFilePaths,
-  getToCForMarkdown,
-} from "../../utils/mdxUtils"
+import { LessonTableOfContents, MultipleChoiceChallenge } from "../../types/common"
+import { CONTENT_PATH, allContentFilePaths, getToCForMarkdown } from "../../utils/mdxUtils"
 import { isLessonCompleted } from "../../utils/machineUtils"
 import CompleteLessonBtn from "../../components/Lesson/CompleteLessonBtn"
 import NextLessonBtn from "../../components/Lesson/NextLessonBtn"
 import SkipChallenge from "../../components/Lesson/SkipChallenge"
 import NavigationLessonBtn from "../../components/Lesson/NavigationLessonBtn"
+import { useSelector } from "react-redux"
+import { RootState } from "../../redux/store"
+import { useRouter } from "next/router"
+import { useEffect } from "react"
 
 // const NextLessonBtn = dynamic(
 //   () => import("../../components/Lesson/NextLessonBtn"),
@@ -99,17 +96,19 @@ export default function LessonPage({
   course,
 }: Props) {
   useActor(progressService)
- 
+
+  const { isConnected } = useSelector((state: RootState) => state.auth)
+
+  const router = useRouter()
+
+  useEffect(() => {
+    if (!isConnected) router.push("/")
+  }, [isConnected])
+
   return (
-    <Layout
-      content={coursesJson}
-      courses={courses}
-      progressService={progressService}
-    >
+    <Layout content={coursesJson} courses={courses} progressService={progressService}>
       <Head>
-        <title>
-          {lessonData.title} | Testing Next.js Applications with Cypress
-        </title>
+        <title>{lessonData.title} | Testing Next.js Applications with Cypress</title>
         <meta name="description" content={lessonData.description} />
       </Head>
 
@@ -143,12 +142,12 @@ export default function LessonPage({
               lessonPath={lessonPath}
             /> */}
 
-            {/* <NextLessonBtn
+      {/* <NextLessonBtn
               path={nextLesson}
               isCompleted={isLessonCompleted(progressService, lessonPath)}
             /> */}
-            <NavigationLessonBtn lessons={sectionLessons} path={lessonPath} />
-          {/* </>
+      <NavigationLessonBtn lessons={sectionLessons} path={lessonPath} />
+      {/* </>
         )} */}
 
       {/* {lessonData.challenges && (
@@ -161,10 +160,7 @@ export default function LessonPage({
 export const getStaticProps = async ({ params }) => {
   const coursesJson = await fetchCourses()
   const courses = Object.keys(coursesJson)
-  const contentFilePath = path.join(
-    CONTENT_PATH,
-    `${params.course}/${params.slug}.mdx`
-  )
+  const contentFilePath = path.join(CONTENT_PATH, `${params.course}/${params.slug}.mdx`)
   const source = fs.readFileSync(contentFilePath)
   const { content, data } = matter(source)
   const toc: LessonTableOfContents[] = getToCForMarkdown(content)
@@ -177,10 +173,7 @@ export const getStaticProps = async ({ params }) => {
     },
     scope: data,
   })
-  const lessonData = find(
-    { slug: params.slug },
-    coursesJson[params.course].lessons
-  )
+  const lessonData = find({ slug: params.slug }, coursesJson[params.course].lessons)
   const { title, lessons } = coursesJson[params.course]
   const nextLessonIndex = findIndex({ slug: params.slug }, lessons) + 1
   let nextLesson

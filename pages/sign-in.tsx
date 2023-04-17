@@ -10,6 +10,7 @@ import { useRouter } from "next/router"
 const SignIn = () => {
   const [email, setEmail] = useState<string>("")
   const [password, setPassword] = useState<string>("")
+  const [errorMessage, setErrorMessage] = useState<string>(null)
 
   const auth = useSelector((state: RootState) => state.auth)
   const dispatch = useDispatch()
@@ -33,9 +34,10 @@ const SignIn = () => {
     const data = await response.json()
     if (data.success) {
       dispatch(login({ user: data.user }))
+      setErrorMessage(null)
       // show success toast
     } else {
-      // show error toast
+      setErrorMessage(data.message)
     }
   }
   return (
@@ -83,13 +85,25 @@ const SignIn = () => {
                 />
               </div>
               <div className="text-right mt-2">
-                <a
-                  href="#"
-                  className="text-sm font-semibold text-gray-700 hover:text-blue-700 focus:text-blue-700"
-                >
-                  Mot de passe oublié?
-                </a>
+                <Link href="#"
+                  className="text-sm font-semibold text-gray-700 hover:text-blue-700 focus:text-blue-700">
+                    Mot de passe oublié?
+                </Link>
               </div>
+             {
+              errorMessage && (
+                <div className="p-2">
+                  <div className="inline-flex items-center bg-white leading-none text-red-600 rounded-full p-2 shadow text-teal text-md w-full">
+                    <span className="inline-flex bg-red-600 text-white rounded-full h-6 px-3 justify-center items-center">
+                      Erreur
+                    </span>
+                    <span className="inline-flex px-2">
+                      {errorMessage && <span>{errorMessage}</span>}
+                    </span>
+                  </div>
+                </div>
+              )
+             }
               <button
                 type="submit"
                 className="w-full block bg-indigo-500 hover:bg-indigo-400 focus:bg-indigo-400 text-white font-semibold rounded-lg px-4 py-3 mt-6"
@@ -128,10 +142,8 @@ const SignIn = () => {
             </button> */}
             <p className="mt-8 text-center">
               Pas encore de compte?{" "}
-              <Link href="/sign-up">
-                <a href="#" className="text-blue-500 hover:text-blue-700 font-semibold">
+              <Link href="/sign-up" className="text-blue-500 hover:text-blue-700 font-semibold">
                   Créer votre compte
-                </a>
               </Link>
             </p>
           </div>

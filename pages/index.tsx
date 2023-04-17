@@ -33,7 +33,7 @@ export default function Home({ content, courses }) {
       {!auth.isConnected ? (
         <>
           <HomeHero />
-          <HomeFeatures />
+          {/* <HomeFeatures /> */}
           <HomeCourses courses={courses} content={content} progressService={progressService} />
           <CallToAction />
         </>
@@ -112,14 +112,12 @@ export default function Home({ content, courses }) {
                               className="mt-2 flex text-sm sm:mt-0 sm:ml-4 sm:block sm:text-right"
                               id="headlessui-description-29"
                             >
-                              <Link href={`/${course}`}>
-                                <a className="inline-flex px-4 py-2 text-base font-medium text-white">
+                              <Link href={`/${course}`} className="inline-flex px-4 py-2 text-base font-medium text-white">
                                   <img
                                     src="/images/chevron-right.svg"
                                     alt=""
                                     className="hidden lg:block"
                                   />
-                                </a>
                               </Link>
                             </div>
                             <div
@@ -174,8 +172,7 @@ export default function Home({ content, courses }) {
                     </div>
                     <div className="overflow-hidden">
                       {courseDetailToShow.lessons.map((lesson, index) => (
-                        <Link href={`${courseSlugToShow}/${lesson.slug}`}>
-                          <a key={index} data-test="lesson-progress-link-0">
+                        <Link href={`${courseSlugToShow}/${lesson.slug}`} key={index}>
                             <div
                               data-test="lesson-0"
                               className="relative mb-6 rounded border py-4 pl-4 lg:py-6"
@@ -199,7 +196,6 @@ export default function Home({ content, courses }) {
                                 </span>
                               </div>
                             </div>
-                          </a>
                         </Link>
                       ))}
                     </div>

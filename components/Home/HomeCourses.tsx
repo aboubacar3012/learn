@@ -6,6 +6,7 @@ import HomeProgress from "./HomeProgress"
 export default function HomeCourses({ courses, content, progressService }) {
   return (
     <div className="relative bg-white pt-16 pb-32 overflow-hidden">
+      {/* <h1 className="text-center uppercase">Modules</h1> */}
       {courses.map((course, index) => (
         <div key={course} data-test={`course-${index}`}>
           {index % 2 === 0 ? (

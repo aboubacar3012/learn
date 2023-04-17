@@ -1,12 +1,7 @@
 import Link from "next/link"
 import { isLessonCompleted } from "../../utils/machineUtils"
 
-export default function CourseNextLessonBtn({
-  lessons,
-  progressService,
-  course,
-}) {
-
+export default function CourseNextLessonBtn({ lessons, progressService, course }) {
   // const incompleLessons = lessons
   //   .map((lesson) => {
   //     if (!isLessonCompleted(progressService, `${course}/${lesson.slug}`)) {
@@ -37,13 +32,11 @@ export default function CourseNextLessonBtn({
 
   return (
     <div className="py-20">
-      <Link href={`${course}/${lessons[0].slug}`}>
-        <a
-          data-test="next-lesson-button"
-          className="mx-auto max-w-xl flex items-center justify-center px-8 py-3 text-base font-medium rounded-md text-white bg-blue-500 hover:bg-blue-600 md:py-4 md:text-lg md:px-10"
-        >
-          Commencer
-        </a>
+      <Link
+        href={`${course}/${lessons[0].slug}`}
+        className="mx-auto max-w-xl flex items-center justify-center px-8 py-3 text-base font-medium rounded-md text-white bg-blue-500 hover:bg-blue-600 md:py-4 md:text-lg md:px-10"
+      >
+        Commencer
       </Link>
     </div>
   )

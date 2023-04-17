@@ -14,6 +14,9 @@ const SignUp = () => {
   const [password, setPassword] = useState<string>("")
   const [repeatPassword, setRepeatPassword] = useState<string>("")
 
+  const [errorMessage, setErrorMessage] = useState<string>(null);
+  const [successMessage, setSuccessMessage] = useState<string>(null);
+
   const auth = useSelector((state: RootState) => state.auth)
   // const dispatch = useDispatch()
 
@@ -35,9 +38,17 @@ const SignUp = () => {
     })
     const data = await response.json()
     if (data.success) {
+      setErrorMessage(null)
+      setSuccessMessage(data.message)
+      setTimeout(() => {
+        router.push("/sign-in")
+      },2000)
+      
       // show success toast
       // redirect to login page
     } else {
+      setSuccessMessage(null)
+      setErrorMessage(data.error)
       // show error toast
       // not redirect
     }
@@ -159,7 +170,34 @@ const SignUp = () => {
                   required={true}
                 />
               </div>
-
+              {
+                errorMessage && (
+                  <div className="p-2">
+                    <div className="inline-flex items-center bg-white leading-none text-red-600 rounded-full p-2 shadow text-teal text-md w-full">
+                      <span className="inline-flex bg-red-600 text-white rounded-full h-6 px-3 justify-center items-center">
+                        Erreur
+                      </span>
+                      <span className="inline-flex px-2">
+                        {errorMessage && <span>{errorMessage}</span>}
+                      </span>
+                    </div>
+                  </div>
+                )
+              }
+              {
+                successMessage && (
+                  <div className="p-2">
+                    <div className="inline-flex items-center bg-white leading-none text-green-600 rounded-full p-2 shadow text-teal text-md w-full">
+                      <span className="inline-flex bg-green-600 text-white rounded-full h-6 px-3 justify-center items-center">
+                        Success
+                      </span>
+                      <span className="inline-flex px-2">
+                        {successMessage && <span>{successMessage}</span>}
+                      </span>
+                    </div>
+                  </div>
+                )
+              }
               <button
                 type="submit"
                 className="w-full block bg-indigo-500 hover:bg-indigo-400 focus:bg-indigo-400 text-white font-semibold rounded-lg
@@ -199,10 +237,8 @@ const SignUp = () => {
             </button> */}
             <p className="m-8 text-center">
               J'ai déjà un compte?{" "}
-              <Link href="/sign-in">
-                <a href="#" className="text-blue-500 hover:text-blue-700 font-semibold">
+              <Link href="/sign-in" className="text-blue-500 hover:text-blue-700 font-semibold">
                   Se connecter
-                </a>
               </Link>
             </p>
           </div>

@@ -16,13 +16,8 @@ export default function Courses({ courses, content, progressService }) {
               <div className="px-4 max-w-xl mx-auto sm:px-6 lg:py-16 lg:max-w-none lg:mx-0 lg:px-0">
                 <div>
                   <div className="mt-6">
-                    <Link href={`/${content[course].slug}`}>
-                      <a
-                        data-test={`course-title`}
-                        className="text-base font-extrabold tracking-tight text-gray-900"
-                      >
+                    <Link href={`/${content[course].slug}`} className="text-base font-extrabold tracking-tight text-gray-900">
                         {content[course].title}
-                      </a>
                     </Link>
                     <MobileProgress
                       course={course}
