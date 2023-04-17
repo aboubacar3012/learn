@@ -41,7 +41,7 @@ export default function Home({ content, courses }) {
         <div id="courses" className="features mx-auto w-full px-3 lg:block xl:py-15 xl:px-44">
           <div className="mx-auto max-w-md px-4 sm:max-w-3xl sm:px-6 lg:max-w-full lg:px-8 lg:py-12 xl:mb-10">
             <h3 className="mt-2 py-8 text-center text-3xl font-bold tracking-tight text-gray-900 sm:text-5xl  ">
-              Développeur full stack web & movile
+              Développeur full stack web & mobile
             </h3>
             <p className="text-center my-2">
               ⚠ Ce cours est en cours d'éléboration, il ya une mise à jour tout les lundi
@@ -112,12 +112,15 @@ export default function Home({ content, courses }) {
                               className="mt-2 flex text-sm sm:mt-0 sm:ml-4 sm:block sm:text-right"
                               id="headlessui-description-29"
                             >
-                              <Link href={`/${course}`} className="inline-flex px-4 py-2 text-base font-medium text-white">
-                                  <img
-                                    src="/images/chevron-right.svg"
-                                    alt=""
-                                    className="hidden lg:block"
-                                  />
+                              <Link
+                                href={`/${course}`}
+                                className="inline-flex px-4 py-2 text-base font-medium text-white"
+                              >
+                                <img
+                                  src="/images/chevron-right.svg"
+                                  alt=""
+                                  className="hidden lg:block"
+                                />
                               </Link>
                             </div>
                             <div
@@ -173,29 +176,29 @@ export default function Home({ content, courses }) {
                     <div className="overflow-hidden">
                       {courseDetailToShow.lessons.map((lesson, index) => (
                         <Link href={`${courseSlugToShow}/${lesson.slug}`} key={index}>
-                            <div
-                              data-test="lesson-0"
-                              className="relative mb-6 rounded border py-4 pl-4 lg:py-6"
-                            >
-                              <div className="relative flex items-center">
-                                <span className="flex h-9 items-center" aria-hidden="true">
-                                  <span
-                                    data-test="lesson-upcoming-0"
-                                    className="relative z-10 flex h-6 w-6 items-center justify-center rounded-full border-2 border-gray-300 bg-white group-hover:border-gray-400"
-                                  >
-                                    <span className="h-2.5 w-2.5 rounded-full bg-transparent group-hover:bg-gray-300" />
-                                  </span>
+                          <div
+                            data-test="lesson-0"
+                            className="relative mb-6 rounded border py-4 pl-4 lg:py-6"
+                          >
+                            <div className="relative flex items-center">
+                              <span className="flex h-9 items-center" aria-hidden="true">
+                                <span
+                                  data-test="lesson-upcoming-0"
+                                  className="relative z-10 flex h-6 w-6 items-center justify-center rounded-full border-2 border-gray-300 bg-white group-hover:border-gray-400"
+                                >
+                                  <span className="h-2.5 w-2.5 rounded-full bg-transparent group-hover:bg-gray-300" />
                                 </span>
-                                <span className="ml-2 flex w-full flex-row lg:ml-4">
-                                  <span className="grow font-normal">{lesson.title}</span>
-                                  <img
-                                    className="mr-4"
-                                    src="/images/home/course-icons/course-play-icon.svg"
-                                    alt=""
-                                  />
-                                </span>
-                              </div>
+                              </span>
+                              <span className="ml-2 flex w-full flex-row lg:ml-4">
+                                <span className="grow font-normal">{lesson.title}</span>
+                                <img
+                                  className="mr-4"
+                                  src="/images/home/course-icons/course-play-icon.svg"
+                                  alt=""
+                                />
+                              </span>
                             </div>
+                          </div>
                         </Link>
                       ))}
                     </div>

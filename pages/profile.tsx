@@ -46,7 +46,7 @@ const Profile = () => {
               <li className="flex items-center py-3">
                 <span>Status</span>
                 <span className="ml-auto">
-                  {user.isActive ? (
+                  {!user.isActive ? (
                     <span className="bg-green-500 py-1 px-2 rounded text-white text-sm">
                       Active
                     </span>
