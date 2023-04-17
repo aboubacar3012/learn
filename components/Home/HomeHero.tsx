@@ -109,9 +109,9 @@ export default function HomeHero() {
                     </dl>
                   </div>
 
-                  <div className="mt-10 sm:mt-12">
+                  {/* <div className="mt-10 sm:mt-12">
                     <Subscribe />
-                  </div>
+                  </div> */}
                 </div>
               </div>
               <div className="mt-12 -mb-16 sm:-mb-48 lg:m-0 lg:relative">
