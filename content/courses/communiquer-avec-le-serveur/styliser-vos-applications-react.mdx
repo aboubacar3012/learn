@@ -1,0 +1,111 @@
+# Styliser vos applications React
+
+Avant de passer à la partie suivante, voyons comment ajouter des styles à une application React. 
+Il existe plusieurs façons de procéder et nous verrons les autres méthodes plus tard. 
+Tout d'abord, nous allons ajouter CSS à notre application à l'ancienne ; 
+dans un seul fichier sans utiliser de préprocesseur CSS (bien que ce ne soit pas tout à fait vrai comme nous le verrons plus tard).
+
+Ajoutons un nouveau fichier index.css sous le répertoire src puis ajoutons-le à l'application en l'important dans le fichier index.js :
+
+```js
+import './index.css'
+```
+
+Ajoutons la règle CSS suivante au fichier *index.css* :
+
+```js
+h1 {
+  color: green;
+}
+```
+
+**Remarque** : lorsque le contenu du fichier ```index.css``` change, React peut ne pas le remarquer automatiquement, 
+vous devrez donc peut-être actualiser le navigateur pour voir vos modifications !
+
+Les règles CSS comprennent des sélecteurs et des déclarations. Le sélecteur définit les éléments auxquels la règle doit être appliquée. Le sélecteur ci-dessus est h1, qui correspondra à toutes les balises d'en-tête h1 de notre application.
+
+La déclaration définit la propriété ```color``` sur la valeur ```green```.
+
+Une règle CSS peut contenir un nombre arbitraire de propriétés. Modifions la règle précédente pour rendre le texte cursif, 
+en définissant le style de police en italique :
+
+```js
+h1 {
+  color: green;
+  font-style: italic;
+}
+```
+
+Il existe de nombreuses façons de faire correspondre des éléments en utilisant [différents types de sélecteurs CSS](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Selectors).
+
+Si nous voulions cibler, disons, chacune des notes avec nos styles, nous pourrions utiliser le sélecteur ```li```, 
+car toutes les notes sont enveloppées dans des balises ```li``` :
+
+```js
+const Note = ({ note, toggleImportance }) => {
+  const label = note.important 
+    ? 'make not important' 
+    : 'make important';
+
+  return (
+    <li>
+      {note.content} 
+      <button onClick={toggleImportance}>{label}</button>
+    </li>
+  )
+}
+```
+
+Ajoutons la règle suivante à notre feuille de style (puisque ma connaissance de la conception Web élégante est proche de zéro, 
+les styles n'ont pas beaucoup de sens) :
+
+```js
+li {
+  color: grey;
+  padding-top: 3px;
+  font-size: 15px;
+}
+```
+
+L'utilisation de types d'éléments pour définir des règles CSS est légèrement problématique. 
+Si notre application contenait d'autres balises li, la même règle de style leur serait également appliquée.
+
+Si nous voulons appliquer notre style spécifiquement aux notes, 
+il est préférable d'utiliser [class selectors](https://developer.mozilla.org/en-US/docs/Web/CSS/Class_selectors).
+
+En HTML normal, les classes sont définies comme la valeur de l'attribut class :
+
+```js
+<li class="note">some text...</li>
+```
+
+Dans React, nous devons utiliser l'attribut ```className``` au lieu de l'attribut class. Gardant cela à l'esprit, 
+apportons les modifications suivantes à notre composant *Note* :
+
+```js
+const Note = ({ note, toggleImportance }) => {
+  const label = note.important 
+    ? 'make not important' 
+    : 'make important';
+
+  return (
+    <li className='note'>
+      {note.content} 
+      <button onClick={toggleImportance}>{label}</button>
+    </li>
+  )
+}
+```
+
+Les sélecteurs de classe sont définis avec la syntaxe ```.classname``` :
+
+```js
+.note {
+  color: grey;
+  padding-top: 5px;
+  font-size: 15px;
+}
+```
+
+Si vous ajoutez maintenant d'autres éléments ```li``` à l'application, ils ne seront pas affectés par la règle de style ci-dessus.
+

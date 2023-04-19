@@ -1,0 +1,643 @@
+# Obtenir des donnees du serveur
+
+Depuis un certain temps, nous ne travaillons que sur le **"frontend"**, c'est-à-dire la fonctionnalité côté client (navigateur). 
+Nous commencerons à travailler sur le **"backend"**, c'est-à-dire les fonctionnalités côté serveur dans la *troisième partie* de ce cours. 
+Néanmoins, nous allons maintenant faire un pas dans cette direction en nous familiarisant avec la façon dont le code s'exécutant dans 
+le navigateur communique avec le backend.
+
+Utilisons un outil destiné à être utilisé lors du développement logiciel appelé [JSON Server](https://www.npmjs.com/package/json-server) 
+pour agir en tant que notre serveur.
+
+Créez un fichier nommé ```db.json``` dans le répertoire racine du projet de notes précédent avec le contenu suivant :
+
+```js
+{
+  "notes": [
+    {
+      "id": 1,
+      "content": "HTML is easy",
+      "date": "2022-1-17T17:30:31.098Z",
+      "important": true
+    },
+    {
+      "id": 2,
+      "content": "Browser can execute only JavaScript",
+      "date": "2022-1-17T18:39:34.091Z",
+      "important": false
+    },
+    {
+      "id": 3,
+      "content": "GET and POST are the most important methods of HTTP protocol",
+      "date": "2022-1-17T19:20:14.298Z",
+      "important": true
+    }
+  ]
+}
+```
+
+Vous pouvez [installer](https://www.npmjs.com/package/json-server) le serveur JSON globalement sur votre ordinateur à l'aide de 
+la commande ```npm install -g json-server```. Une installation globale nécessite des privilèges administratifs, 
+ce qui signifie qu'elle n'est pas possible sur les ordinateurs des professeurs ou les ordinateurs portables des étudiants de première année.
+
+Cependant, une installation globale n'est pas nécessaire. Depuis le répertoire racine de votre application, 
+nous pouvons exécuter le ```json-server``` en utilisant la commande ```npx``` :
+
+```js
+npx json-server --port 3001 --watch db.json
+```
+
+Le ```json-server``` commence à s'exécuter sur le port 3000 par défaut ; mais comme les projets créés à l'aide de ```create-react-app``` 
+réservent le port 3000, nous devons définir un port alternatif, tel que le port 3001, pour le serveur json.
+
+Naviguons jusqu'à l'adresse [http://localhost:3001/notes](http://localhost:3001/notes) dans le navigateur. 
+Nous pouvons voir que json-server retourne les notes que nous avons précédemment écrites dans le fichier au format JSON :
+
+![alt image 14e](/images/courses/part2/14e.png)
+
+Si votre navigateur ne permet pas de formater l'affichage des données JSON, installez un plugin approprié, 
+par ex. [JSONView](https://chrome.google.com/webstore/detail/json-viewer/gbmdgpbipfallnflgajpaliibnhdgobh) pour vous faciliter la vie.
+
+À l'avenir, l'idée sera de sauvegarder les notes sur le serveur, ce qui signifie dans ce cas de les sauvegarder sur le serveur json. 
+Le code React récupère les notes du serveur et les affiche à l'écran. 
+Chaque fois qu'une nouvelle note est ajoutée à l'application, le code React l'envoie également au 
+serveur pour que la nouvelle note persiste en "mémoire".
+
+json-server stocke toutes les données dans le fichier db.json, qui réside sur le serveur. 
+Dans le monde réel, les données seraient stockées dans une sorte de base de données. 
+Cependant, json-server est un outil pratique qui permet d'utiliser les fonctionnalités côté serveur dans la phase de développement 
+sans avoir besoin de programmer quoi que ce soit.
+
+Nous nous familiariserons plus en détail avec les principes d'implémentation des fonctionnalités côté serveur dans la *partie 3* de ce cours.
+
+## npm
+
+Revenons au sujet de la récupération des données du serveur.
+
+Nous pourrions utiliser la fonction basée sur la promise mentionnée précédemment ```fetch``` pour extraire les données du serveur. 
+Fetch est un excellent outil. Il est standardisé et supporté par tous les navigateurs modernes (hors IE).
+
+Cela étant dit, nous utiliserons plutôt la bibliothèque [axios](https://www.npmjs.com/package/axios) pour la communication entre le navigateur et le serveur. 
+Axios fonctionne comme fetch, mais est un peu plus agréable à utiliser. 
+Une autre bonne raison d'utiliser [axios](https://www.npmjs.com/package/axios) 
+est que nous nous familiarisons avec l'ajout de bibliothèques externes, appelées packages npm, aux projets React.
+
+De nos jours, pratiquement tous les projets ```JavaScript``` sont définis à l'aide du gestionnaire de packages de nœuds, alias ```npm```. 
+Les projets créés à l'aide de ```create-react-app``` suivent également le format npm. Un indicateur clair qu'un projet utilise ```npm``` 
+est le fichier package.json situé à la racine du projet :
+
+```js
+{
+  "name": "notes",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@testing-library/jest-dom": "^5.16.1",
+    "@testing-library/react": "^12.1.2",
+    "@testing-library/user-event": "^13.5.0",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "react-scripts": "5.0.0",
+    "web-vitals": "^2.1.3"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
+}
+```
+
+À ce stade, la partie ```dépendances``` nous intéresse le plus car elle définit les ```dépendances```, ou bibliothèques externes, du projet.
+
+Nous voulons maintenant utiliser ```axios```. Théoriquement, on pourrait définir la librairie directement dans le fichier package.json, 
+mais il vaut mieux l'installer depuis la ligne de commande.
+
+```js
+npm install axios
+```
+
+**NB** **Les commandes ```npm``` doivent toujours être exécutées dans le répertoire racine du projet**, où se trouve le fichier package.json.
+
+Axios est désormais inclus parmi les autres dépendances :
+
+En plus d'ajouter axios aux dépendances, la commande ```npm install``` a également téléchargé le code de la bibliothèque. 
+Comme pour les autres dépendances, le code se trouve dans le répertoire node_modules situé à la racine. 
+Comme on a pu le remarquer, node_modules contient une bonne quantité de choses intéressantes.
+
+Faisons un autre ajout. Installez ```json-server``` en tant que dépendance de développement (utilisée uniquement pendant le développement) 
+en exécutant la commande :
+
+```js
+npm install json-server --save-dev
+```
+
+et faire un petit ajout à la partie scripts du fichier package.json :
+
+```js
+{
+  // ... 
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject",
+    "server": "json-server -p3001 --watch db.json" // ajout
+  },
+}
+```
+
+Nous pouvons maintenant, sans définitions de paramètres, démarrer le json-server à partir du répertoire racine du projet avec la commande :
+
+```js
+npm run server
+```
+
+Nous nous familiariserons davantage avec l'outil ```npm``` dans la troisième partie du cours.
+
+**NB** Le serveur json précédemment démarré doit être terminé avant d'en démarrer un nouveau ; sinon il y aura des problèmes :
+
+![alt image 15b](/images/courses/part2/15b.png)
+
+Le rouge dans le message d'erreur nous informe du problème :
+
+> Cannot bind to port 3001. Please specify another port number either through --port argument or through the json-server.json configuration file
+
+Comme nous pouvons le voir, l'application n'est pas capable de se lier au port. 
+La raison étant que le port 3001 est déjà occupé par le serveur json précédemment démarré.
+
+Nous avons utilisé la commande ```npm install``` deux fois, mais avec de légères différences :
+
+```js
+npm install axios
+npm install json-server --save-dev
+```
+
+Il y a une fine différence dans les paramètres. ```axios``` est installé en tant que dépendance d'exécution de l'application, 
+car l'exécution du programme nécessite l'existence de la bibliothèque. D'autre part, ```json-server``` a été installé 
+en tant que dépendance de développement (```--save-dev```), puisque le programme lui-même n'en a pas besoin. 
+Il est utilisé pour l'assistance lors du développement de logiciels. Il y aura plus sur les différentes dépendances dans la prochaine partie du cours.
+
+## Axios et promises
+
+Nous sommes maintenant prêts à utiliser axios. À l'avenir, ```json-server``` est supposé s'exécuter sur le port 3001.
+
+**NB** : Pour exécuter simultanément json-server et votre application React, vous devrez peut-être utiliser deux fenêtres de terminal. 
+L'une pour maintenir json-server en cours d'exécution et l'autre pour exécuter react-app.
+
+La bibliothèque peut être mise en service de la même manière que d'autres bibliothèques, par ex. 
+React, c'est-à-dire en utilisant une instruction ```import``` appropriée.
+
+Ajoutez ce qui suit au fichier *index.js* :
+
+```js
+import axios from 'axios'
+
+const promise = axios.get('http://localhost:3001/notes')
+console.log(promise)
+
+const promise2 = axios.get('http://localhost:3001/foobar')
+console.log(promise2)
+```
+
+Si vous ouvrez [http://localhost:3000](http://localhost:3000) dans le navigateur, cela devrait être imprimé sur la console.
+
+![alt image 16b](/images/courses/part2/16b.png)
+
+La méthode ```get``` d'Axios renvoie une promise.
+
+La documentation sur le site de Mozilla indique ce qui suit à propos des promises:
+
+> Une Promise est un objet représentant l'achèvement ou l'échec éventuel d'une opération asynchrone.
+
+En d'autres termes, une promise est un objet qui représente une opération asynchrone. Une promise peut avoir trois états distincts :
+
+1. La promise est en attente : cela signifie que la valeur finale (l'une des deux suivantes) n'est pas encore disponible.
+2. La promise est tenue : cela signifie que l'opération est terminée et que la valeur finale est disponible, 
+ce qui est généralement une opération réussie. Cet état est parfois aussi appelé résolu.
+3. La promise est rejetée : cela signifie qu'une erreur a empêché la détermination de la valeur finale, 
+ce qui représente généralement une opération échouée.
+
+La première promise dans notre exemple est ```fulfilled```, représentant une requête ```axios.get('http://localhost:3001/notes')``` réussie. 
+La seconde, cependant, est rejetée, et la console nous en donne la raison. 
+Il semble que nous essayions de faire une requête ```HTTP GET``` à une adresse inexistante.
+
+Si, et quand, nous voulons accéder au résultat de l'opération représentée par la promise, 
+nous devons associer un gestionnaire d'événements à la promise. Ceci est réalisé en utilisant la méthode ```then``` :
+
+```js
+const promise = axios.get('http://localhost:3001/notes')
+
+promise.then(response => {
+  console.log(response)
+})
+```
+
+Ce qui suit est renvoyé sur la console :
+
+![alt image 17b](/images/courses/part2/17b.png)
+
+L'environnement d'exécution JavaScript appelle la fonction de rappel enregistrée par la méthode ```then``` en lui fournissant un objet ```response``` 
+en tant que paramètre. L'objet response contient toutes les données essentielles liées à la réponse d'une requête ```HTTP GET```, 
+qui inclurait les *données renvoyées*, le code d'*état et en-têtes*.
+
+Stocker l'objet promise dans une variable est généralement inutile, et il est plutôt courant d'enchaîner l'appel 
+de méthode ```then``` à l'appel de méthode ```axios```, de sorte qu'il le suive directement :
+
+```js
+axios.get('http://localhost:3001/notes').then(response => {
+  const notes = response.data
+  console.log(notes)
+})
+```
+
+La fonction callback prend maintenant les données contenues dans la réponse, les stocke dans une variable et affiche les notes sur la console.
+
+Une façon plus lisible de formater les appels de méthode chaînés consiste à placer chaque appel sur sa propre ligne :
+
+```js
+axios
+  .get('http://localhost:3001/notes')
+  .then(response => {
+    const notes = response.data
+    console.log(notes)
+  })
+```
+
+Les données renvoyées par le serveur sont du texte brut, essentiellement une seule longue chaîne. 
+La bibliothèque axios est toujours capable d'analyser les données dans un tableau JavaScript, 
+puisque le serveur a spécifié que le format de données est ```application/json ; charset=utf-8``` (voir image précédente) en utilisant l'en-tête content-type.
+
+Nous pouvons enfin commencer à utiliser les données récupérées sur le serveur.
+
+Essayons de demander les notes à notre serveur local et de les rendre, initialement en tant que composant App. 
+Veuillez noter que cette approche présente de nombreux problèmes, 
+car nous n'affichons l'intégralité du composant App que lorsque nous récupérons avec succès une réponse :
+
+```js
+import React from 'react'
+import ReactDOM from 'react-dom/client'
+import axios from 'axios'
+
+import App from './App'
+
+axios.get('http://localhost:3001/notes').then(response => {
+  const notes = response.data
+  ReactDOM.createRoot(document.getElementById('root')).render(<App notes={notes} />)
+})
+```
+
+Cette méthode pourrait être acceptable dans certaines circonstances, mais elle est quelque peu problématique. 
+Déplaçons plutôt la récupération des données dans le composant App.
+
+Ce qui n'est pas immédiatement évident, cependant, c'est où la commande ```axios.get``` doit être placée dans le composant.
+
+## Hooks d'effet
+
+Nous avons déjà utilisé les ```state hooks``` qui ont été introduits avec la version React 16.8.0, 
+qui fournissent un état aux composants React définis comme des fonctions - les soi-disant composants fonctionnels. 
+La version 16.8.0 introduit également les ```Hooks d'effet``` en tant que nouvelle fonctionnalité. Selon la doc officielle :
+
+> Le hook d'effet vous permet d'effectuer des effets secondaires sur les composants fonctionnels. 
+La récupération de données, la configuration d'un abonnement et la modification manuelle du DOM dans les composants React sont tous des exemples d'effets secondaires.
+
+En tant que tels, les hooks d'effet sont précisément le bon outil à utiliser lors de la récupération de données à partir d'un serveur.
+
+Supprimons la récupération des données de index.js. Puisque nous allons récupérer les notes du serveur, 
+il n'est plus nécessaire de transmettre des données en tant qu'accessoires au composant App. Donc index.js peut être simplifié en :
+
+```js
+ReactDOM.createRoot(document.getElementById('root')).render(<App />)
+```
+
+Le composant App change comme suit :
+
+```js
+import { useState, useEffect } from 'react'
+import axios from 'axios'
+import Note from './components/Note'
+
+const App = () => {
+  const [notes, setNotes] = useState([])
+  const [newNote, setNewNote] = useState('')
+  const [showAll, setShowAll] = useState(true)
+
+  useEffect(() => {
+    console.log('effect')
+    axios
+      .get('http://localhost:3001/notes')
+      .then(response => {
+        console.log('promise fulfilled')
+        setNotes(response.data)
+      })
+  }, [])
+  console.log('render', notes.length, 'notes')
+
+  // ...
+}
+```
+
+Nous avons également ajouté quelques impressions utiles, qui clarifient la progression de l'exécution.
+
+Ceci est affiché sur la console :
+
+```js
+render 0 notes
+effect
+promise fulfilled
+render 3 notes
+```
+
+Tout d'abord, le corps de la fonction définissant le composant est exécuté et le composant est rendu pour la première fois. 
+À ce stade, render 0 notes est imprimé, ce qui signifie que les données n'ont pas encore été extraites du serveur.
+
+La fonction ou l'effet suivant dans le jargon React :
+
+```js
+() => {
+  console.log('effect')
+  axios
+    .get('http://localhost:3001/notes')
+    .then(response => {
+      console.log('promise fulfilled')
+      setNotes(response.data)
+    })
+}
+```
+
+est exécuté immédiatement après le rendu. L'exécution de la fonction entraîne l'impression de l'effet sur la console, 
+et la commande ```axios.get``` lance la récupération des données du serveur et enregistre la fonction suivante 
+en tant que un gestionnaire d'événements pour l'opération :
+
+```js
+response => {
+  console.log('promise fulfilled')
+  setNotes(response.data)
+}
+```
+
+Lorsque les données arrivent du serveur, le runtime JavaScript appelle la fonction enregistrée en tant que gestionnaire d'événements, 
+qui affiche promise fulfilled sur la console et stocke les notes reçues du serveur dans l'état à l'aide de la fonction ```setNotes(response.data)```.
+
+Comme toujours, un appel à une fonction de mise à jour d'état déclenche le nouveau rendu du composant. 
+Par conséquent, ```render 3 notes``` est affiché sur la console et les notes récupérées sur le serveur sont rendues à l'écran.
+
+Enfin, regardons la définition du hook d'effet dans son ensemble :
+
+```js
+useEffect(() => {
+  console.log('effect')
+  axios
+    .get('http://localhost:3001/notes').then(response => {
+      console.log('promise fulfilled')
+      setNotes(response.data)
+    })
+}, [])
+```
+
+Réécrivons le code un peu différemment.
+
+```js
+const hook = () => {
+  console.log('effect')
+  axios
+    .get('http://localhost:3001/notes')
+    .then(response => {
+      console.log('promise fulfilled')
+      setNotes(response.data)
+    })
+}
+
+useEffect(hook, [])
+```
+
+Maintenant, nous pouvons voir plus clairement que la fonction ```useEffect``` prend en fait deux paramètres. 
+Le premier est une fonction, l'effet lui-même. Selon la documentation :
+
+> Par défaut, les effets s'exécutent après chaque rendu terminé, mais vous pouvez choisir de ne les déclencher que lorsque certaines valeurs ont changé.
+
+Ainsi, par défaut, l'effet est toujours exécuté après le rendu du composant. Dans notre cas, cependant, 
+nous ne voulons exécuter l'effet qu'avec le premier rendu.
+
+Le deuxième paramètre de ```useEffect``` est utilisé pour *spécifier la fréquence d'exécution de l'effet*. 
+Si le deuxième paramètre est un tableau vide [], alors l'effet n'est exécuté qu'avec le premier rendu du composant.
+
+Il existe de nombreux cas d'utilisation possibles pour un hook d'effet autres que la récupération de données à partir du serveur. 
+Cependant, cette utilisation nous suffit, pour l'instant.
+
+Repensez à la séquence d'événements dont nous venons de parler. 
+Quelles parties du code sont exécutées ? Dans quel ordre? À quelle fréquence? Comprendre l'ordre des événements est essentiel !
+
+Notez que nous aurions également pu écrire le code de la fonction d'effet de cette façon :
+
+```js
+useEffect(() => {
+  console.log('effect')
+
+  const eventHandler = response => {
+    console.log('promise fulfilled')
+    setNotes(response.data)
+  }
+
+  const promise = axios.get('http://localhost:3001/notes')
+  promise.then(eventHandler)
+}, [])
+```
+
+Une référence à une fonction de gestion d'événements est affectée à la variable ```eventHandler```. 
+La promise renvoyée par la méthode ```get``` d'Axios est stockée dans la variable ```promise```. 
+L'enregistrement du rappel se produit en donnant la variable eventHandler, faisant référence à la fonction de gestion d'événements, 
+en tant que paramètre de la méthode then de la promise. Il n'est généralement pas nécessaire d'assigner des fonctions et des promises aux variables, 
+et une manière plus compacte de représenter les choses, comme vu plus haut, est suffisante.
+
+```js
+useEffect(() => {
+  console.log('effect')
+  axios
+    .get('http://localhost:3001/notes')
+    .then(response => {
+      console.log('promise fulfilled')
+      setNotes(response.data)
+    })
+}, [])
+```
+
+Nous avons toujours un problème dans notre application. Lors de l'ajout de nouvelles notes, elles ne sont pas stockées sur le serveur.
+
+## Environnement d'execution de developpement
+
+La configuration de l'ensemble de l'application est devenue de plus en plus complexe. Passons en revue ce qui se passe et où. 
+L'image suivante décrit la composition de l'application
+
+![alt image 18e](/images/courses/part2/18e.png)
+
+Le code JavaScript composant notre application React est exécuté dans le navigateur. 
+Le navigateur obtient le JavaScript du serveur de développement React, qui est l'application qui s'exécute après l'exécution de la commande ```npm start```. 
+Le dev-server transforme le JavaScript dans un format compris par le navigateur. 
+Entre autres choses, il assemble le JavaScript de différents fichiers en un seul fichier. 
+Nous aborderons le dev-server plus en détail dans la partie 7 du cours.
+
+L'application React s'exécutant dans le navigateur récupère les données au format JSON à partir de ```json-server``` s'exécutant sur le port 3001 de la machine. 
+Le serveur à partir duquel nous interrogeons les données - json-server - obtient ses données à partir du fichier db.json.
+
+À ce stade du développement, toutes les parties de l'application résident sur la machine du développeur, également appelée localhost. 
+La situation change lorsque l'application est déployée sur Internet. Nous le ferons dans la partie 3.
+
+## Exercices 2.11.-2.14.
+
+### 2.11: phonebook, etape6
+
+Nous continuons à développer le répertoire. Stockez l'état initial de l'application dans le fichier ```db.json```, qui doit être placé à la racine du projet.
+
+```js
+{
+  "persons":[
+    { 
+      "name": "Arto Hellas", 
+      "number": "040-123456",
+      "id": 1
+    },
+    { 
+      "name": "Ada Lovelace", 
+      "number": "39-44-5323523",
+      "id": 2
+    },
+    { 
+      "name": "Dan Abramov", 
+      "number": "12-43-234345",
+      "id": 3
+    },
+    { 
+      "name": "Mary Poppendieck", 
+      "number": "39-23-6423122",
+      "id": 4
+    }
+  ]
+}
+```
+
+Démarrez json-server sur le port 3001 et assurez-vous que le serveur renvoie la liste des personnes en 
+allant à l'adresse [http://localhost:3001/persons](http://localhost:3001/persons) dans le navigateur.
+
+Si vous recevez le message d'erreur suivant :
+
+```js
+events.js:182
+      throw er; // Unhandled 'error' event
+      ^
+
+Error: listen EADDRINUSE 0.0.0.0:3001
+    at Object._errnoException (util.js:1019:11)
+    at _exceptionWithHostPort (util.js:1041:20)
+```
+
+cela signifie que le port 3001 est déjà utilisé par une autre application, par ex. en cours d'utilisation par un json-server déjà en cours d'exécution. 
+Fermez l'autre application ou modifiez le port au cas où cela ne fonctionnerait pas.
+
+Modifiez l'application de sorte que l'état initial des données soit extrait du serveur à l'aide de la bibliothèque axios. 
+Terminez la récupération avec un ```Hook d'effet```.
+
+### 2.12* countries, etape1
+
+L'API [https://restcountries.com](https://restcountries.com) fournit des données pour différents pays dans un format lisible par machine, appelé API REST.
+
+Créer une application, dans laquelle on peut consulter les données de différents pays. 
+L'application devrait probablement obtenir les données du end point ```all```.
+
+L'interface utilisateur est très simple. Le pays à afficher est trouvé en tapant une requête de recherche dans le champ de recherche.
+
+S'il y a trop de pays (plus de 10) qui correspondent à la requête, l'utilisateur est invité à préciser sa requête :
+
+![alt image 19b1](/images/courses/part2/19b1.png)
+
+S'il y a dix pays ou moins, mais plus d'un, tous les pays correspondant à la requête sont affichés :
+
+![alt image 19b2](/images/courses/part2/19b2.png)
+
+Lorsqu'il n'y a qu'un seul pays correspondant à la requête, les données de base du pays (par exemple, sa capitale et sa superficie), 
+son drapeau et les langues qui y sont parlées sont affichés :
+
+![alt image 19c3](/images/courses/part2/19c3.png)
+
+**NB** : Il suffit que votre application fonctionne pour la plupart des pays. 
+Certains pays, comme le Soudan, peuvent être difficiles à soutenir, car le nom du pays fait partie du nom d'un autre pays, le Soudan du Sud. 
+Vous n'avez pas à vous soucier de ces cas extrêmes.
+
+### 2.13*: countries, etape2
+
+***Il y a encore beaucoup à faire dans cette partie, alors ne restez pas bloqué sur cet exercice !***
+
+Améliorez l'application de l'exercice précédent, de sorte que lorsque les noms de plusieurs pays sont affichés sur la page, 
+il y a un bouton à côté du nom du pays, qui, lorsqu'il est pressé, affiche la vue pour ce pays :
+
+![alt image 19b4](/images/courses/part2/19b4.png)
+
+Dans cet exercice, il suffit également que votre application fonctionne pour la plupart des pays. 
+Les pays dont le nom apparaît dans le nom d'un autre pays, comme le Soudan, peuvent être ignorés.
+
+### 2.14*: countries, etape3
+
+***Il y a encore beaucoup à faire dans cette partie, alors ne restez pas bloqué sur cet exercice !***
+
+Ajoutez à la vue montrant les données d'un seul pays, le bulletin météo de la capitale de ce pays. 
+Il existe des dizaines de fournisseurs de données météorologiques. Une API suggérée est [https://openweathermap.org](https://openweathermap.org). 
+Notez que cela peut prendre quelques minutes avant qu'une clé API générée soit valide.
+
+![alt image 19x](/images/courses/part2/19x.png)
+
+Si vous utilisez Open weather map, trouvez [ici](https://openweathermap.org/weather-conditions#Icon-list) une description de comment obtenir des icônes météo.
+
+**NB** : Dans certains navigateurs (tels que Firefox), l'API choisie peut envoyer une réponse d'erreur, 
+ce qui indique que le cryptage HTTPS n'est pas pris en charge, bien que l'URL de la requête commence par ```http://```. 
+Ce problème peut être résolu en effectuant l'exercice à l'aide de Chrome.
+
+**NB** : Vous avez besoin d'une clé API pour utiliser presque tous les services météorologiques. 
+N'enregistrez pas la clé API dans le contrôle de code source ! Ni coder en dur la clé API dans votre code source. 
+Utilisez plutôt une [variable d'environnement](https://create-react-app.dev/docs/adding-custom-environment-variables/) pour enregistrer la clé.
+
+En supposant que la clé API est *t0p53cr3t4p1k3yv4lu3*, lorsque l'application est démarrée comme suit :
+
+```js
+REACT_APP_API_KEY=t0p53cr3t4p1k3yv4lu3 npm start // For Linux/macOS Bash
+($env:REACT_APP_API_KEY="t0p53cr3t4p1k3yv4lu3") -and (npm start) // For Windows PowerShell
+set "REACT_APP_API_KEY=t0p53cr3t4p1k3yv4lu3" && npm start // For Windows cmd.exe
+```
+
+vous pouvez accéder à la valeur de la clé depuis l'objet ```process.env``` :
+
+```js
+const api_key = process.env.REACT_APP_API_KEY
+// la variable api_key a maintenant la valeur définie au démarrage
+```
+
+Notez que si vous avez créé l'application à l'aide de ```npx create-react-app ...``` et que vous souhaitez utiliser un nom différent 
+pour votre variable d'environnement, le nom de la variable d'environnement doit toujours commencer par ```REACT_APP_```. 
+Vous pouvez également utiliser un fichier ```.env``` plutôt que de le définir sur la ligne de commande à chaque fois en créant un fichier 
+intitulé ```.env``` à la racine du projet et en ajoutant ce qui suit.
+
+```js
+# .env
+
+REACT_APP_API_KEY=t0p53cr3t4p1k3yv4lu3
+```
+
+Notez que vous devrez redémarrer le serveur pour appliquer les modifications.
+
