@@ -2,6 +2,7 @@ import "tailwindcss/tailwind.css"
 import "../styles/globals.css"
 import Header from "../components/Header"
 import type { AppProps } from "next/app"
+import {Analytics} from "@vercel/analytics/react";
 // redux
 import { store } from "../redux/store"
 import { Provider } from "react-redux"
@@ -16,6 +17,7 @@ function MyApp({ Component, pageProps }) {
         <Header />
         <hr />
         <Component {...pageProps} />
+        <Analytics />
       </PersistGate>
     </Provider>
   )
