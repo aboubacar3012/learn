@@ -44,7 +44,7 @@ export default function Home({ content, courses }) {
               Développeur full stack web & mobile
             </h3>
             <p className="text-center my-2">
-              ⚠ Ce cours est en cours d'éléboration, il ya une mise à jour tout les lundi
+              ⚠ Cette formation est en cours d'éléboration, il ya une mise à jour toute les semaines
             </p>
             <hr />
           </div>

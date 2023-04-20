@@ -9,6 +9,7 @@ import { ChevronDownIcon, CodeIcon } from "@heroicons/react/solid"
 import type { RootState } from "../redux/store"
 import { useSelector, useDispatch } from "react-redux"
 import { logout } from "../redux/slices/auth.slice"
+import CallToChat from "./call-to-chat"
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ")
@@ -126,6 +127,7 @@ export default function Header() {
       /> */}
 
       <div className="bg-white shadow">
+          <CallToChat />
         <div className="container mx-auto px-4 ">
           <div className="flex items-center justify-between py-4">
             <div>
