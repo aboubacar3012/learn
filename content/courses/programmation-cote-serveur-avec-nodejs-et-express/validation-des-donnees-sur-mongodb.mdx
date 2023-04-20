@@ -1,0 +1,193 @@
+# Validation de donnees sur MongoDB
+
+Il y a généralement des contraintes que nous voulons appliquer aux données qui sont stockées dans la base de données de notre application. 
+Notre application ne devrait pas accepter les notes dont la propriété content est manquante ou vide. 
+La validité de la note est vérifiée dans le gestionnaire de route :
+
+```js
+app.post('/api/notes', (request, response) => {
+  const body = request.body
+  if (body.content === undefined) {
+    return response.status(400).json({ error: 'content missing' })
+  }
+
+  // ...
+})
+```
+
+Si la note ne possède pas la propriété ```content```, nous répondons à la requête avec le code d'état ```400 bad request```.
+
+Une façon plus intelligente de valider le format des données avant de les stocker dans la base de données, 
+est d'utiliser la fonctionnalité validation disponible dans Mongoose.
+
+Nous pouvons définir des règles de validation spécifiques pour chaque champ du schéma :
+
+```js
+const noteSchema = new mongoose.Schema({
+  content: {
+    type: String,
+    minLength: 5,
+    required: true
+  },
+  date: { 
+    type: Date,
+    required: true
+  },
+  important: Boolean
+})
+```
+
+Le champ contenu doit désormais comporter au moins cinq caractères. Le champ date est défini comme obligatoire, 
+ce qui signifie qu'il ne peut pas être manquant. La même contrainte est également appliquée au champ contenu, 
+puisque la contrainte de longueur minimale permet au champ d'être manquant. Nous n'avons pas ajouté de contraintes au champ important, 
+sa définition dans le schéma n'a donc pas changé.
+
+Les validateurs minLength et required sont ```built-in``` et fournis par Mongoose. 
+La fonctionnalité Mongoose ```custom validator``` nous permet de créer de nouveaux validateurs, 
+si aucun des validateurs intégrés ne couvre nos besoins.
+
+Si nous essayons de stocker dans la base de données un objet qui ne respecte pas l'une des contraintes, l'opération déclenchera une exception. 
+Modifions notre gestionnaire pour la création d'une nouvelle note afin qu'il transmette toute exception 
+potentielle au middleware de gestion des erreurs :
+
+```js
+app.post('/api/notes', (request, response, next) => {
+  const body = request.body
+
+  const note = new Note({
+    content: body.content,
+    important: body.important || false,
+    date: new Date(),
+  })
+
+  note.save()
+    .then(savedNote => {
+      response.json(savedNote)
+    })
+    .catch(error => next(error))
+})
+```
+
+Développons le gestionnaire d'erreurs pour traiter ces erreurs de validation :
+
+```js
+const errorHandler = (error, request, response, next) => {
+  console.error(error.message)
+
+  if (error.name === 'CastError') {
+    return response.status(400).send({ error: 'malformatted id' })
+  } else if (error.name === 'ValidationError') {
+    return response.status(400).json({ error: error.message })
+  }
+
+  next(error)
+}
+```
+
+Lorsque la validation d'un objet échoue, nous renvoyons le message d'erreur par défaut suivant de Mongoose :
+
+![alt image 50](/images/courses/part3/chapitre1/50.png)
+
+Nous remarquons que le backend a maintenant un problème : les validations ne sont pas effectuées lors de l'édition d'une note. 
+La documentation explique quel est le problème, les validations ne sont pas exécutées par défaut lorsque ```findOneAndUpdate``` est exécuté.
+
+La correction est simple. Reformulons aussi un peu le code de la route :
+
+```js
+app.put('/api/notes/:id', (request, response, next) => {
+  const { content, important } = request.body
+
+  Note.findByIdAndUpdate(
+    request.params.id, 
+    { content, important },
+    { new: true, runValidators: true, context: 'query' }
+  ) 
+    .then(updatedNote => {
+      response.json(updatedNote)
+    })
+    .catch(error => next(error))
+})
+```
+
+## Deploiement du backend de la base de donnees en production
+
+L'application devrait fonctionner presque telle quelle dans Heroku. 
+Nous devons générer un nouveau build de production du frontend en raison des modifications que nous avons apportées à notre frontend.
+
+Les variables d'environnement définies dans dotenv ne seront utilisées que lorsque le backend n'est pas en mode production, c'est-à-dire Heroku.
+
+Nous avons défini les variables d'environnement pour le développement dans le fichier .env, 
+mais la variable d'environnement qui définit l'URL de la base de données en production 
+doit être définie sur Heroku avec la commande ```heroku config:set```.
+
+```js
+heroku config:set MONGODB_URI=mongodb+srv://fullstack:secretpasswordhere@cluster0-ostce.mongodb.net/note-app?retryWrites=true
+```
+
+**NB:** si la commande provoque une erreur, donnez la valeur de MONGODB_URI entre apostrophes :
+
+```js
+heroku config:set MONGODB_URI='mongodb+srv://fullstack:secretpasswordhere@cluster0-ostce.mongodb.net/note-app?retryWrites=true'
+```
+
+L'application devrait maintenant fonctionner. Parfois, les choses ne se passent pas comme prévu. 
+S'il y a des problèmes, les ```logs heroku``` seront là pour vous aider. Ma propre application n'a pas fonctionné après avoir effectué les changements. 
+Les journaux montraient ce qui suit :
+
+![alt image 51a](/images/courses/part3/chapitre1/51a.png)
+
+Pour une raison quelconque, l'URL de la base de données était indéfinie. 
+La commande heroku config a révélé que j'avais accidentellement défini l'URL dans la variable d'environnement ```MONGO_URL```, 
+alors que le code s'attendait à ce qu'elle soit dans ```MONGODB_URI```.
+
+## Exercices 3.19.-3.21.
+
+### 3.19* : Base de donnees du repertoire telephonique, etape 7
+Développez la validation de sorte que le nom stocké dans la base de données doive comporter au moins trois caractères.
+
+Développez le frontend pour qu'il affiche une forme de message d'erreur lorsqu'une erreur de validation se produit. 
+La gestion des erreurs peut être implémentée en ajoutant un bloc catch comme indiqué ci-dessous :
+
+```js
+personService
+    .create({ ... })
+    .then(createdPerson => {
+      // ...
+    })
+    .catch(error => {
+      // this is the way to access the error message
+      console.log(error.response.data.error)
+    })
+```
+
+Vous pouvez afficher les messages d'erreur par défaut renvoyés par Mongoose, même s'ils ne sont pas aussi lisibles qu'ils pourraient l'être :
+
+![alt image 56e](/images/courses/part3/chapitre1/56e.png)
+
+**NB:** Lors des opérations de mise à jour, les validateurs de Mongoose sont désactivés par défaut. 
+[Lisez la documentation](https://mongoosejs.com/docs/validation.html) pour déterminer comment les activer.
+
+### 3.20* : Base de donnees du repertoire telephonique, etape 8
+
+Ajoutez la validation à votre application de répertoire téléphonique, qui s'assurera que les numéros de téléphone sont de la bonne forme. 
+Un numéro de téléphone doit
+
+- avoir une longueur de 8 ou plus
+- être formé de deux parties séparées par -, la première partie comporte deux ou trois chiffres et la seconde partie est également composée de chiffres
+    - par exemple, 09-1234556 et 040-22334455 sont des numéros de téléphone valides
+    - par exemple, 1234556, 1-22334455 et 10-22-334455 ne sont pas valides.
+
+Utilisez un [validateur personnalisé](https://mongoosejs.com/docs/validation.html#custom-validators) 
+pour mettre en œuvre la deuxième partie de la validation.
+
+Si une requête HTTP POST tente d'ajouter un nom qui se trouve déjà dans le répertoire, 
+le serveur doit répondre avec un code d'état et un message d'erreur appropriés.
+
+### 3.21 Deploiement du backend de la base de donnees en production
+
+Générez une nouvelle version "full stack" de l'application en créant un nouveau build de production du frontend, 
+et copiez-le dans le référentiel du backend. Vérifiez que tout fonctionne localement en utilisant 
+l'application entière à partir de l'adresse [http://localhost:3001/](http://localhost:3001/).
+
+Poussez la dernière version vers Heroku et vérifiez que tout fonctionne là aussi.
+

@@ -1,0 +1,423 @@
+# Deployer votre application sur Internet
+
+Ensuite, nous allons connecter le frontend que nous avons créé dans la **partie 2** à notre propre backend.
+
+Dans la partie précédente, le frontend pouvait demander la liste des notes au serveur json que nous avions comme backend, 
+à l'adresse [http://localhost:3001/notes](http://localhost:3001/notes). 
+Notre backend a une structure d'url légèrement différente maintenant, puisque les notes peuvent être trouvées à 
+[http://localhost:3001/api/notes](http://localhost:3001/api/notes). Changeons l'attribut **baseUrl** dans le ```src/services/notes.js``` comme ceci :
+
+```js
+import axios from 'axios'
+const baseUrl = 'http://localhost:3001/api/notes'
+
+const getAll = () => {
+ const request = axios.get(baseUrl)
+ return request.then(response => response.data)
+}
+
+// ...
+
+export default { getAll, create, update }
+```
+
+Maintenant la requête GET du frontend vers [http://localhost:3001/api/notes](http://localhost:3001/api/notes) 
+ne fonctionne pas pour une raison quelconque :
+
+![alt image 3ae](/images/courses/part3/chapitre1/3ae.png)
+
+Qu'est-ce qui se passe ici ? Nous pouvons accéder au backend depuis un navigateur et depuis postman sans aucun problème.
+
+## Meme politique d'origine et CORS
+
+Le problème réside dans une chose appelée CORS, ou Cross-Origin Resource Sharing.
+
+***Selon Wikipedia:***
+> Cross-origin resource sharing (CORS) est un mécanisme qui permet aux ressources restreintes (par exemple, les polices) 
+d'une page Web d'être demandées à partir d'un autre domaine en dehors du domaine à partir duquel la première ressource a été servie. 
+Une page Web peut librement intégrer des images, des feuilles de style, des scripts, des iframes et des vidéos d'origine croisée. 
+Certaines requêtes "cross-domain", notamment les requêtes Ajax, sont interdites par défaut par la politique de sécurité same-origin.
+
+Dans notre contexte, le problème est que, par défaut, le code JavaScript d'une application qui s'exécute dans un navigateur ne peut 
+communiquer qu'avec un serveur dans la même origine. Parce que notre serveur est sur le port 3001 de localhost, 
+et notre frontend sur le port 3000 de localhost, ils n'ont pas la même origine.
+
+Gardez à l'esprit que la politique de même origine et CORS ne sont pas spécifiques à React ou Node. 
+Ce sont en fait des principes universels du fonctionnement des applications web.
+
+Nous pouvons autoriser les demandes provenant d'autres origines en utilisant le middleware [cors](https://github.com/expressjs/cors) de Node.
+
+Dans votre dépôt de backend, installez cors avec la commande
+
+```js
+npm install cors
+```
+
+prenez le middleware à utiliser et autorisez les requêtes de toutes origines :
+
+```js
+const cors = require('cors')
+
+app.use(cors())
+```
+
+Et le frontend fonctionne ! Cependant, la fonctionnalité permettant de modifier l'importance des notes n'a pas encore été implémentée dans le backend.
+
+Vous pouvez en savoir plus sur les CORS sur la [page Mozillas](https://developer.mozilla.org/fr/docs/Web/HTTP/CORS).
+
+La configuration de notre application est maintenant la suivante :
+
+![alt image 100](/images/courses/part3/chapitre1/100.png)
+
+L'application react qui s'exécute dans le navigateur va maintenant chercher les données dans le ```node/express-server``` 
+qui s'exécute sur ```localhost:3001```.
+
+## Application vers l'Internet
+
+Maintenant que toute la pile est prête, déplaçons notre application sur Internet. Nous allons utiliser le bon vieux [Heroku] 
+[https://www.heroku.com](https://www.heroku.com) pour cela.
+
+> Si vous n'avez jamais utilisé Heroku auparavant, vous pouvez trouver des instructions dans 
+[Heroku documentation](https://devcenter.heroku.com/articles/getting-started-with-nodejs#set-up) ou en cherchant sur Google.
+
+Ajoutez un fichier appelé Procfile à la racine du projet backend pour indiquer à Heroku comment démarrer l'application.
+
+```js
+web : node index.js
+```
+
+Changez la définition du port que notre application utilise en bas du fichier index.js comme suit :
+
+```js
+const PORT = process.env.PORT || 3001
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`)
+})
+```
+
+Nous utilisons maintenant le port défini dans la variable d'environnement PORT ou le port 3001 si la variable d'environnement PORT est indéfinie. 
+Heroku configure le port de l'application en fonction de la variable d'environnement.
+
+Créez un dépôt Git dans le répertoire du projet, et ajoutez ```.gitignore``` avec le contenu suivant
+
+```js
+node_modules
+```
+
+Créez un compte Heroku dans [https://devcenter.heroku.com/](https://devcenter.heroku.com/). 
+Installez le paquet Heroku en utilisant la commande : ```npm install -g heroku```. Créez une application Heroku avec la commande ```heroku create```, 
+commitez votre code sur le dépôt et déplacez-le sur Heroku avec la commande ```git push heroku main```.
+
+Si tout s'est bien passé, l'application fonctionne :
+
+![alt image 25ea](/images/courses/part3/chapitre1/25ea.png)
+
+Si ce n'est pas le cas, le problème peut être trouvé en lisant les logs de heroku avec la commande ```heroku logs```.
+
+**NB** Au moins au début, il est bon de garder un œil sur les logs heroku à tout moment. 
+La meilleure façon de le faire est avec la commande ```heroku logs -t``` qui imprime les logs à la console chaque fois 
+que quelque chose se passe sur le serveur.
+
+**NB** Si vous déployez depuis un dépôt git où votre code n'est pas sur la branche principale 
+(c'est-à-dire si vous modifiez le dépôt notes de la dernière leçon), vous devrez exécuter ```git push heroku HEAD:master```. 
+Si vous avez déjà effectué un push sur heroku, vous devrez peut-être exécuter ```git push heroku HEAD:main --force```.
+
+Le frontend fonctionne aussi avec le backend sur Heroku. Vous pouvez le vérifier en changeant 
+l'adresse du backend sur le frontend pour être l'adresse du backend dans Heroku au lieu de [http://localhost:3001](http://localhost:3001).
+
+La question suivante est de savoir comment déployer le frontend sur Internet. Nous avons plusieurs options. 
+Passons en revue l'une d'entre elles ensuite.
+
+## Construction de production du frontend
+
+Jusqu'à présent, nous avons exécuté le code React en mode développement. En mode développement, 
+l'application est configurée pour donner des messages d'erreur clairs, rendre immédiatement les changements de code au navigateur, et ainsi de suite.
+
+Lorsque l'application est déployée, nous devons créer un production build ou une version de l'application qui est optimisée pour la production.
+
+Une build de production des applications créées avec ```create-react-app``` peut être créée avec la commande ```npm run build```.
+
+**NOTE**: au moment de la rédaction (20 janvier 2022) create-react-app avait un bug qui provoque l'erreur suivante 
+```TypeError : MiniCssExtractPlugin n'est pas un constructeur```.
+
+Un correctif possible est trouvé à partir d'[ici](https://github.com/facebook/create-react-app/issues/11930). Ajoutez ce qui suit au fichier ```package.json```.
+
+```js
+{
+  // ...
+  "resolutions": {
+    "mini-css-extract-plugin": "2.4.5"
+  }
+}
+```
+
+et lancez les commandes
+
+```js
+rm -rf package-lock.json
+rm -rf node_modules
+npm cache clean --force
+npm install
+```
+
+Après ces commandes ```npm run build``` devrait fonctionner.
+
+Exécutons cette commande depuis la racine du projet frontend.
+
+Cela crée un répertoire appelé build (qui contient le seul fichier HTML de notre application, index.html ) qui contient le répertoire static. 
+La version minifiée du code JavaScript de notre application sera générée dans le répertoire static. 
+Même si le code de l'application se trouve dans plusieurs fichiers, tout le JavaScript sera minifié en un seul fichier. 
+En fait, tout le code de toutes les dépendances de l'application sera également minifié dans ce fichier unique.
+
+Le code minifié n'est pas très lisible. Le début du code ressemble à ceci :
+
+```js
+!function(e){function r(r){for(var n,f,i=r[0],l=r[1],a=r[2],c=0,s=[];c<i.length;c++)f=i[c],o[f]&&s.push(o[f][0]),o[f]=0;for(n in l)Object.prototype.hasOwnProperty.call(l,n)&&(e[n]=l[n]);for(p&&p(r);s.length;)s.shift()();return u.push.apply(u,a||[]),t()}function t(){for(var e,r=0;r<u.length;r++){for(var t=u[r],n=!0,i=1;i<t.length;i++){var l=t[i];0!==o[l]&&(n=!1)}n&&(u.splice(r--,1),e=f(f.s=t[0]))}return e}var n={},o={2:0},u=[];function f(r){if(n[r])return n[r].exports;var t=n[r]={i:r,l:!1,exports:{}};return e[r].call(t.exports,t,t.exports,f),t.l=!0,t.exports}f.m=e,f.c=n,f.d=function(e,r,t){f.o(e,r)||Object.defineProperty(e,r,{enumerable:!0,get:t})},f.r=function(e){"undefined"!==typeof Symbol&&Symbol.toStringTag&&Object.defineProperty(e,Symbol.toStringTag,{value:"Module"})
+```
+
+## Servir des fichiers statiques a partir du backend
+
+Une option pour déployer le frontend est de copier le build de production (le répertoire build) à la racine du dépôt du 
+backend et de configurer le backend pour afficher le main page du frontend (le fichier build/index.html) comme page principale.
+
+Nous commençons par copier la build de production du frontend à la racine du backend. 
+Avec un ordinateur Mac ou Linux, la copie peut être faite depuis le répertoire du frontend avec la commande
+
+```js
+cp -r build ../notes-backend
+```
+
+Si vous utilisez un ordinateur Windows, vous pouvez utiliser la commande ```copy``` ou ```xcopy``` à la place. 
+Sinon, faites simplement un copier-coller.
+
+Le répertoire backend devrait maintenant ressembler à ceci :
+
+![alt image 27ea](/images/courses/part3/chapitre1/27ea.png)
+
+Pour qu'express affiche le contenu statique, la page index.html et le JavaScript, etc., qu'il récupère, 
+nous avons besoin d'un middleware intégré à express appelé static.
+
+Lorsque nous ajoutons ce qui suit au milieu des déclarations de middlewares
+
+```js
+app.use(express.static('build'))
+```
+
+chaque fois qu'express reçoit une requête HTTP GET, il vérifie d'abord si le répertoire build contient un fichier correspondant à 
+l'adresse de la requête. Si un fichier correct est trouvé, express le retournera.
+
+Maintenant, les requêtes HTTP GET vers l'adresse ```www.serversaddress.com/index.html``` ou ```www.serversaddress.com``` 
+afficheront le frontend React. Les requêtes GET vers l'adresse ```www.serversaddress.com/api/notes``` seront traitées par le code du backend.
+
+En raison de notre situation, le frontend et le backend sont tous deux à la même adresse, nous pouvons déclarer ```baseUrl``` comme une URL relative. 
+Cela signifie que nous pouvons laisser de côté la partie déclarant le serveur.
+
+```js
+import axios from 'axios'
+const baseUrl = '/api/notes'
+
+const getAll = () => {
+  const request = axios.get(baseUrl)
+  return request.then(response => response.data)
+}
+
+// ...
+```
+
+Après le changement, nous devons créer un nouveau build de production et le copier à la racine du dépôt backend.
+
+L'application peut maintenant être utilisée depuis l'adresse backend [http://localhost:3001](http://localhost:3001):
+
+![alt image 28e](/images/courses/part3/chapitre1/28e.png)
+
+Notre application fonctionne maintenant exactement comme l'application d'exemple ```single-page app``` que nous avons étudiée dans la partie 0.
+
+Lorsque nous utilisons un navigateur pour aller à l'adresse [http://localhost:3001](http://localhost:3001), 
+le serveur renvoie le fichier index.html à partir du build du dépôt. Le contenu résumé de ce fichier est le suivant :
+
+```js
+<head>
+  <meta charset="utf-8"/>
+  <title>React App</title>
+  <link href="/static/css/main.f9a47af2.chunk.css" rel="stylesheet">
+</head>
+<body>
+  <div id="root"></div>
+  <script src="/static/js/1.578f4ea1.chunk.js"></script>
+  <script src="/static/js/main.104ca08d.chunk.js"></script>
+</body>
+</html>
+```
+
+Le fichier contient des instructions pour récupérer une feuille de style CSS définissant les styles de l'application, 
+et deux balises script qui indiquent au navigateur de récupérer le code JavaScript de l'application - l'application React réelle.
+
+Le code React va chercher les notes à l'adresse du serveur [http://localhost:3001/api/notes](http://localhost:3001/api/notes) et les rend à l'écran. 
+Les communications entre le serveur et le navigateur peuvent être vues dans l'onglet Réseau de la console du développeur :
+
+![alt image 29ea](/images/courses/part3/chapitre1/29ea.png)
+
+La configuration prête pour le déploiement du produit se présente comme suit :
+
+![alt image 101](/images/courses/part3/chapitre1/101.png)
+
+Contrairement à ce qui s'est passé lors de l'exécution de l'application dans un environnement de développement, 
+tout est maintenant dans le même node/express-backend qui s'exécute dans ```localhost:3001```. 
+Lorsque le navigateur se rend sur la page, le fichier index.html est rendu. 
+Cela amène le navigateur à récupérer la version produit de l'application React. Une fois qu'elle commence à s'exécuter, 
+elle récupère les données json de l'adresse ```localhost:3001/api/notes```.
+
+## L'application entiere sur internet
+
+Après vous être assuré que la version de production de l'application fonctionne localement, 
+faites un commit du build de production du frontend dans le dépôt principal et faites à nouveau un push du code à Heroku.
+
+L'application fonctionne parfaitement, sauf que nous n'avons pas encore ajouté la fonctionnalité pour changer l'importance d'une note au backend.
+
+![alt image 30ea](/images/courses/part3/chapitre1/30ea.png)
+
+Notre application enregistre les notes dans une variable. Si l'application se plante ou est redémarrée, toutes les données disparaîtront.
+
+L'application a besoin d'une base de données. Avant d'en introduire une, passons en revue quelques éléments.
+
+La configuration ressemble maintenant à ce qui suit :
+
+![alt image 102](/images/courses/part3/chapitre1/102.png)
+
+Le node/express-backend réside maintenant dans le serveur Heroku. Lorsque l'on accède à l'adresse racine qui est de la 
+forme https://my-app-74819.herokuapp.com/, le navigateur charge et exécute l'application React qui récupère les données json du serveur Heroku.
+
+## Rationalisation du deploiement du front-end
+
+Pour créer une nouvelle construction de production du frontend sans travail manuel supplémentaire, 
+ajoutons quelques npm-scripts au package.json du dépôt du backend :
+
+```js
+{
+  "scripts": {
+    //...
+    "build:ui": "rm -rf build && cd ../part2-notes/ && npm run build && cp -r build ../notes-backend",
+    "deploy": "git push heroku main",
+    "deploy:full": "npm run build:ui && git add . && git commit -m uibuild && npm run deploy",    
+    "logs:prod": "heroku logs --tail"
+  }
+}
+```
+
+Le script ```npm run build:ui``` construit le frontend et copie la version de production sous le dépôt backend. 
+```npm run deploy``` libère le backend actuel sur Heroku.
+
+```npm run deploy:full``` combine ces deux-là et contient les commandes git nécessaires pour mettre à jour le dépôt backend.
+
+Il existe également un script ```npm run logs:prod``` pour afficher les logs de heroku.
+
+Notez que les chemins de répertoire dans le script ```build:ui``` dépendent de l'emplacement des dépôts dans le système de fichiers.
+
+> **NB** Sous Windows, les scripts npm sont exécutés dans cmd.exe comme shell par défaut qui ne supporte pas les commandes bash. 
+Pour que les commandes bash ci-dessus fonctionnent, vous pouvez changer 
+le shell par défaut en Bash (dans l'installation par défaut de Git pour Windows) comme suit :
+
+```js
+npm config set script-shell "C:\\Program Files\\git\\bin\\bash.exe"
+```
+
+Une autre option est l'utilisation de [shx](https://www.npmjs.com/package/shx).
+
+## Proxy
+
+Des modifications apportées au frontend ont fait qu'il ne fonctionne plus en mode développement (lorsqu'il est lancé avec la commande ``` npm start```), 
+car la connexion au backend ne fonctionne pas.
+
+![alt image 32ea](/images/courses/part3/chapitre1/32ea.png)
+
+Ceci est dû au changement de l'adresse du backend en une URL relative :
+
+```js
+const baseUrl = '/api/notes'
+```
+
+Parce qu'en mode développement, le frontend est à l'adresse ```localhost:3000```, 
+les requêtes vers le backend vont à la mauvaise adresse ```localhost:3000/api/notes```. Le backend se trouve à ```localhost:3001```.
+
+Si le projet a été créé avec create-react-app, ce problème est facile à résoudre. 
+Il suffit d'ajouter la déclaration suivante au fichier package.json du dépôt du frontend.
+
+```js
+{
+  "dependencies": {
+    // ...
+  },
+  "scripts": {
+    // ...
+  },
+  "proxy": "http://localhost:3001"
+}
+```
+
+Après un redémarrage, l'environnement de développement React fonctionnera comme un ```proxy```. 
+Si le code React fait une requête HTTP vers une adresse de serveur à ```http://localhost:3000``` 
+non gérée par l'application React elle-même (c'est-à-dire lorsque les requêtes ne consistent pas à récupérer le CSS ou le JavaScript de l'application), 
+la requête sera redirigée vers le serveur à ```http://localhost:3001```.
+
+Maintenant, le frontend est aussi bien, travaillant avec le serveur à la fois en mode développement et en mode production.
+
+Un aspect négatif de notre approche est la complexité du déploiement du frontend. 
+Le déploiement d'une nouvelle version nécessite de générer un nouveau build de production du frontend et de le copier dans le dépôt du backend. 
+Cela rend la création d'un [pipeline de déploiement] automatisé (https://martinfowler.com/bliki/DeploymentPipeline.html) plus difficile. 
+Un pipeline de déploiement est un moyen automatisé et contrôlé de faire passer le code de l'ordinateur du développeur à l'environnement de 
+production en passant par différents tests et contrôles de qualité. La construction d'un pipeline de déploiement est le sujet de la **partie 11** de ce cours.
+
+Il existe de multiples façons d'y parvenir (par exemple en plaçant le code backend et frontend dans le même dépôt ) 
+mais nous ne nous y attarderons pas maintenant.
+
+Dans certaines situations, il peut être judicieux de déployer le code frontal comme une application à part entière. 
+Avec les applications créées avec ```create-react-app```, 
+c'est [simple] [https://github.com/mars/create-react-app-buildpack](https://github.com/mars/create-react-app-buildpack).
+
+## Exercices 3.9.-3.11.
+
+Les exercices suivants ne nécessitent pas beaucoup de lignes de code. Ils peuvent cependant constituer un défi, 
+car vous devez comprendre exactement ce qui se passe et où, et les configurations doivent être justes.
+
+### 3.9 backend du repertoire telephonique etape9
+
+Faites fonctionner le backend avec le frontend phonebook des exercices de la partie précédente. 
+N'implémentez pas encore la fonctionnalité permettant de modifier les numéros de téléphone, qui sera implémentée dans *l'exercice 3.17*.
+
+Vous devrez probablement faire quelques petits changements au frontend, au moins aux URLs pour le backend. 
+N'oubliez pas de garder la console de développement ouverte dans votre navigateur. 
+Si certaines requêtes HTTP échouent, vous devriez vérifier à partir de l'onglet Réseau ce qui se passe. 
+Gardez également un œil sur la console du backend. Si vous n'avez pas fait l'exercice précédent, 
+il vaut la peine d'imprimer les données de la requête ou request.body à la console dans le gestionnaire d'événements responsable des requêtes POST.
+
+### 3.10 backend du repertoire telephonique etape10
+
+Déployez le backend sur internet, par exemple sur Heroku.
+
+**NB** la commande heroku fonctionne sur les ordinateurs du département et les ordinateurs portables des étudiants de première année. 
+Si pour une raison quelconque vous ne pouvez pas installer Heroku sur votre ordinateur, vous pouvez utiliser la commande npx heroku.
+
+Testez le backend déployé avec un navigateur et le client REST Postman.
+
+**PRO TIP**: Lorsque vous déployez votre application sur Heroku, il vaut la peine, au moins au début, 
+de garder un œil sur les logs de l'application heroku **TOUT LE TEMPS** avec la commande ```heroku logs -t```.
+
+Ce qui suit est un log concernant un problème typique. Heroku ne peut pas trouver la dépendance d'application express :
+
+La raison est que le paquet express n'a pas été installé avec la commande ```npm install express```, 
+donc les informations sur la dépendance n'ont pas été enregistrées dans le fichier package.json.
+
+Un autre problème typique est que l'application n'est pas configurée pour utiliser le port défini dans la variable d'environnement PORT :
+
+![alt image 34](/images/courses/part3/chapitre1/34.png)
+
+Créez un README.md à la racine de votre dépôt, et ajoutez-y un lien vers votre application en ligne.
+
+### 3.11 phonebook full stack
+
+Générez un build de production de votre frontend, et ajoutez-le à l'application internet en utilisant la méthode introduite dans cette partie.
+
+**NB** Assurez-vous que le répertoire build n'est pas *gitignored*.
+
+Assurez-vous également que le frontend fonctionne toujours localement (en mode développement lorsqu'il est lancé avec la commande ```npm start```).
+

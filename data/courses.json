@@ -230,6 +230,19 @@
             "correctAnswerIndex": 0
           }
         ]
+      },
+      {
+        "title": "Validation des données sur MongoDB",
+        "slug": "validation-des-donnees-sur-mongodb",
+        "description": "Afin de stocker indéfiniment nos notes enregistrées, nous avons besoin d'une base de données, dans cette partie nous utiliser MongoDB pour creer notre base de donnee.",
+        "challenges": [
+          {
+            "challengeType": "multiple-choice",
+            "question": "Vestibulum congue consectetur quam in mattis?",
+            "answers": ["True", "False"],
+            "correctAnswerIndex": 0
+          }
+        ]
       }
     ]
   },
@@ -284,8 +297,8 @@
         ]
       },
       {
-        "title": "Authentification par jeton",
-        "slug": "authentification-par-jeton",
+        "title": "Authentification par token",
+        "slug": "authentification-par-token",
         "description": "Dans cette partie, nous allons implémenter la prise en charge de l'authentification par jeton sur le backend.",
         "challenges": [
           {
@@ -313,19 +326,6 @@
         "title": "Connexion en front-end",
         "slug": "connexion-en-front-end",
         "description": "Dans cette partie, nous allons implémenter une partie de la fonctionnalité de gestion des utilisateurs requise dans le frontend.",
-        "challenges": [
-          {
-            "challengeType": "multiple-choice",
-            "question": "Vestibulum congue consectetur quam in mattis?",
-            "answers": ["True", "False"],
-            "correctAnswerIndex": 0
-          }
-        ]
-      },
-      {
-        "title": "Tester le backend",
-        "slug": "tester-le-backend",
-        "description": "Dans cette partie, commencer à écrire des tests pour le backend",
         "challenges": [
           {
             "challengeType": "multiple-choice",

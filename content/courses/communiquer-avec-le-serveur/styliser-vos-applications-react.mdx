@@ -109,3 +109,203 @@ Les sélecteurs de classe sont définis avec la syntaxe ```.classname``` :
 
 Si vous ajoutez maintenant d'autres éléments ```li``` à l'application, ils ne seront pas affectés par la règle de style ci-dessus.
 
+## Message d'erreur ameliore
+
+Nous avons précédemment implémenté le message d'erreur qui s'affichait lorsque l'utilisateur tentait de modifier 
+l'importance d'une note supprimée avec la méthode ```alert```. Implémentons le message d'erreur comme son propre composant React.
+
+Le composant est assez simple :
+
+```js
+const Notification = ({ message }) => {
+  if (message === null) {
+    return null
+  }
+
+  return (
+    <div className='error'>
+      {message}
+    </div>
+  )
+}
+```
+
+Si la valeur de la prop ```message``` est ```null```, alors rien n'est rendu à l'écran, et dans d'autres cas, le message est rendu à l'intérieur d'un élément div.
+
+Ajoutons un nouvel élément d'état appelé ```errorMessage``` au composant App. 
+Initialisons-le avec un message d'erreur afin que nous puissions immédiatement tester notre composant :
+
+```js
+const App = () => {
+  const [notes, setNotes] = useState([]) 
+  const [newNote, setNewNote] = useState('')
+  const [showAll, setShowAll] = useState(true)
+  const [errorMessage, setErrorMessage] = useState('some error happened...')
+
+  // ...
+
+  return (
+    <div>
+      <h1>Notes</h1>
+      <Notification message={errorMessage} />
+      <div>
+        <button onClick={() => setShowAll(!showAll)}>
+          show {showAll ? 'important' : 'all' }
+        </button>
+      </div>      
+      // ...
+    </div>
+  )
+}
+```
+
+Ajoutons ensuite une règle de style qui convient à un message d'erreur :
+
+```js
+.error {
+  color: red;
+  background: lightgrey;
+  font-size: 20px;
+  border-style: solid;
+  border-radius: 5px;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+```
+
+Nous sommes maintenant prêts à ajouter la logique pour afficher le message d'erreur. 
+Modifions la fonction ```toggleImportanceOf``` de la manière suivante :
+
+```js
+  const toggleImportanceOf = id => {
+    const note = notes.find(n => n.id === id)
+    const changedNote = { ...note, important: !note.important }
+
+    noteService
+      .update(changedNote).then(returnedNote => {
+        setNotes(notes.map(note => note.id !== id ? note : returnedNote))
+      })
+      .catch(error => {
+        setErrorMessage(
+          `Note '${note.content}' was already removed from server`
+        )
+        setTimeout(() => {
+          setErrorMessage(null)
+        }, 5000)
+        setNotes(notes.filter(n => n.id !== id))
+      })
+  }
+```
+
+Lorsque l'erreur se produit, nous ajoutons un message d'erreur descriptif à l'état ```errorMessage```. 
+En même temps, nous démarrons une minuterie, qui définira l'état ```errorMessage``` sur ```null``` après cinq secondes.
+
+Le résultat ressemble à ceci :
+
+![alt image 26e](/images/courses/part2/26e.png)
+
+## Styles en ligne
+
+React permet également d'écrire des styles directement dans le code en tant que *inline-styles*.
+
+L'idée derrière la définition des styles en ligne est extrêmement simple. 
+Tout composant ou élément React peut être fourni avec un ensemble de propriétés CSS en tant qu'objet JavaScript via l'attribut style.
+
+Les règles CSS sont définies légèrement différemment dans JavaScript que dans les fichiers CSS normaux. 
+Disons que nous voulions donner à un élément la couleur verte et une police en italique d'une taille de 16 pixels. 
+En CSS, cela ressemblerait à ceci :
+
+```js
+{
+  color: green;
+  font-style: italic;
+  font-size: 16px;
+}
+```
+
+Mais en tant qu'objet de style en ligne React, cela ressemblerait à ceci :
+
+```js
+{
+  color: 'green',
+  fontStyle: 'italic',
+  fontSize: 16
+}
+```
+
+Chaque propriété CSS est définie comme une propriété distincte de l'objet JavaScript. 
+Les valeurs numériques des pixels peuvent être simplement définies comme des nombres entiers. 
+L'une des principales différences par rapport au CSS standard est que les propriétés CSS avec trait d'union ```(kebab case)``` sont écrites en ```camelCase```.
+
+Ensuite, nous pourrions ajouter un "bloc inférieur" à notre application en créant un composant *Footer* et en définissant les styles en ligne suivants pour celui-ci:
+
+```js
+const Footer = () => {
+  const footerStyle = {
+    color: 'green',
+    fontStyle: 'italic',
+    fontSize: 16
+  }
+  return (
+    <div style={footerStyle}>
+      <br />
+      <em>Note app, Department of Computer Science, University of Helsinki 2022</em>
+    </div>
+  )
+}
+
+const App = () => {
+  // ...
+
+  return (
+    <div>
+      <h1>Notes</h1>
+
+      <Notification message={errorMessage} />
+
+      // ...  
+
+      <Footer />
+    </div>
+  )
+}
+```
+
+Les styles en ligne comportent certaines limitations. Par exemple, les soi-disant *pseudo-classes* ne peuvent pas être utilisées directement.
+
+Les styles en ligne et certaines des autres façons d'ajouter des styles aux composants React vont complètement à l'encontre des anciennes conventions. 
+Traditionnellement, il a été considéré comme une bonne pratique de séparer entièrement CSS du contenu (HTML) et de la fonctionnalité (JavaScript). 
+Selon cette ancienne école de pensée, l'objectif était d'écrire CSS, HTML et JavaScript dans leurs fichiers séparés.
+
+La philosophie de React est, en fait, à l'opposé de cela. Étant donné que la séparation de CSS, 
+HTML et JavaScript dans des fichiers séparés ne semblait pas bien évoluer dans les applications plus grandes, 
+React fonde la division de l'application sur les lignes de ses entités fonctionnelles logiques.
+
+Les unités structurelles qui composent les entités fonctionnelles de l'application sont des composants React. 
+Un composant React définit le HTML pour structurer le contenu, les fonctions JavaScript pour déterminer les fonctionnalités, 
+ainsi que le style du composant ; tout en un seul endroit. Il s'agit de créer des composants individuels aussi indépendants 
+et réutilisables que possible.
+
+## Exercices 2.19.-2.20.
+
+### 2.19: phonebook, etape11
+
+Utilisez l'exemple de message d'erreur amélioré de la partie 2 comme guide pour afficher une notification qui dure quelques 
+secondes après l'exécution d'une opération réussie (une personne est ajoutée ou un nombre est modifié) :
+
+![alt image 27e](/images/courses/part2/27e.png)
+
+### 2.20*: phonebook, etape12
+
+Ouvrez votre application dans deux navigateurs. **Si vous supprimez une personne dans le navigateur 1**, 
+essayer de modifier le numéro de téléphone de la personne dans le navigateur 2, vous obtiendrez le message d'erreur suivant :
+
+![alt image 29e](/images/courses/part2/29e.png)
+
+Corrigez le problème selon l'exemple présenté dans promises et erreurs dans la partie 2. 
+Modifiez l'exemple afin qu'un message s'affiche lorsque l'opération échoue. 
+Les messages affichés pour les événements réussis et non réussis doivent être différents :
+
+![alt image 28e](/images/courses/part2/28e.png)
+
+**Note** Même si vous gérez l'exception, le message d'erreur est affiché sur la console.
