@@ -127,7 +127,7 @@ export default function Header() {
       /> */}
 
       <div className="bg-white shadow">
-          <CallToChat />
+        {auth.isConnected && <CallToChat /> }
         <div className="container mx-auto px-4 ">
           <div className="flex items-center justify-between py-4">
             <div>
