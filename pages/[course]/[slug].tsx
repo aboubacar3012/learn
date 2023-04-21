@@ -163,6 +163,7 @@ export const getStaticProps = async ({ params }) => {
   const contentFilePath = path.join(CONTENT_PATH, `${params.course}/${params.slug}.mdx`)
   const source = fs.readFileSync(contentFilePath)
   const { content, data } = matter(source)
+  console.log(data)
   const toc: LessonTableOfContents[] = getToCForMarkdown(content)
   const mdxSource = await serialize(content, {
     // Optionally pass remark/rehype plugins

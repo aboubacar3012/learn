@@ -4,6 +4,7 @@ import HomeProgress from "./HomeProgress"
 // const HomeProgress = dynamic(() => import("./HomeProgress"), {})
 
 export default function HomeCourses({ courses, content, progressService }) {
+  
   return (
     <div className="relative bg-white pt-16 pb-32 overflow-hidden">
       {/* <h1 className="text-center uppercase">Modules</h1> */}

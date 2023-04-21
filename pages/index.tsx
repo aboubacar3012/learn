@@ -21,6 +21,7 @@ export default function Home({ content, courses }) {
   const auth = useSelector((state: RootState) => state.auth)
   const dispatch = useDispatch()
 
+  
   return (
     <Layout content={content} courses={courses} progressService={progressService}>
       <Head>
@@ -55,7 +56,7 @@ export default function Home({ content, courses }) {
                   <div className="space-y-4" role="none">
                     {courses.map(
                       (course, index) =>
-                        index <= 5 && (
+                        index >=0 && (
                           <div
                             key={index}
                             className="border-2 border-gray-200 hover:border-blue-500  bg-white opacity-50 flex cursor-pointer items-center justify-between rounded-lg px-6 py-4"

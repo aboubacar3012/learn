@@ -1,9 +1,38 @@
 {
+  "introduction-au-terminal-de-commande": {
+    "title": "Introductio au terminal de commande",
+    "slug": "introduction-au-terminal-de-commande",
+    "description": "Dans cette partie, nous allons nous familiariser avec les modalités pratiques de suivi du cours. Par la suite, nous aurons un aperçu des bases du développement Web et parlerons également des progrès dans le domaine du développement d'applications Web au cours des dernières décennies.",
+    "image": "/images/courses/part-0.svg",
+    "level":1,
+    "learnFeatures": [
+      "Lorem ipsum dolor sit amet",
+      "Lorem ipsum dolor sit amet",
+      "Lorem ipsum dolor sit amet"
+    ],
+    "lessons": [
+      {
+        "title": "Terminal de commande",
+        "slug": "terminal-de-commande",
+        "description": "Informations générales sur le fonctionnement du cours.",
+        "challenges": [
+          {
+            "challengeType": "multiple-choice",
+            "question": "Vestibulum congue consectetur quam in mattis?",
+            "answers": ["True", "False"],
+            "correctAnswerIndex": 0
+          }
+        ]
+      }
+     
+    ]
+  },
   "introduction-aux-applications-web": {
     "title": "Introduction aux applications Web",
     "slug": "introduction-aux-applications-web",
     "description": "Dans cette partie, nous allons nous familiariser avec les modalités pratiques de suivi du cours. Par la suite, nous aurons un aperçu des bases du développement Web et parlerons également des progrès dans le domaine du développement d'applications Web au cours des dernières décennies.",
     "image": "/images/courses/part-0.svg",
+    "level":2,
     "learnFeatures": [
       "Lorem ipsum dolor sit amet",
       "Lorem ipsum dolor sit amet",
@@ -43,6 +72,7 @@
     "slug": "premier-pas-avec-react",
     "description": "Dans cette partie, nous nous familiariserons avec la bibliothèque React, que nous utiliserons pour écrire le code qui s'exécute dans le navigateur. Nous examinerons également certaines fonctionnalités de JavaScript qui sont importantes pour comprendre React.",
     "image": "/images/courses/part-1.svg",
+    "level":2,
     "learnFeatures": [
       "Lorem ipsum dolor sit amet",
       "Lorem ipsum dolor sit amet",
@@ -108,6 +138,7 @@
     "slug": "communiquer-avec-le-serveur",
     "description": "Continuons notre introduction à React. Tout d'abord, nous verrons comment faire le rendu d'une collection de données, comme une liste de noms, à l'écran. Après cela, nous inspecterons comment un utilisateur peut soumettre des données à une application React à l'aide de formulaires HTML. Ensuite, nous nous concentrons sur la façon dont le code JavaScript dans le navigateur peut récupérer et gérer les données stockées dans un serveur principal distant. Enfin, nous examinerons rapidement quelques façons simples d'ajouter du style CSS à nos applications React.",
     "image": "/images/courses/part-2.svg",
+    "level":2,
     "learnFeatures": [
       "Lorem ipsum dolor sit amet",
       "Lorem ipsum dolor sit amet",
@@ -186,6 +217,7 @@
     "slug": "programmation-cote-serveur-avec-nodejs-et-express",
     "description": "Dans cette partie, notre attention se porte sur le backend, c'est-à-dire sur l'implémentation de fonctionnalités du côté serveur. Nous implémenterons une API REST simple dans Node.js en utilisant la bibliothèque Express, et les données de l'application seront stockées dans une base de données MongoDB. A la fin de cette partie, nous déploierons notre application sur internet.",
     "image": "/images/courses/part-3.svg",
+    "level":2,
     "learnFeatures": [
       "Lorem ipsum dolor sit amet",
       "Lorem ipsum dolor sit amet",
@@ -251,6 +283,7 @@
     "slug": "test-des-serveurs-express-et-gestion-des-utilisateurs",
     "description": "Dans cette partie, nous allons continuer notre travail sur le backend. Notre premier grand thème sera l'écriture d'unités et de tests d'intégration pour le backend. Après avoir couvert les tests, nous examinerons la mise en œuvre de l'authentification et de l'autorisation des utilisateurs.",
     "image": "/images/courses/part-4.svg",
+    "level":2,
     "learnFeatures": [
       "Lorem ipsum dolor sit amet",
       "Lorem ipsum dolor sit amet",
@@ -316,6 +349,7 @@
     "slug": "tester-des-applications-react",
     "description": "Dans cette partie, nous revenons à l'interface, en examinant d'abord différentes possibilités pour tester le code React. Nous mettrons également en œuvre une authentification basée sur des jetons qui permettra aux utilisateurs de se connecter à notre application.",
     "image": "/images/courses/part-5.svg",
+    "level":2,
     "learnFeatures": [
       "Lorem ipsum dolor sit amet",
       "Lorem ipsum dolor sit amet",
