@@ -1,0 +1,225 @@
+# CHALLENGES OPTIONNELS
+
+## FETCH QUIZ
+
+En choisissant le bon webservice dans la liste ci-dessous et en utilisant Thunder Client pour récupérer des informations, 
+répondez aux différentes questions.
+
+- Fruityvice : [https://www.fruityvice.com/](https://www.fruityvice.com/)
+- Harry Potter API : [https://hp-api.onrender.com/](https://hp-api.onrender.com/)
+- Pokemon TCG API : [https://pokemontcg.io/](https://pokemontcg.io/)
+- Dictionary API :  [https://dictionaryapi.dev/](https://dictionaryapi.dev/)
+- Exchangerate : [https://exchangerate.host/#/](https://exchangerate.host/#/)
+
+***Questions:***
+
+1. Quel est le synonyme du mot anglais programmer ?
+2. Combien de calories y a-t-il dans une fraise ?
+3. A quelle famille appartient la banane ?
+4. Quel est le type du pokémon Gardevoir ? (Nul besoin de vous créer un compte)
+5. Quelle est l’attaque la plus puissante du pokémon Gardevoir ?
+6. Combien valait 1 euro en dollars le 01/01/2019 ?
+7. Combien valait 1 euro en livres sterling le 01/01/2020 ?
+8. Quelle est l’année de naissance du professeur Severus Snape dans Harry Potter ?
+9. Quel est le nom de l’actrice jouant le rôle de Ginny Weasley dans Harry Potter ?
+
+```js
+// a completer
+const response1 = "";
+const response2 = "";
+const response3 = "";
+const response4 = "";
+const response5 = "";
+const response6 = "";
+const response7 = "";
+const response8 = "";
+const response9 = "";
+```
+
+Selon le numéro des questions, assignez à chaque variable le résultat que vous avez trouvé. Toutes les réponses devront être sous forme de string.
+
+
+## POKEDEX
+
+Le principe de ce challenge est d’appréhender le webservice [PokéAPI](https://pokeapi.co/).
+
+Vous devez créer un site web capable d’afficher la liste de tous les pokémons renvoyés par le webservice.
+
+Au chargement de la page les 15 premiers pokémons doivent s'afficher après la card “Pikachu” qui vous servira de référence.
+
+Puis, à chaque clic sur le bouton ```“next”```, vous devrez afficher, à la suite des précédents, les ```15 pokémons suivants```.
+Le gif ci-dessous peut mettre quelques secondes à charger.
+
+![alt img75](/images/courses/level1/img75.gif)
+
+Vous n’avez pas à vous soucier du style et de la mise en page de cette application, 
+tout est déjà géré dans les fichiers ```index.html``` et ```style.css```.
+
+```index.html```
+```html
+<!DOCTYPE html>
+<html>
+
+<head>
+	<link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+	<h1>Pokedex</h1>
+
+	<div id="pokemonContainer">
+		<div class="pokemon electric">
+			<div class="imgContainer">
+				<img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/25.png" alt="Pikachu" />
+			</div>
+			<div class="info">
+				<h3 class="name">Pikachu</h3>
+				<span class="type">Type: <span>electric</span></span>
+			</div>
+		</div>
+	</div>
+
+	<button id="next">Next</button>
+
+	<script src='script.js'></script>
+</body>
+
+</html>
+```
+
+```style.css```
+```css
+@import url('https://fonts.googleapis.com/css?family=Muli&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Lato:300,400&display=swap');
+
+body {
+	background: #EFEFBB;
+	background: -webkit-linear-gradient(to right, #D4D3DD, #EFEFBB);
+	background: linear-gradient(to right, #D4D3DD, #EFEFBB);
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	font-family: 'Lato';
+	margin: 0;
+}
+
+h1 {
+	letter-spacing: 3px;
+}
+
+#pokemonContainer {
+	background-color: '#fceaff';
+	display: flex;
+	flex-wrap: wrap;
+	align-items: space-between;
+	justify-content: center;
+	margin: 0;
+	max-width: 1200px;
+}
+
+.pokemon {
+	background-color: #eee;
+	border-radius: 20px;
+	box-shadow: 0 3px 15px rgba(100, 100, 100, 0.5);
+	margin: 10px;
+	padding: 20px;
+	text-align: center;
+}
+
+.pokemon .imgContainer {
+	background-color: rgba(255, 255, 255, 0.6);
+	border-radius: 50%;
+	width: 120px;
+	height: 120px;
+	text-align: center;
+}
+
+.pokemon .imgContainer img {
+	margin-top: 20px;
+	max-width: 90%;
+}
+
+.pokemon .info {
+	margin-top: 20px;
+}
+
+.pokemon .name {
+	margin: 15px 0 7px;
+	letter-spacing: 1px;
+}
+
+#next {
+	font-weight: bold;
+	background-color: rgba(255, 255, 255, 0.6);
+	border-radius: 15%;
+	width: 80px;
+	height: 40px;
+	text-align: center;
+	margin: 20px;
+}
+
+.fire {
+	background-color: #FDDFDF;
+}
+
+.grass {
+	background-color: #DEFDE0;
+}
+
+.electric {
+	background-color: #FCF7DE;
+}
+
+.water {
+	background-color: #DEF3FD;
+}
+
+.ground {
+	background-color: #f4e7da;
+}
+
+.rock {
+	background-color: #d5d5d4;
+}
+
+.fairy {
+	background-color: #fceaff;
+}
+
+.poison {
+	background-color: #98d7a5;
+}
+
+.bug {
+	background-color: #f8d5a3;
+}
+
+.dragon {
+	background-color: #97b3e6;
+}
+
+.psychic {
+	background-color: #eaeda1;
+}
+
+.flying {
+	background-color: #F5F5F5;
+}
+
+.fighting {
+	background-color: #E6E0D4;
+}
+
+.normal {
+	background-color: #F5F5F5;
+}
+```
+
+```script.js```
+```js
+// a completer
+```
+
+1. Modifiez le DOM pour afficher les 15 premiers pokémons de ```PokéAPI``` à la suite de la card de "```Pikachu”```.
+2. Au clic sur le bouton “next’, faites en sorte d’afficher les 15 pokémons suivants renvoyés par PokéAPI (et ainsi de suite à chaque clic).

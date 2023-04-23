@@ -1,0 +1,215 @@
+# HTML 5
+
+## LE CONTEXTE
+
+Le HTML est un langage interprété par le navigateur qui vise à hiérarchiser et 
+structurer l’information d’une page web en identifiant les différents éléments de celle-ci (titres, sous-titres, images, paragraphes,…).
+
+Le SEO ( Search Engine Optimisation) correspond à un ensemble des pratiques permettant au site de remonter dans 
+les résultats des moteurs de recherche tels que Google, Bing, ….
+
+Le rapport avec le HTML ? La structure HTML d’une page permet au moteur de recherche de mieux comprendre 
+de quoi elle parle et ainsi de pouvoir mieux la référencer. Plus une page est structurée, plus elle est lisible pour les moteurs de recherche !
+
+## FONCTIONNEMENT
+
+***Structure d’une page web***
+
+Une page web se compose de plusieurs blocs HTML :
+
+- ```<head>``` : définit une section dans laquelle seront ajoutées des informations complémentaires concernant la page web. Par exemple, la langue du texte contenu dans la page web, le titre de la page web.
+- ```<body>``` : définit une section qui contient tout le contenu à afficher dans le navigateur : les titres, les images, les paragraphes, les conteneurs, ...
+
+```html
+<!DOCTYPE html>
+<html>
+
+    <head>
+
+    </head>
+
+    <body>
+
+    </body>
+
+</html>
+```
+
+Une fois la structure de la page établie, toutes les prochaines balises devront s’imbriquer à l’intérieur de la balise ```<body>```. 
+
+```html
+<body>
+ <div>
+   <img src="logo.jpg" />
+   <p>Ceci est un paragraphe</p>
+ </div>
+</body>
+```
+
+***Structure d’une balise***
+
+Les balises définissent le type d’un élément dans une page web.
+
+```html
+<balise attribut="valeur">...</balise>
+```
+
+On utilise des balises ouvrantes (```<balise>```) et fermantes (```</balise>```) pour encapsuler le contenu.
+
+Il est également possible d'ajouter un ou plusieurs attributs sur chaque balise pour compléter ou modifier 
+leur configuration comme par exemple l’ajout d’un id ou la valeur contenue par défaut dans un input.
+
+Certaines balises sont dites **auto-fermantes**, elles sont utilisées quand il n’y a pas de contenu 
+à encapsuler (par exemple les balises ```<img />```).
+
+```html
+<balise />
+```
+
+## LES BALISES SEMANTIQUES
+
+La plupart des balises HTML ont un sens sémantique, c’est-à-dire qu’elles fournissent des informations complémentaires 
+au navigateur et ont donc un réel intérêt pour le SEO.
+
+***Les paragraphes***
+
+Les paragraphes d’une page web sont encapsulés dans la balise ```<p>```.
+
+```html
+<p>Ceci est un paragraphe</p>
+```
+
+***Les titres***
+
+Les titres sont représentés par des balises ```<hn>``` avec **n** pouvant aller de **1 à 6** selon l’importance du titre :  
+```h1``` pour les titres principaux de la page à ```h6``` pour les plus petits sous-titres.
+
+```html
+<h1>Titre de niveau 1</h1>
+<h2>Titre de niveau 2</h2>
+<h3>Titre de niveau 3</h3>
+<h4>Titre de niveau 4</h4>
+<h5>Titre de niveau 5</h5>
+<h6>Titre de niveau 6</h6>
+```
+
+***Les liens***
+
+La balise ```<a>``` permet de créer un lien entre le page courante et une autre page en précisant vers quelle page rediriger l’utilisateur avec l’attribut href.
+
+```html
+<a href="account.html">My account</a>
+```
+
+***Les images***
+
+La balise autofermante ```<img>``` permet d’afficher une image qui est stockée sur votre ordinateur 
+ou bien sur le serveur chargé d’héberger votre page web.
+
+```html
+<img src="logo.jpg" />
+```
+
+Il faut toujours indiquer l’emplacement de l’image grâce à l’attribut ```src```.
+
+***Les champs de saisie***
+
+La balise autofermante ```<input>``` permet de définir un champ de saisie qui permettra à l’utilisateur de saisir une information.
+
+```html
+<input type="text" name="message" />
+```
+
+L’attribut type précise la nature du contenu attendu et l’attribut name permet de différencier un input d’un autre dans un formulaire.
+
+***Les boutons***
+
+```html
+<button type="button">Add</button>
+```
+
+***Les listes***
+Pour afficher une liste de plusieurs éléments, nous utilisons les balises ```<ul>``` (pour créer la liste) 
+et à l’intérieur de celles-ci les balises ```<li>``` (pour créer un élément dans la liste).
+
+```html
+<ul>
+ <li>Bleu</li>
+ <li>Vert</li>
+ <li>Jaune</li>
+</ul>
+```
+
+![alt img35](/images/courses/level1/img35.png)
+
+***Les tableaux***
+
+En HTML, les tableaux sont créés grâce aux balises ```<table>, <tr>, <td>``` :
+
+- ***\<table>*** : pour créer le tableau
+- ***\<tr>*** : pour créer une ligne horizontale du tableau, cette balise doit être imbriquée dans la balise ```<table>```
+- ***\<td>*** : pour créer une cellule du tableau (contenant les informations de celui-ci), cette balise doit être imbriquée dans la balise ```<tr>```.
+
+```html
+<table>
+ <tr>
+   <td>Janvier</td>
+   <td>6</td>
+ </tr>
+ <tr>
+   <td>Février</td>
+   <td>9</td>
+ </tr>
+</table>
+```
+
+![alt img36](/images/courses/level1/img36.png)
+
+## LES BALISES NON SEMANTIQUES
+
+Les balises non sémantiques n’ont pas d’intérêt pour le SEO mais elles permettent de mettre en page les éléments d’une page web.
+
+***Les div***
+
+Les balises ```<div>``` permettent de regrouper différents types d’éléments et de leur appliquer un style.
+
+```html
+<div>
+ <img src="logo.jpg" />
+ <p>Ceci est un paragraphe</p>
+</div>
+```
+
+***Les span***
+
+Les balises ```<span>``` sont des conteneurs de texte. Elles peuvent séparer des morceaux de textes pour leur appliquer des styles différents.
+
+```html
+Ceci est un <span>paragraphe</span>
+```
+
+## LE FORMULAIRE HTML
+
+Les formulaires sont très pratiques pour différents types d’actions comme par exemple l’inscription d’un utilisateur ou sa connexion.
+
+Ils sont constitués d’un champ input et d’un bouton.
+
+***Les champs de saisie:***
+
+```html
+<input type="text" name="message" value="">
+```
+
+***Le bouton de validation:***
+
+```html
+<button type="submit">Add</button>
+```
+
+***ou***
+
+```html
+<input type="button" value="Add" />
+```
+
+

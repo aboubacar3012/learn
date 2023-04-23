@@ -1,0 +1,355 @@
+# CHALLENGES OPTIONNELS
+
+
+## CAT WALK
+
+L'objectif de cet exercice est de faire courir un chat grâce à la méthode ```setInterval```.
+
+L’URL de la première image est : [https://raw.githubusercontent.com/Innotech-Academy-Corporation/catwalkimages/main/cat-1.jpg](https://raw.githubusercontent.com/Innotech-Academy-Corporation/catwalkimages/main/cat-1.jpg )
+
+Le nom des 10 images va de cat-1.jpg à cat-10.jpg.
+
+Une fois la dernière image affichée, la première est de nouveau affichée et ainsi de suite.
+
+```html```
+```html
+<!DOCTYPE html>
+<html>
+    <head>
+    	<link rel="stylesheet" href="style.css">
+    </head>
+    <body>
+    	<img id="cat-run">
+    	<script src="script.js"></script>
+    </body>
+</html>
+```
+
+```style.css```
+```css
+body {
+    margin: 0;
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+```
+
+```script.js```
+```js
+function getCatImage(imgNumber) {
+	return 'https://raw.githubusercontent.com/Innotech-Academy-Corporation/catwalkimages/main/cat-1.jpg ';
+}
+
+document.querySelector('#cat-run').src = getCatImage(1);
+```
+
+Prenez connaissance du code fourni et modifiez-le afin de donner l’impression que le chat court, 
+en changeant d’image toutes les 100 ms, par exemple.
+
+Vous devez obligatoirement utiliser la fonction "```getCatImage```" qui est censée renvoyer l’URL de l’image du chat 
+en recevant l’index en paramètre (de 1 à 10).
+
+## PRIORITIZE 
+
+L'objectif de cet exercice est de manipuler le DOM pour attribuer des couleurs différentes à 
+chaque task selon son niveau de priorité et pour afficher seulement celles qui sont le plus urgentes.
+
+Utilisez les couleurs suivantes:
+
+- Très urgent (1): #e74c3c
+- Urgent (2): #e67e22
+- Moyennement urgent (3): #f1c40f
+- Pas urgent (4): #2ecc71
+
+```html```
+```html
+<!DOCTYPE html>
+<html>
+	<head>
+        <link rel="stylesheet" href="style.css" />
+	</head>
+	<body>
+        <div id="header">
+            <h1>Prioritize</h1>
+        </div>
+
+        <div id="container">
+            <div class="row">
+                <div class="task">TASK #1</div>
+                <div class="criticality">1</div>
+                <div class="description">Lancer un nouveau téléscope d'étude de l'univers.</div>
+            </div>
+
+            <div class="row">
+                <div class="task">TASK #2</div>
+                <div class="criticality">3</div>
+                <div class="description">Ravitailler la Station Spatiale Internationale.</div>
+            </div>
+
+            <div class="row">
+                <div class="task">TASK #3</div>
+                <div class="criticality">2</div>
+                <div class="description">Améliorer les systèmes de sauvetage des fusées Apollo.</div>
+            </div>
+            
+            <div class="row">
+                <div class="task">TASK #4</div>
+                <div class="criticality">4</div>
+                <div class="description">Remplacer le module à Oxygène de la Station Spatiale Internationale.</div>
+            </div>
+            
+            <div class="row">
+                <div class="task">TASK #5</div>
+                <div class="criticality">3</div>
+                <div class="description">Préparer la mission habitée pour la lune prévue en 2028.</div>
+            </div>
+            
+            <div class="row">
+                <div class="task">TASK #6</div>
+                <div class="criticality">3</div>
+                <div class="description">Cartographier Farout.</div>
+            </div>
+            
+            <div class="row">
+                <div class="task">TASK #7</div>
+                <div class="criticality">4</div>
+                <div class="description">Terminer les préparatifs de la première mission humanisée vers Mars prévue en 2024.</div>
+            </div>
+            
+            <div class="row">
+                <div class="task">TASK #8</div>
+                <div class="criticality">2</div>
+                <div class="description">Intercepter et dévier le Géocroiseur Apophis avant 2029.</div>
+            </div>
+            
+            <div class="row">
+                <div class="task">TASK #9</div>
+                <div class="criticality">2</div>
+                <div class="description">
+                Achever les tests d'Ariane.
+                </div>
+            </div>
+            
+            <div class="row">
+                <div class="task">TASK #10</div>
+                <div class="criticality">1</div>
+                <div class="description">Se préparer à la collision entre Andromède et la Voie Lactée dans 3,9 milliards d'années.</div>
+            </div>
+        </div>
+            
+        <script src="./script.js"></script>
+    </body>
+</html>
+```
+
+```style.css```
+```css
+body {
+  height: 100vh;
+  margin: 0;
+}
+
+#header {
+  text-align: center;
+}
+
+h1 {
+  margin: 30px;
+  font-size: 35px;
+  font-family: 'Orbitron', sans-serif;
+}
+
+.row {
+  height: 60px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  margin: 6%;
+  margin-right: 6%;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.task {
+  width: 10%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-family: monospace;
+  font-weight: bold;
+}
+
+.description {
+  width: 66%;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 5px;
+  font-size: 9px;
+  font-family: sans-serif;
+  border: 1px solid #7f8c8d;
+  border-radius: 40px;
+  text-align: center;
+}
+
+.criticality {
+  width: 15px;
+  height: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+  font-size: 14px;
+  font-family: monospace;
+  border-radius: 50px;
+  border: 1px solid #7f8c8d;
+}
+```
+
+```script.js```
+```js
+// a completer
+```
+
+1. Modifiez la couleur de fond des divs **"criticality"** selon leur niveau d’urgence.
+2. Faites disparaître (via ```display: none```) les tasks qui ont un niveau d’urgence supérieur à 2, 
+et laissez tous les autres tasks affichés. Attention les divs contenant les tasks sont organisées avec flexbox (```display: flex```).
+
+## CRYPTOCURRENCIES
+
+L'objectif de cet exercice est de réaliser un compteur pour afficher le nombre de crypto-monnaies dans 
+votre portefeuille et d’ajouter deux nouvelles monnaies en respectant le même rendu visuel.
+
+Maquette :
+![alt img67](/images/courses/level1/img67.png)
+
+Les urls des images des deux crypto à ajouter :
+
+- [Image du crypto Litecoin](https://raw.githubusercontent.com/Innotech-Academy-Corporation/cryptomonnaies/main/litecoin.png)
+
+- [Image du crypto Ripple](https://raw.githubusercontent.com/Innotech-Academy-Corporation/cryptomonnaies/main/ripple.png)
+
+```html```
+```html
+<!DOCTYPE html>
+<html>
+	<head>
+	    <link rel="stylesheet" href="style.css">
+	</head>
+	<body>
+	    <div id="header">
+            <h1>Cryptocurrencies</h1>
+         </div>
+
+        <div id="main_container">
+            <div class="crypto_container">
+              <img src="https://raw.githubusercontent.com/Innotech-Academy-Corporation/cryptomonnaies/main/bitcoin.png" alt="Bitcoin" class="picto-crypto">
+              <h6>Bitcoin</h6>
+              <div class="divider"></div>
+              <p>3 382,3€</p>
+            </div>
+        
+            <div class="crypto_container">
+              <img src="https://raw.githubusercontent.com/Innotech-Academy-Corporation/cryptomonnaies/main/ethereum.png" alt="ethereum" class="picto-crypto">
+              <h6>Ethereum</h6>
+              <div class="divider"></div>
+              <p>120,5€</p>
+            </div>
+        </div>
+        <script type="text/javascript" src="script.js"></script>
+	</body>
+</html>
+```
+
+```style.css```
+```css
+body{
+  margin: 0;
+  background-color: rgba(0, 0, 0, 0.85);
+  color:white;
+  padding-bottom: 15px;
+}
+
+#header{
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  font-family: 'Poppins', sans-serif;
+}
+
+#header h1{
+  font-size: 25px;
+  text-decoration: underline overline;
+  font-family: 'Poppins', sans-serif;
+}
+
+#header h4{
+  font-size: 14px;
+  border: 1px solid white;
+  padding: 10px;
+  font-family: 'Poppins', sans-serif;
+}
+
+.divider{
+  margin-left: 40px;
+  width: 2px;
+  height: 50px;
+  background-color: white;
+}
+
+#main_container{
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.crypto_container{
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  background-color: rgba(255, 255, 255, 0.10);
+  margin-top: 30px;
+  padding: 5px;
+  border-top: 1px solid white;
+  border-bottom: 1px solid white;
+  width: 80vw;
+}
+
+.crypto_container img{
+  margin-right: 5vw;
+  margin-left: 5vw;
+}
+
+.crypto_container div{
+  margin-right: 10vw;
+}
+
+p{
+  font-size: 14px;
+  font-family: 'Poppins', sans-serif;
+  margin-right: 2vw;
+}
+
+h6{
+  font-size: 14px;
+  min-width: 10vw;
+}
+
+.picto-crypto{
+  width: 60px;
+  height: 60px;
+}
+```
+
+```scrypt.js```
+```js
+// a completer
+```
+1. Avec Javascript, mettez en place un script capable de créer et de mettre à jour une balise h4 représentant le compteur (voir maquette). 
+2. Toujours avec javascript et en utilisant une boucle, mettez en place les instructions nécessaires pour ajouter une nouvelle monnaie (pensez à vérifier que votre compteur se met bien à jour après ces ajouts).

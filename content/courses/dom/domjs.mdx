@@ -1,0 +1,569 @@
+# Le DOM
+
+## CONTEXTE
+
+Le DOM (Document Object Model) est une technologie Javascript frontend étroitement liée à HTML et CSS.
+
+Il permet de dynamiser une page HTML en ajoutant, modifiant ou supprimant des éléments grâce à différentes instructions Javascript.
+
+## FONCTIONNEMENT
+
+La manipulation du DOM peut se résumer en deux mots:
+
+- Cibler
+- Transformer
+- Tout commence par le ciblage d’un ou des éléments HTML que vous souhaitez transformer.
+
+## ENVIRONNEMENT JS FRONTEND
+
+Les instructions modifiant un fichier HTML s'écrivent dans un fichier JS, 
+pour que tout fonctionne correctement il ne faut pas oublier de lier les deux fichiers.
+
+La liaison se fait avec une balise script avec comme source le nom du fichier javascript. 
+Celle-ci se place à la fin du body du fichier HTML.
+
+```html
+<!DOCTYPE html>
+<html>
+ <head>
+ </head>
+ <body>
+   <script src="script.js"></script>
+ </body>
+</html>
+```
+
+Comment vérifier si la liaison est bien effective ?
+
+Dans l’onglet ```“Network”``` de votre inspecteur d’éléments, un status 200 indique que le fichier script a bien été chargé.
+
+![alt img66](/images/courses/level1/img66.png)
+
+## CIBLER UN ELEMENT HTML
+
+Gardez comme exemple le code HTML ci-dessous pour illustrer les différentes façons de cibler des éléments.
+
+```html
+<body>
+ <ul class="todo">
+   <li id="t1">Go to 👁'</li>
+   <li id="t2">Lesson 🎾</li>
+ </ul>
+</body>
+```
+***Avec un sélecteur de balise***
+
+```script.js```
+
+```js
+document.querySelector('li');
+```
+
+***Balise ciblée***
+
+```html
+<li id="t1">Go to 👁</li>
+```
+
+La propriété ```querySelector``` retourne le premier élément trouvé.
+
+***Avec un sélecteur de classe***
+
+```script.js```
+
+```js
+document.querySelector('.todo');
+```
+
+***Balises ciblées***
+
+```html
+<ul class="todo">
+ <li id="t1">Go to 👁'</li>
+ <li id="t2">Lesson 🎾</li>
+</ul>
+```
+
+***Avec un sélecteur d’ID***
+
+```script.js```
+
+```js
+document.querySelector('#t2');
+```
+
+***Balise ciblée***
+
+```html
+<li id="t2">Lesson 🎾</li>
+```
+
+***Avec un sélecteur contextuel***
+
+```script.js```
+
+```js
+document.querySelector('ul.todo > #t1');
+```
+
+***Balise ciblée***
+
+```html
+<li id="t1">Go to 👁'</li>
+```
+
+***Raccourci pour cibler le body***
+
+```js
+document.body;
+```
+
+***Balises ciblées***
+
+```html
+<body>
+ <ul class="todo">
+   <li id="t1">Go to 👁'</li>
+   <li id="t2">Lesson 🎾</li>
+ </ul>
+</body>
+```
+
+## OPERATION CRUD SUR UN ELEMENT
+
+Maintenant que votre élément est ciblé, vous allez pouvoir interagir avec cet élément pour effectuer une des quatre opérations de base, 
+les opérations CRUD (create, read, update, delete).
+
+Grâce à ces opérations, nous allons pouvoir modifier le DOM dynamiquement :
+
+- ***Create*** : ajouter un élément
+- ***Read*** : lire le contenu d’un élément
+- ***Update*** : modifier un élément
+- ***Delete*** : supprimer un élément
+
+Conservez le code HTML ci-dessous pour explorer les différentes opérations CRUD.
+
+```html
+<body>
+ <ul class="todo">
+   <li id="t1">Go to 👁'</li>
+   <li id="t2">Lesson 🎾</li>
+ </ul>
+</body>
+```
+
+***Accéder au contenu d’un élément***
+
+```script.js```
+```js
+document.querySelector('#t1').textContent;
+```
+
+***Résultat***
+
+```html
+Go to 👁
+```
+
+***Modifier le contenu d’un élément***
+
+```script.js```
+
+```js
+document.querySelector('#t1').textContent = 'Take 💊';
+```
+
+***Résultat***
+
+```html
+<body>
+ <ul class="todo">
+   <li id="t1">Take 💊</li>
+   <li id="t2">Lesson 🎾</li>
+ </ul>
+</body>
+```
+
+***Supprimer un élément***
+
+```script.js```
+
+```js
+document.querySelector('#t1').remove();
+```
+
+***Résultat***
+
+```html
+<body>
+ <ul class="todo">
+   <li id="t2">Lesson 🎾</li>
+ </ul>
+</body>
+```
+
+***Créer des éléments***
+
+```script.js```
+
+```js
+document.querySelector('#todo').innerHTML += `
+ <li>Book Club 📖</li>
+
+  <li>Lunch 🍕</li>
+`;
+```
+
+L’utilisation des ```backticks``` permet de faciliter la mise en page et la création de chaîne de caractères avec des sauts de ligne.
+
+***Résultat***
+
+```html
+<body>
+ <ul id="todo">
+   <li id="t1">Go to 👁</li>
+   <li id="t2">Lesson 🎾</li>
+   <li>Book Club 📖</li>
+   <li>Lunch 🍕</li>
+ </ul>
+</body>
+```
+
+## CIBLER PLUSIEURS ELEMENTS
+
+Nous avons vu précédemment comment cibler un élément de notre DOM. 
+Il est également possible de cibler un ensemble d’éléments pour interagir avec chacun d’eux.
+
+***Avec un sélecteur de balise***
+
+```script.js```
+
+```js
+document.querySelectorAll('li');
+```
+
+***Résultat***
+
+```html
+<li>Go to 👁</li>
+
+<li>Lesson 🎾</li>
+```
+
+Le résultat est retourné sous la forme d’un tableau d’éléments.
+
+***Avec un sélecteur de classe***
+
+```index.html```
+
+```html
+<body>
+ <ul class="todo">
+   <li>Go to 👁</li>
+   <li>Lesson 🎾</li>
+ </ul>
+
+  <ul class="todo">
+   <li>Book Club 📖</li>
+   <li>Lunch 🍕</li>
+ </ul>
+</body>
+```
+
+```script.js```
+
+```js
+document.querySelectorAll('.todo');
+```
+
+***Résultat***
+
+```html
+<ul class="todo">
+ <li>Go to 👁</li>
+ <li>Lesson 🎾</li>
+</ul>
+<ul class="todo">
+ <li>Book Club 📖</li>
+ <li>Lunch 🍕</li>
+</ul>
+```
+Le résultat est retourné sous la forme d’un tableau d’éléments.
+
+## MANIPULER UN TABLEAU D’ELEMENTS
+
+Le nombre d’éléments d’un tableau
+La longueur du tableau indique le nombre d’éléments ciblés par la recherche.
+
+```index.html```
+
+```html
+<body>
+ <ul class="todo">
+   <li>Go to 👁</li>
+   <li>Lesson 🎾</li>
+ </ul>
+</body>
+```
+
+```script.js```
+
+```js
+document.querySelectorAll('li').length;
+```
+
+***Résultat***
+
+```js 
+2
+```
+
+***Parcourir un tableau***
+
+Il est possible de boucler sur un tableau et, pour chaque élément HTML, d’afficher son texte dans la console du navigateur.
+
+```js
+const todos = document.querySelectorAll('li');
+
+for (let i = 0; i < todos.length; i++) {
+ console.log(todos[i].textContent);
+}
+```
+
+## PARCOURIR LE DOM
+
+Parcourir le DOM permet de naviguer à l’intérieur de la page HTML pour aller chercher des éléments plus 
+en profondeur (éléments enfants) ou remonter vers des éléments plus hauts (éléments parents).
+
+**Accéder à l’élément parent**
+```index.html```
+
+```html
+<body>
+ <ul>
+   <li id="t1">Go to 👁</li>
+   <li id="t2">Lesson 🎾</li>
+ </ul>
+</body>
+```
+
+```script.js```
+
+```js
+document.querySelector('#t1').parentNode;
+```
+***Résultat***
+```html
+<ul>
+ <li id="t1">Go to 👁</li>
+ <li id="t2">Lesson 🎾</li>
+</ul>
+```
+
+***Supprimer l’élément parent***
+
+```index.html```
+
+```html
+<body>
+ <ul>
+   <li id="t1">Go to 👁</li>
+   <li id="t2">Lesson 🎾</li>
+ </ul>
+</body>
+```
+```script.js```
+
+```js
+document.querySelector('#t1').parentNode.remove();
+```
+
+***Résultat***
+
+```html
+<body>
+</body>
+```
+
+***Accéder au parent du parent***
+
+```index.html```
+
+```html
+<body>
+ <ul>
+   <li id="t1">Go to 👁</li>
+   <li id="t2">Lesson 🎾</li>
+ </ul>
+</body>
+```
+
+```script.js```
+
+```js
+document.querySelector('#t1').parentNode.parentNode;
+```
+
+***Résultat***
+
+```html
+<body>
+ <ul>
+   <li id="t1">Go to 👁</li>
+   <li id="t2">Lesson 🎾</li>
+ </ul>
+</body>
+```
+
+***Accéder aux éléments enfants***
+
+```index.html```
+
+```html
+<body>
+ <ul>
+   <li id="t1">Go to 👁</li>
+   <li id="t2">Lesson 🎾</li>
+ </ul>
+</body>
+```
+
+```script.js```
+
+```js
+document.querySelector('#todo').children;
+```
+
+***Résultat***
+
+```html
+<li id="t1">Go to 👁</li>
+<li id="t2">Lesson 🎾</li>
+```
+
+***Accéder au premier enfant***
+
+```index.html```
+
+```html
+<body>
+ <ul>
+   <li id="t1">Go to 👁</li>
+   <li id="t2">Lesson 🎾</li>
+ </ul>
+</body>
+```
+
+```script.js```
+
+```js
+document.querySelector('#todo').firstElementChild;
+```
+
+***Résultat***
+
+```html
+<li id="t1">Go to 👁</li>
+```
+
+***Accéder au dernier enfant***
+
+```index.html```
+
+```html
+<body>
+ <ul id="todo">
+   <li>Go to 👁</li>
+   <li>Lesson 🎾</li>
+ </ul>
+</body>
+```
+
+```script.js```
+
+```js
+document.querySelector('#todo').lastElementChild;
+```
+
+***Résultat***
+
+```html
+<li>Lesson 🎾</li>
+```
+
+***Accéder à l’élément suivant***
+
+```index.html```
+
+```html
+<body>
+ <ul id="todo">
+   <li id="t1">Go to 👁</li>
+   <li id="t2">Lesson 🎾</li>
+ </ul>
+</body>
+```
+
+```script.js```
+
+```js
+document.querySelector('#t1').nextElementSibling;
+```
+
+***Résultat***
+
+```html
+<li id="t2">Lesson 🎾</li>
+```
+
+***Accéder à l’élément précédent***
+
+```index.html```
+
+```html
+<body>
+ <ul id="todo">
+   <li id="t1">Go to 👁</li>
+   <li id="t2">Lesson 🎾</li>
+ </ul>
+</body>
+```
+
+```script.js```
+
+```js
+document.querySelector('#t2').previousElementSibling;
+```
+
+***Résultat***
+
+```html
+<li id="t1">Go to 👁</li>
+```
+
+***Éléments inaccessibles***
+
+Si l’élément ciblé n’existe pas, la propriété utilisée renverra null.
+
+```index.html```
+
+```html
+<body>
+ <ul id="todo">
+   <li id="t1">Go to 👁</li>
+   <li id="t2">Lesson 🎾</li>
+ </ul>
+</body>
+```
+
+```script.js```
+
+```js
+document.querySelector('#todo').parentNode.parentNode;
+```
+
+***Résultat***
+
+```js
+null
+```

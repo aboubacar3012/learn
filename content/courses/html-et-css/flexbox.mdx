@@ -1,0 +1,231 @@
+# FLEXBOX
+
+## CONTEXTE
+
+Flexbox est une méthode de mise en page CSS qui permet de gérer la disposition des éléments à l’intérieur de nos pages Web.
+
+Il est généralement utilisé en complément de CSS Grid pour gérer la mise en page à plus petite échelle; 
+Flexbox facilite le placement des éléments à l’intérieur des conteneurs du layout.
+
+## FONCTIONNEMENT
+
+Par défaut les éléments de type conteneur comme les ```<div>``` s’affichent les uns en dessous des autres car ils sont de type block.
+
+```html
+<div id="div1">div</div>
+<div id="div2">div</div>
+<div id="div3">div</div>
+```
+![alt img49](/images/courses/level1/img49.png)
+
+Grâce à Flexbox nous allons pouvoir modifier la mise en page de ces éléments en jouant avec le sens de leur affichage (horizontale ou verticale), leur ordre et leur alignement.
+
+![alt img50](/images/courses/level1/img50.png)
+
+Pour initialiser Flexbox, il faut ajouter un conteneur autour des éléments que l’on souhaite mettre en forme 
+et lui attribuer la propriété ```“display:flex”```.
+
+```html
+<div id="assets-list">
+   <div id="div1">div</div>
+   <div id="div2">div</div>
+   <div id="div3">div</div>
+</div>
+```
+
+```css
+#assets-list {
+   display: flex;
+}
+```
+
+## LES DIRECTIONS
+
+La priorité permettant de gérer les directions avec Flexbox est : ```flex-direction```.
+
+***En ligne***
+
+Par défaut, la propriété ```display:flex``` positionne les éléments d’un conteneur en ligne (horizontalement).
+
+```css
+#assets-list {
+   display: flex;
+   flex-direction: row;
+}
+```
+
+![alt img51](/images/courses/level1/img51.png)
+
+***En colonne***
+
+Pour afficher un contenu verticalement (en colonne) il faut utiliser la propriété flex-direction en lui attribuant la valeur “column”.
+
+```css
+#assets-list {
+   display: flex;
+   flex-direction: column;
+}
+```
+
+![alt img52](/images/courses/level1/img52.png)
+
+## L’ORDRE
+
+La propriété ```flex-direction``` de Flexbox permet aussi de gérer l’ordre d’affichage des éléments HTML.
+
+Pour afficher les éléments en ligne (horizontalement) en inversant leur ordre il faut lui attribuer la valeur ```“row-reverse”```.
+
+```css
+#assets-list {
+   display : flex;
+   flex-direction: row-reverse;
+}
+```
+
+Pour afficher les éléments en colonne (verticalement) en inversant leur ordre il faut lui attribuer la valeur “column-reverse”.
+
+```css
+#assets-list {
+   display : flex;
+   flex-direction: column-reverse;
+}
+```
+
+## AXE PRINCIPAL ET SECONDAIRE
+
+Pour aligner correctement des éléments avec Flexbox, il est important de connaître le sens des axes principaux et secondaires.
+
+Lorsque les éléments sont affichés en ligne, l’axe principal est la ligne horizontale tandis que l’axe secondaire est la colonne verticale.
+
+```css
+display: flex;
+flex-direction: row;
+```
+![alt img53](/images/courses/level1/img53.png)
+
+Lors d’un affichage en colonne, l’axe principal est la colonne verticale tandis que l’axe secondaire sera la ligne horizontale.
+
+```css
+display: flex;
+flex-direction: column;
+```
+
+![alt img54](/images/courses/level1/img54.png)
+
+## ALIGNEMENT PRINCIPAL
+
+Flexbox propose de modifier très simplement l’alignement sur l’axe principal des éléments enfants à 
+l’intérieur du conteneur grâce à la propriété ```justify-content```.
+
+En fournissant la valeur “flex-start”, les éléments sont alignés à gauche, en début de ligne.
+
+```css
+#assets-list {
+   display : flex;
+   justify-content: flex-start;
+}
+```
+![alt img55](/images/courses/level1/img55.png)
+
+En fournissant la valeur “flex-end”, les éléments sont alignés à droite, en fin de ligne.
+
+```css
+#assets-list {
+   display : flex;
+   justify-content: flex-end;
+}
+```
+![alt img56](/images/courses/level1/img56.png)
+
+En fournissant la valeur “center”, les éléments sont centrés à l’intérieur du conteneur.
+
+```css
+#assets-list {
+   display : flex;
+   justify-content: center;
+}
+```
+![alt img57](/images/courses/level1/img57.png)
+
+Avec la valeur “space-between”, les éléments sont séparés par des espaces identiques. Le premier et le dernier élément sont collés à la bordure.
+
+```css
+#assets-list {
+   display : flex;
+   justify-content: space-between;
+}
+```
+![alt img58](/images/courses/level1/img58.png)
+
+Avec la valeur “space-around”, les éléments sont séparés par des espaces identiques. 
+Le premier et le dernier élément sont séparés de la bordure avec un espace correspondant à la moitié des autres espaces.
+
+```css
+#assets-list {
+   display : flex;
+   justify-content: space-around;
+}
+```
+![alt img59](/images/courses/level1/img59.png)
+
+## ALIGNEMENT SECONDAIRE
+
+La propriété CSS align-items gère l’alignement sur l’axe secondaire.
+
+La valeur “stretch” permet d’étirer les éléments sur l’axe secondaire pour qu’ils prennent toute la place disponible.
+
+```css
+#assets-list {
+   display: flex;
+   justify-content: center;
+   align-items: stretch;
+}
+```
+![alt img60](/images/courses/level1/img60.png)
+
+La valeur “flex-start” permet d’aligner nos éléments en les plaçant au début de l’axe secondaire, c’est-à-dire en haut.
+
+```css
+#assets-list {
+   display: flex;
+   justify-content: center;
+   align-items: flex-start;
+}
+```
+![alt img61](/images/courses/level1/img61.png)
+
+La valeur “center” permet d’aligner nos éléments en les centrant sur l’axe secondaire.
+
+```css
+#assets-list {
+   display: flex;
+   justify-content: center;
+   align-items: center;
+}
+```
+![alt img62](/images/courses/level1/img62.png)
+
+La valeur “flex-end” permet d’aligner nos éléments en les plaçant à la fin de l’axe secondaire, c’est-à-dire en bas.
+
+```css
+#assets-list {
+   display: flex;
+   justify-content: center;
+   align-items: flex-end;
+}
+```
+![alt img63](/images/courses/level1/img63.png)
+
+Attention, si les éléments sont alignés en colonne (verticalement), l’axe principal devient l’axe vertical et l’axe secondaire devient l’axe horizontal.
+
+La propriété “justify-content” gère les éléments verticalement et la propriété “align-items” les éléments horizontalement.
+
+```css
+#assets-list {
+   display: flex;
+   flex-direction:column;
+   justify-content: center;
+   align-items: flex-start;
+}
+```
+![alt img64](/images/courses/level1/img64.png)

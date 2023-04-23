@@ -1,0 +1,192 @@
+# CHALLENGES OPTIONNELS
+
+## WHAT THE VAR ?
+
+Votre collègue souhaiterait créer une simple fonction de calcul de score, mais il semble avoir oublié les bases de JavaScript...
+
+Rappelez-lui comment utiliser correctement les variables et les fonctions, en débuggant son code 🤖
+
+⚠️ Veillez à ne pas modifier le nom des variables ```fixedInteger```, ```score``` et ```result```.
+
+```js
+const randomInteger;
+const fixedInteger;
+const score;
+const result;
+ 
+function calculateScore(integer) {
+ 
+ randomInteger = Math.floor(Math.random() * 90) + 1; // random integer between 0 and 90
+ score = integer + randomInteger;
+ 
+ if (score === 100) {
+   result = 'best score, you win !';
+ } else {
+   result = 'not bad, try again !';
+ }
+}
+ 
+console.log(sum);
+console.log(result);
+ 
+fixedInt = 10;
+console.log(calculateScore(fixedInteger));
+// Expected: { score: 70, result: "not bad, try again !" }
+```
+
+Vous disposez d’un mauvais code de base, modifiez les variables et la fonction pour 
+résoudre les bugs et retourner le résultat et le score dans la console !
+
+## FIND CITIES
+
+```js
+function search(arr) {
+    const found = []
+    
+    // Insert your code here
+    
+    return found
+}
+
+
+const cities = ["Paris", "Tokyo", "Buenos Aires", "Toronto", "Londres", "Barcelone", "Kyoto", "Berlin", "Shanghaï", "Melbourne"]
+console.log(search(cities));
+```
+
+A l’aide d’une expression rationnelle, complétez la fonction search pour qu’elle recherche toutes les villes comportant les lettres ```“to”```, 
+sans tenir compte des *majuscules* et/ou des *minuscules*.
+
+Le résultat renvoyé par la fonction devra être un nouveau tableau.
+
+## CLEAN SENTENCE
+
+```js
+function cleanSentence(str) {
+    
+    // Insert your code here
+    
+    return str
+}
+
+
+const sentence = "J@av@aScri^pt i*s m!y @frie'nd!";
+const result = cleanSentence(sentence);
+console.log(result)
+// Expected : JavaScript is my friend
+```
+
+Complétez la fonction ```cleanSentence``` en créant une regex permettant de supprimer les caractères 
+spéciaux de la chaîne de caractères ```"sentence"``` afin de ne garder que les lettres (majuscules et minuscules) et les espaces.
+
+Le résultat devra être retourné par la fonction ```cleanSentence```.
+
+## SEVEN ERRORS
+
+La fonction ```getDuration``` est censée calculer la durée totale de différentes activités sur une journée de randonnée, 
+mais la fonction ne s’exécute pas et aucun résultat n'apparaît car celle-ci a été codée avec quelques oublis...
+
+```js
+function getDuration(activities) {
+    let totalDuration = 0;
+    let totalMessage = '';
+    
+    for (let i = 0; i < activities.length; i++) {
+        totalDuration += activities[i].duration;
+        totalMessage = `La durée totale de notre randonnée sera de ${totalDuration} minutes.`;
+        
+        return totalMessages;
+    }
+    
+const activitiesArray = [[
+    {
+        activity: "Climbing to Archard lake",
+        duration: 120
+    },
+    {
+        activity: "Fishing in the lake",
+        duration: 60
+    },
+    {
+        activity: "Picnic",
+        duration: 45
+    },
+    {
+        activity: "Nap in the grass",
+        duration: 20
+        ,
+    {
+        activity: "Get back to the car",
+        duration: 90
+    },
+
+console.log(getduration(activitiesArray);
+// Expected result : La durée totale de notre randonnée sera de 335 minutes.
+```
+Trouvez les septs erreurs présentes dans le code pour pouvoir le déboguer en vous assurant que le résultat est toujours retourné par la fonction ```getDuration```.
+
+## GET IT SIMPLE!
+
+La fonction ```rankCities``` est censée retourner un tableau d’objets de villes triées selon la taille de 
+leur population en 2018 uniquement (de la population la plus importante à la plus faible).
+
+La fonction s'exécute mais le résultat retourné est faux et le code pourrait être grandement simplifié…
+
+```js
+const citiesList = [
+    {
+        city: "Paris",
+        year: "2018",
+        population: 2174000,
+    },
+    {
+        city: "Bordeaux",
+        year: "2017",
+        population: 258000,
+    },
+    {
+        city: "Cannes",
+        year: "2018",
+        population: 74000,
+    },
+    {
+        city: "Lyon",
+        year: "2018",
+        population: 518000,
+    },
+    {
+        city: "Dijon",
+        year: "2016",
+        population: 82500,
+    },
+];
+
+function rankCities(cities) {
+    let filteredList = cities;
+    let sortedList = [];
+    let finalList = [];
+
+    for (let i = 1; i < cities.length; i++) {
+        if (cities[i].year === 2018) {
+            filteredList.push({ city: cities.year, year: cities.year, population: cities.population })
+        }
+    }
+
+    for (let j = 0; j < cities.length; j++) {
+        sortedList = filteredList;
+        sortedList.sort((a, b) => (b.population - a.population))
+    }
+
+    finalList = sortedList;
+
+    return finalList;
+}
+
+console.log((rankCities(citiesList));
+// Expected result: 
+// [{ city: "Paris", year: "2018", population: 2174000 },
+//  { city: "Lyon", year: "2018", population: 518000 }
+//  { city: "Cannes", year: "2018", population: 74000 }];
+```
+
+Corrigez le code et simplifiez le pour éliminer les étapes superflues en vous assurant 
+que le résultat est toujours retourné par la fonction ```rankCities```.

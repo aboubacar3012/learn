@@ -1,0 +1,280 @@
+# Boucles, conditions & operateurs logiques
+
+## Les boucles
+
+Une boucle permet d’exécuter un bloc de code plusieurs fois sans devoir le réécrire.  
+
+Par exemple, afficher 100x l’emoji ⭐ dans la console.
+
+
+Sans boucle vous seriez obligés de faire :
+
+```js
+console.log('⭐');
+console.log('⭐');
+console.log('⭐');
+console.log('⭐');
+console.log('⭐');
+...
+```
+
+***Structure d’une boucle***
+
+La boucle se réalise avec l’instruction "for" suivi de trois paramètre s:
+
+- Un compteur (i)
+- Une condition à valider (i < 100)
+- L’évolution du compteur (i++)
+```js
+for (let i = 0; i < 100; i++) {
+ console.log('⭐');
+}
+```
+
+A chaque tour de boucle, si la condition est vraie, le traitement continue.
+
+![alt img24](/images/courses/level1/img24.png)
+
+## Les conditions
+
+## Les operateurs logiques
+
+Une condition permet d'exécuter ou non un bloc de code.
+
+Par exemple, si mon score est supérieur à 100, le code affichera  "Congrats!  🎉🎉" dans la console.
+
+Sans condition, le texte serait tout le temps affiché.
+
+```js
+const score = 50;
+
+console.log('Congrats! 🎉🎉');
+```
+
+***Syntaxe de base***
+
+La condition se réalise avec l’instruction **"if"**. Si la condition est vraie, alors le code sera exécuté.
+
+*Condition :* est-ce que la valeur de score est supérieure à 100 ?
+
+```js
+const score = 50;
+
+if (score > 100) {
+ console.log('Congrats! 🎉🎉');
+}
+```
+
+***Résultat***
+
+Rien ne s’affiche car la condition n’est pas vraie.
+
+**Sinon**
+Le "else" permet d'exécuter un bloc de code lorsque la condition initiale n’est pas vrai”.
+
+```js
+const score = 50;
+
+if (score > 100) {
+ console.log('Congrats! 🎉🎉');
+} else {
+ console.log('Keep trying 💪');
+}
+```
+
+***Résultat***
+
+```js
+Keep trying 💪
+```
+
+***Conditions multiples***
+
+Grâce au **“else if”**, il est possible de mettre plusieurs conditions à la suite.
+
+Une seule sera vraie et donc exécutée!
+
+```js
+const score = 60;
+
+if (score > 100) {
+ console.log('Congrats! 🎉🎉');
+} else if (score > 50) {
+ console.log('Good job 🎉');
+} else {
+ console.log('Keep trying 💪');
+}
+```
+
+**Résultat**
+
+```js
+Good job 🎉
+```
+
+***Les opérateurs de comparaison***
+
+Différents opérateurs de comparaison sont possibles pour définir une condition :
+
+- ```==``` : égal à
+- ```!=``` : différent de
+- ```>``` : supérieur à
+- ```>=``` : supérieur ou égal à
+- ```<``` : inférieur à        
+- ```<=``` : inférieur ou égal à
+
+***== ou ===***
+
+Le double égal (==) réalise une conversion automatique des valeurs à comparer avant d’effectuer la comparaison. 
+Les valeurs prendront le même type.
+
+Le triple égal (===) n’effectue pas de conversion préalable, si les valeurs ne sont pas du même type, 
+la condition retourne toujours false. Cette égalité est à privilégier car elle est plus stricte et engendre donc moins d’erreurs.
+
+***Condition avec un double égal***
+
+```js
+const score = 1;
+
+ 
+if (score == '1') {
+ console.log('GO!');
+}
+```
+
+***Résultat***
+
+```js
+GO!
+```
+
+Même condition avec un triple égal
+
+```js
+const score = 1;
+
+ 
+if (score === '1') {
+ console.log('GO!');
+}
+```
+
+***Résultat***
+```js
+ 
+```
+La condition n’est pas valide, rien ne s’affiche.
+
+## Les operateurs logiques
+
+Les opérateurs logiques permettent de combiner des conditions.
+
+Par exemple, “si je choisis un🥤et un 🍔 alors j’ai un 🍩 offert !”.
+
+Sans opérateur logique il faudrait écrire :
+
+```js
+const drink = '🥤';
+const dish = '🍔';
+
+ 
+if (drink === '🥤') {
+ if (dish === '🍔') {
+   console.log('🍩 is offered!');
+ }
+}
+```
+
+***Structure***
+
+L’ensemble des conditions doivent être comprises entre les parenthèses du **“if”**.
+
+```js
+const drink = '🥤';
+const dish = '🍔';
+
+ 
+if (drink === '🥤' && dish === '🍔' ) {
+ console.log('🍩 is offered!');
+}
+```
+
+On appelle également les opérateurs logiques des opérateurs booléens, car chaque test est converti en booléen.
+
+```js
+drink === '🥤' // true
+
+dish === '🍔' // true
+```
+
+***L’opérateur "ET"***
+
+L’opérateur "ET" s’écrit "&&". Pour valider le test, toutes les conditions doivent être égales à true.
+
+```js
+const drink = '🥤';
+const dish = '🍔';
+const sideDish = '🥗';
+
+ 
+if (drink === '🥤' && dish === '🍔' && sideDish === '🍟') {
+ console.log('🍩 is offered!');
+}
+```
+
+Le test n’est pas validé car une des conditions est fausse.
+
+```js
+drink === '🥤' // true
+
+
+dish === '🍔' // true
+
+
+sideDish === '🍟' // false
+```
+
+***L’opérateur "OU"***
+
+L’opérateur "OU” s’écrit avec deux pipes "||". Pour valider le test, au moins une des conditions doit être égale à true.
+
+```js
+const dish = '🌭';
+
+ 
+if (dish === '🍔' || dish === '🌭') {
+ console.log('I love fastfood ! 🤟');
+}
+```
+
+Le test est validé car une des conditions est true.
+
+```js
+dish === '🍔' // false
+
+
+dish === '🌭' // true
+```
+
+***Combinaison d’opérateurs***
+
+Grâce aux parenthèses il est possible de réaliser des conditions plus complexes.
+
+```js
+const drink = '🥤';
+const dish = '🌭';
+
+if( (drink === '🥤' && dish === '🍔') || (drink === '🥤' && dish === '🌭') ) {
+ console.log('🍩 is offered!');
+}
+```
+
+Comme en mathématiques, ces conditions se lisent en commençant par le contenu de chaque parenthèse.
+
+```js
+drink === '🥤' && dish === '🍔' // false
+
+
+drink === '🥤' && dish === '🌭' // true
+```
+Le test est validé car une des conditions est true.

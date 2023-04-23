@@ -1,0 +1,149 @@
+# FETCH
+
+## CONTEXTE
+
+Les webservices sont très utiles pour étoffer les services d’une application, mais comment les intégrer à celle-ci ?
+
+Fetch peut être comparé à un messager capable de faire communiquer votre application avec des webservices. 
+Sans fetch il serait par exemple impossible de manipuler les informations renvoyées.
+
+## FONCTIONNEMENT
+
+Les étapes pour intégrer un webservice à une application avec fetch sont les suivantes :
+
+Envoyer une requête au webservice via fetch
+- La demande est traitée par le webservice
+- La réponse du webservice est réceptionnée par l’application JavaScript
+- La réponse est exploitée par l’application JavaScript, pour l’afficher par exemple
+
+![alt img73](/images/courses/level1/img73.png)
+
+## STEP-BY-STEP
+
+***Fournir l’URL du webservice***
+
+Pour interroger un webservice, il suffit d’appeler la fonction fetch avec l’URL à appeler en premier argument.
+
+Par défaut, si nous ne précisons pas la méthode, fetch exécute la requête HTTP en GET.
+
+```js
+fetch('https://api.chucknorris.io/jokes/random');
+```
+
+***Fetch et l’asynchronie***
+
+**Attention**, fetch est asynchrone !
+
+Vous devrez utiliser la méthode ```.then()``` pour attendre la réponse du webservice avant de poursuivre l'exécution du code.
+
+```js
+fetch('https://api.chucknorris.io/jokes/random').then(...)
+```
+
+**Récupérer la réponse**
+
+La gestion de la réponse se fait en 2 étapes:
+
+La réponse est d’abord récupérée de façon brute sous forme de string
+La réponse est convertie en objet JSON pour pouvoir être exploitée
+
+```js
+fetch('https://api.chucknorris.io/jokes/random')
+
+  .then(response => response.json());
+```
+
+
+***Exploiter la réponse***
+
+Pour exploiter la réponse, vous pouvez faire un ```console.log()``` de celle-ci pour comprendre sa structure.
+
+Le return permet traiter ultérieurement la réponse contenue dans la variable ```"randomJoke"```.
+
+```js
+const randomJoke = fetch('https://api.chucknorris.io/jokes/random')
+ .then(response => response.json())
+ .then(data => {
+   console.log(data);
+   return data;
+ });
+```
+
+***Résultat***
+
+```js
+{
+ categories: [],
+ created_at: "2020-01-05 13:42:30.730109",
+ icon_url: "https://assets.chucknorris.host/img/avatar/chuck-norris.png",
+ id: "h0VbNVqJQcWQvpxtimWJ7Q",
+ updated_at: "2020-01-05 13:42:30.730109",
+ url: "https://api.chucknorris.io/jokes/h0VbNVqJQcWQvpxtimWJ7Q",
+ value: "school didnt teach Chuck Norris he taught school"
+}
+```
+
+***Décortiquer la réponse***
+
+Une fois la réponse analysée, il est possible de se concentrer sur seulement une partie de celle-ci. 
+Dans cet exemple, vous pouvez afficher seulement la valeur du fun fact en ciblant sa propriété.
+
+```js
+const randomJoke = fetch('https://api.chucknorris.io/jokes/random')
+ .then(response => response.json())
+ .then(data => {
+   console.log(data.value);
+   return data;
+ });
+```
+
+***Résultat***
+
+```js
+ school didnt teach Chuck Norris he taught school
+```
+
+## FETCH ET LE DOM
+
+***Maquetter les informations***
+
+Les données partagées par le webservice peuvent servir à alimenter le contenu d’une page web via le DOM.
+
+Reprenez l’exemple avec les petites histoires rigolotes concernant **Chuck Norris**.
+
+Imaginez que vous souhaitiez une page web très simple reprenant les informations renvoyées par le webservice: l’icône, 
+la date de création, le fait et l’url qui redirige vers son site.
+
+![alt img74](/images/courses/level1/img74.png)
+
+
+La réalisation de cette maquette consiste à combiner les notions vues sur le DOM pour cibler et assigner des valeurs 
+à différents éléments de la structure HTML.
+
+***Alimenter la page HTML***
+
+Démarrez par la structure HTML en donnant une id à chacun des éléments que vous allez alimenter avec le webservice :
+
+```js
+<body>
+  <img id="icon" src="">
+ <h1>Fun facts</h1>
+ <p id="fact"></p>
+ <a id="url" href=""></a> 
+</body>
+```
+
+Enfin pour alimenter le HTML avec les données de chucknorris.io, il faut manipuler le DOM à l’intérieur de 
+la fonction fetch en ciblant chacune des propriétés qui vous intéressent.
+
+```js
+fetch('https://api.chucknorris.io/jokes/random')
+ .then(response => response.json())
+ .then(data => {
+   document.querySelector('#icon').src = data.icon_url;
+   document.querySelector('#fact').textContent = data.value;
+ });
+```
+
+Contrairement à l’autre exemple de fetch, celui-ci ne comporte pas de return car le seul objectif de la requête est de modifier 
+la page HTML via le DOM.

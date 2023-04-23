@@ -1,9 +1,9 @@
 {
   "introduction-au-terminal-de-commande": {
-    "title": "Introductio au terminal de commande",
+    "title": "Inroduction au terminal et git",
     "slug": "introduction-au-terminal-de-commande",
     "description": "Dans cette partie, nous allons nous familiariser avec les modalités pratiques de suivi du cours. Par la suite, nous aurons un aperçu des bases du développement Web et parlerons également des progrès dans le domaine du développement d'applications Web au cours des dernières décennies.",
-    "image": "/images/courses/part-0.svg",
+    "image": "/images/courses/terminal.png",
     "level":1,
     "learnFeatures": [
       "Lorem ipsum dolor sit amet",
@@ -23,8 +23,469 @@
             "correctAnswerIndex": 0
           }
         ]
+      },
+      {
+        "title": "Démarrer avec git",
+        "slug": "demarrer-avec-git",
+        "description": "Informations générales sur le fonctionnement du cours.",
+        "challenges": [
+          {
+            "challengeType": "multiple-choice",
+            "question": "Vestibulum congue consectetur quam in mattis?",
+            "answers": ["True", "False"],
+            "correctAnswerIndex": 0
+          }
+        ]
+      },
+      {
+        "title": "Challenges",
+        "slug": "challenges",
+        "description": "Informations générales sur le fonctionnement du cours.",
+        "challenges": [
+          {
+            "challengeType": "multiple-choice",
+            "question": "Vestibulum congue consectetur quam in mattis?",
+            "answers": ["True", "False"],
+            "correctAnswerIndex": 0
+          }
+        ]
       }
      
+    ]
+  },
+  "introduction-a-javascript": {
+    "title": "Introduction a JavaScript",
+    "slug": "introduction-a-javascript",
+    "description": "Dans cette partie, nous allons nous familiariser avec les modalités pratiques de suivi du cours. Par la suite, nous aurons un aperçu des bases du développement Web et parlerons également des progrès dans le domaine du développement d'applications Web au cours des dernières décennies.",
+    "image": "/images/courses/javascript.png",
+    "level":1,
+    "learnFeatures": [
+      "Lorem ipsum dolor sit amet",
+      "Lorem ipsum dolor sit amet",
+      "Lorem ipsum dolor sit amet"
+    ],
+    "lessons": [
+      {
+        "title": "Types de données & Variables",
+        "slug": "types-de-donnees-et-variables",
+        "description": "Informations générales sur le fonctionnement du cours.",
+        "challenges": [
+          {
+            "challengeType": "multiple-choice",
+            "question": "Vestibulum congue consectetur quam in mattis?",
+            "answers": ["True", "False"],
+            "correctAnswerIndex": 0
+          }
+        ]
+      },
+      {
+        "title": "Tableaux & Objets",
+        "slug": "tableaux-et-objets",
+        "description": "Informations générales sur le fonctionnement du cours.",
+        "challenges": [
+          {
+            "challengeType": "multiple-choice",
+            "question": "Vestibulum congue consectetur quam in mattis?",
+            "answers": ["True", "False"],
+            "correctAnswerIndex": 0
+          }
+        ]
+      },
+      {
+        "title": "Boucles, Conditions & Operateurs Logiques",
+        "slug": "boucles-condition-et-operateurs-logique",
+        "description": "Informations générales sur le fonctionnement du cours.",
+        "challenges": [
+          {
+            "challengeType": "multiple-choice",
+            "question": "Vestibulum congue consectetur quam in mattis?",
+            "answers": ["True", "False"],
+            "correctAnswerIndex": 0
+          }
+        ]
+      },
+      {
+        "title": "Les Fonctions",
+        "slug": "fonctions",
+        "description": "Informations générales sur le fonctionnement du cours.",
+        "challenges": [
+          {
+            "challengeType": "multiple-choice",
+            "question": "Vestibulum congue consectetur quam in mattis?",
+            "answers": ["True", "False"],
+            "correctAnswerIndex": 0
+          }
+        ]
+      },
+      {
+        "title": "Challenges",
+        "slug": "challenges",
+        "description": "Informations générales sur le fonctionnement du cours.",
+        "challenges": [
+          {
+            "challengeType": "multiple-choice",
+            "question": "Vestibulum congue consectetur quam in mattis?",
+            "answers": ["True", "False"],
+            "correctAnswerIndex": 0
+          }
+        ]
+      },
+      {
+        "title": "Challenges Optionnels",
+        "slug": "challenges-optionnels",
+        "description": "Informations générales sur le fonctionnement du cours.",
+        "challenges": [
+          {
+            "challengeType": "multiple-choice",
+            "question": "Vestibulum congue consectetur quam in mattis?",
+            "answers": ["True", "False"],
+            "correctAnswerIndex": 0
+          }
+        ]
+      }
+    ]
+  },
+  "expressions-rationnelles-et-debug": {
+    "title": "Expressions rationnelles et debug",
+    "slug": "expressions-rationnelles-et-debug",
+    "description": "Dans cette partie, nous allons nous familiariser avec les modalités pratiques de suivi du cours. Par la suite, nous aurons un aperçu des bases du développement Web et parlerons également des progrès dans le domaine du développement d'applications Web au cours des dernières décennies.",
+    "image": "/images/courses/debugging.png",
+    "level":1,
+    "learnFeatures": [
+      "Lorem ipsum dolor sit amet",
+      "Lorem ipsum dolor sit amet",
+      "Lorem ipsum dolor sit amet"
+    ],
+    "lessons": [
+      {
+        "title": "Expression rationnelles",
+        "slug": "expressions-rationnelles",
+        "description": "Informations générales sur le fonctionnement du cours.",
+        "challenges": [
+          {
+            "challengeType": "multiple-choice",
+            "question": "Vestibulum congue consectetur quam in mattis?",
+            "answers": ["True", "False"],
+            "correctAnswerIndex": 0
+          }
+        ]
+      },
+      {
+        "title": "Debug",
+        "slug": "debug",
+        "description": "Informations générales sur le fonctionnement du cours.",
+        "challenges": [
+          {
+            "challengeType": "multiple-choice",
+            "question": "Vestibulum congue consectetur quam in mattis?",
+            "answers": ["True", "False"],
+            "correctAnswerIndex": 0
+          }
+        ]
+      },
+      {
+        "title": "Challenges",
+        "slug": "challenges",
+        "description": "Informations générales sur le fonctionnement du cours.",
+        "challenges": [
+          {
+            "challengeType": "multiple-choice",
+            "question": "Vestibulum congue consectetur quam in mattis?",
+            "answers": ["True", "False"],
+            "correctAnswerIndex": 0
+          }
+        ]
+      },
+      {
+        "title": "Challenges Optionnels",
+        "slug": "challenges-optionnels",
+        "description": "Informations générales sur le fonctionnement du cours.",
+        "challenges": [
+          {
+            "challengeType": "multiple-choice",
+            "question": "Vestibulum congue consectetur quam in mattis?",
+            "answers": ["True", "False"],
+            "correctAnswerIndex": 0
+          }
+        ]
+      }       
+    ]
+  },
+  "html-et-css": {
+    "title": "HTML 5 & CSS 3",
+    "slug": "html-et-css",
+    "description": "Dans cette partie, nous allons nous familiariser avec les modalités pratiques de suivi du cours. Par la suite, nous aurons un aperçu des bases du développement Web et parlerons également des progrès dans le domaine du développement d'applications Web au cours des dernières décennies.",
+    "image": "/images/courses/html&css.png",
+    "level":1,
+    "learnFeatures": [
+      "Lorem ipsum dolor sit amet",
+      "Lorem ipsum dolor sit amet",
+      "Lorem ipsum dolor sit amet"
+    ],
+    "lessons": [
+      {
+        "title": "HTML 5",
+        "slug": "html",
+        "description": "Informations générales sur le fonctionnement du cours.",
+        "challenges": [
+          {
+            "challengeType": "multiple-choice",
+            "question": "Vestibulum congue consectetur quam in mattis?",
+            "answers": ["True", "False"],
+            "correctAnswerIndex": 0
+          }
+        ]
+      },
+      {
+        "title": "CSS 3",
+        "slug": "css",
+        "description": "Informations générales sur le fonctionnement du cours.",
+        "challenges": [
+          {
+            "challengeType": "multiple-choice",
+            "question": "Vestibulum congue consectetur quam in mattis?",
+            "answers": ["True", "False"],
+            "correctAnswerIndex": 0
+          }
+        ]
+      },
+      {
+        "title": "FLEXBOX",
+        "slug": "flexbox",
+        "description": "Informations générales sur le fonctionnement du cours.",
+        "challenges": [
+          {
+            "challengeType": "multiple-choice",
+            "question": "Vestibulum congue consectetur quam in mattis?",
+            "answers": ["True", "False"],
+            "correctAnswerIndex": 0
+          }
+        ]
+      },
+      {
+        "title": "Challenges",
+        "slug": "challenges",
+        "description": "Informations générales sur le fonctionnement du cours.",
+        "challenges": [
+          {
+            "challengeType": "multiple-choice",
+            "question": "Vestibulum congue consectetur quam in mattis?",
+            "answers": ["True", "False"],
+            "correctAnswerIndex": 0
+          }
+        ]
+      },
+      {
+        "title": "Challenges Optionnels",
+        "slug": "challenges-optionnels",
+        "description": "Informations générales sur le fonctionnement du cours.",
+        "challenges": [
+          {
+            "challengeType": "multiple-choice",
+            "question": "Vestibulum congue consectetur quam in mattis?",
+            "answers": ["True", "False"],
+            "correctAnswerIndex": 0
+          }
+        ]
+      }       
+    ]
+  },
+  "dom": {
+    "title": "Le DOM",
+    "slug": "le-dom",
+    "description": "Dans cette partie, nous allons nous familiariser avec les modalités pratiques de suivi du cours. Par la suite, nous aurons un aperçu des bases du développement Web et parlerons également des progrès dans le domaine du développement d'applications Web au cours des dernières décennies.",
+    "image": "/images/courses/console.png",
+    "level":1,
+    "learnFeatures": [
+      "Lorem ipsum dolor sit amet",
+      "Lorem ipsum dolor sit amet",
+      "Lorem ipsum dolor sit amet"
+    ],
+    "lessons": [
+      {
+        "title": "Comprendre le DOM",
+        "slug": "domjs",
+        "description": "Informations générales sur le fonctionnement du cours.",
+        "challenges": [
+          {
+            "challengeType": "multiple-choice",
+            "question": "Vestibulum congue consectetur quam in mattis?",
+            "answers": ["True", "False"],
+            "correctAnswerIndex": 0
+          }
+        ]
+      },
+      {
+        "title": "Challenges",
+        "slug": "challenges",
+        "description": "Informations générales sur le fonctionnement du cours.",
+        "challenges": [
+          {
+            "challengeType": "multiple-choice",
+            "question": "Vestibulum congue consectetur quam in mattis?",
+            "answers": ["True", "False"],
+            "correctAnswerIndex": 0
+          }
+        ]
+      },
+      {
+        "title": "Challenges Optionnels",
+        "slug": "challenges-optionnels",
+        "description": "Informations générales sur le fonctionnement du cours.",
+        "challenges": [
+          {
+            "challengeType": "multiple-choice",
+            "question": "Vestibulum congue consectetur quam in mattis?",
+            "answers": ["True", "False"],
+            "correctAnswerIndex": 0
+          }
+        ]
+      }       
+    ]
+  },
+  "evenements": {
+    "title": "Les Evenements",
+    "slug": "evenements",
+    "description": "Dans cette partie, nous allons nous familiariser avec les modalités pratiques de suivi du cours. Par la suite, nous aurons un aperçu des bases du développement Web et parlerons également des progrès dans le domaine du développement d'applications Web au cours des dernières décennies.",
+    "image": "/images/courses/toucher.png",
+    "level":1,
+    "learnFeatures": [
+      "Lorem ipsum dolor sit amet",
+      "Lorem ipsum dolor sit amet",
+      "Lorem ipsum dolor sit amet"
+    ],
+    "lessons": [
+      {
+        "title": "Comprendre les événements en JavaScript",
+        "slug": "evenements",
+        "description": "Informations générales sur le fonctionnement du cours.",
+        "challenges": [
+          {
+            "challengeType": "multiple-choice",
+            "question": "Vestibulum congue consectetur quam in mattis?",
+            "answers": ["True", "False"],
+            "correctAnswerIndex": 0
+          }
+        ]
+      },
+      {
+        "title": "Challenges",
+        "slug": "challenges",
+        "description": "Informations générales sur le fonctionnement du cours.",
+        "challenges": [
+          {
+            "challengeType": "multiple-choice",
+            "question": "Vestibulum congue consectetur quam in mattis?",
+            "answers": ["True", "False"],
+            "correctAnswerIndex": 0
+          }
+        ]
+      },
+      {
+        "title": "Challenges Optionnels",
+        "slug": "challenges-optionnels",
+        "description": "Informations générales sur le fonctionnement du cours.",
+        "challenges": [
+          {
+            "challengeType": "multiple-choice",
+            "question": "Vestibulum congue consectetur quam in mattis?",
+            "answers": ["True", "False"],
+            "correctAnswerIndex": 0
+          }
+        ]
+      }       
+    ]
+  },
+  "api-et-fetch": {
+    "title": "API & Fetch",
+    "slug": "api-et-fetch",
+    "description": "Dans cette partie, nous allons nous familiariser avec les modalités pratiques de suivi du cours. Par la suite, nous aurons un aperçu des bases du développement Web et parlerons également des progrès dans le domaine du développement d'applications Web au cours des dernières décennies.",
+    "image": "/images/courses/api.png",
+    "level":1,
+    "learnFeatures": [
+      "Lorem ipsum dolor sit amet",
+      "Lorem ipsum dolor sit amet",
+      "Lorem ipsum dolor sit amet"
+    ],
+    "lessons": [
+      {
+        "title": "API & Webservices",
+        "slug": "api-et-webservices",
+        "description": "Informations générales sur le fonctionnement du cours.",
+        "challenges": [
+          {
+            "challengeType": "multiple-choice",
+            "question": "Vestibulum congue consectetur quam in mattis?",
+            "answers": ["True", "False"],
+            "correctAnswerIndex": 0
+          }
+        ]
+      },
+      {
+        "title": "Fetch",
+        "slug": "fetch",
+        "description": "Informations générales sur le fonctionnement du cours.",
+        "challenges": [
+          {
+            "challengeType": "multiple-choice",
+            "question": "Vestibulum congue consectetur quam in mattis?",
+            "answers": ["True", "False"],
+            "correctAnswerIndex": 0
+          }
+        ]
+      },
+      {
+        "title": "Challenges",
+        "slug": "challenges",
+        "description": "Informations générales sur le fonctionnement du cours.",
+        "challenges": [
+          {
+            "challengeType": "multiple-choice",
+            "question": "Vestibulum congue consectetur quam in mattis?",
+            "answers": ["True", "False"],
+            "correctAnswerIndex": 0
+          }
+        ]
+      },
+      {
+        "title": "Challenges Optionnels",
+        "slug": "challenges-optionnels",
+        "description": "Informations générales sur le fonctionnement du cours.",
+        "challenges": [
+          {
+            "challengeType": "multiple-choice",
+            "question": "Vestibulum congue consectetur quam in mattis?",
+            "answers": ["True", "False"],
+            "correctAnswerIndex": 0
+          }
+        ]
+      }       
+    ]
+  },
+  "level-one-projects": {
+    "title": "Projets",
+    "slug": "projets",
+    "description": "Dans cette partie, nous allons nous familiariser avec les modalités pratiques de suivi du cours. Par la suite, nous aurons un aperçu des bases du développement Web et parlerons également des progrès dans le domaine du développement d'applications Web au cours des dernières décennies.",
+    "image": "/images/courses/projets.png",
+    "level":1,
+    "learnFeatures": [
+      "Lorem ipsum dolor sit amet",
+      "Lorem ipsum dolor sit amet",
+      "Lorem ipsum dolor sit amet"
+    ],
+    "lessons": [
+      {
+        "title": "Compteur de calories",
+        "slug": "compteur-de-calories"
+      },
+      {
+        "title": "Service d'articles",
+        "slug": "service-de-articles"
+      },
+      {
+        "title": "Images Flickr",
+        "slug": "images-flickr"
+      }       
     ]
   },
   "introduction-aux-applications-web": {

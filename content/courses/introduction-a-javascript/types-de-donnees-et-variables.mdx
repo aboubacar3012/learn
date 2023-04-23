@@ -1,0 +1,290 @@
+# Types de donnees & variables
+***
+
+## LES TYPES DE DONNEES
+
+En JavaScript, les données représentent les informations que le programme va manipuler. Par exemple : le prénom, le nom ou l’âge d’une personne.
+
+Il existe trois familles de types de données : les nombres, les chaînes de caractères et les booléens.
+
+## LES VARIABLES
+
+***Le principe***
+Une variable est une boîte qui permet de stocker une information. 
+Le nom de la variable correspond à l’étiquette collé dessus pour savoir ce qu’il y a dedans.
+
+```js
+let email;
+```
+
+***Assigner une valeur***
+
+Une variable peut stocker qu’une seule information.
+
+```js
+let email = 'john@gmail.com';
+```
+
+La valeur **“john@gmail.com”** est assignée à la variable email.
+
+***Réassigner une valeur***
+Il est possible de donner une nouvelle valeur à une variable. Cependant, la valeur précédente sera écrasée.
+
+```js
+let email = 'john@gmail.com';
+email = 'vanessa@gmail.com';
+```
+
+La variable email vaut maintenant **“vanessa@gmail.com”**.
+
+***let vs. var vs. const***
+
+Il existe trois façons de définir une variable: ```“let”, “var” et “const”```.
+
+La dénomination ```“var”``` est très souvent utilisée car c’est la façon historique de créer une variable, 
+mais celle-ci est aujourd’hui de plus en plus remplacée par ```“let”```.
+
+Une variable définie avec ```“let”``` vous évitera notamment quelques problèmes dans 
+des cas très précis comme celui de la portée de variables, un sujet que vous aborderez plus tard dans la formation.
+
+```“let”``` permet de stocker et de modifier une valeur.
+```js
+let score = 0;
+score = 50;
+```
+
+```“var”``` correspond à une ancienne version de ```“let”```.
+```js
+var score = 0;
+score = 50;
+```
+
+```“const”``` permet de stocker une valeur sans la modifier.
+```js
+const birthYear = 1980;
+birthYear = 1990; // provoque une érreur
+```
+
+***Les nombres***
+
+Les nombres peuvent prendre la forme d’entiers (positifs et négatifs) ou de décimaux.
+```js
+150;
+-250;
+34.9;
+```
+
+Les quatre opérations arithmétiques de base sont possibles sur une donnée de type nombre :
+
+***Addition :***
+
+```js
+20 + 2;
+```
+
+***Soustraction :***
+
+```js
+20 - 4;
+```
+
+***Multiplication :***
+
+```js
+5 * 3;
+```
+***Division :***
+
+```js
+8 / 2;
+```
+
+***Incrémenter et décrémenter***
+
+L’incrémentation et la décrémentation est le fait d’augmenter ou de diminuer une valeur de 1. 
+Cette opération n’est possible que sur les variables de type nombre.
+
+***Incrémenter***
+
+```js
+let score = 1;
+score++;
+```
+
+***Résultat***
+
+```js
+2
+```
+
+***Décrémenter***
+
+```js
+let score = 1;
+score--;
+```
+
+***Résultat***
+
+```js
+0
+```
+
+***Augmenter et diminuer un nombre***
+
+Il existe deux syntaxes pour augmenter ou diminuer un nombre. Les deux donneront bien évidemment le même résultat.
+
+```js
+let score = 5;
+score = score + 2;
+```
+
+***ou***
+
+```js
+let score = 5;
+score += 2;
+```
+
+
+***Résultat***
+
+```js
+7
+```
+
+***Les chaînes de caractères***
+
+Les chaînes de caractères (également appelées “String”) sont, comme son nom l’indique, 
+des chaînes de caractères composées de lettres et/ou de chiffres et caractères spéciaux entourées de simple ou de double guillemets.
+
+```js
+
+'J';
+'Hello';
+'Hello world';
+"How are you?";
+```
+
+JavaScript permet différentes manipulations pour travailler sur les données de type string.
+
+Récupérer la longueur d’une chaîne de caractères :
+
+```js
+'Hello world!'.length;
+```
+
+***Résultat***
+
+```js
+12
+```
+
+Modifier la casse (forcer la mise en forme en majuscules ou minuscules).
+
+***Majuscules :***
+
+```js
+'Hello world!'.toUpperCase();
+```
+
+***Résultat***
+
+```js
+HELLO WORLD!
+```
+
+***Minuscules :***
+
+```js
+'HELLO world!'.toLowerCase();
+```
+
+***Résultat***
+
+```js
+hello world!
+```
+
+***Extraire une partie d’une chaîne de caractère :***
+
+```js
+'Hello world!'.slice(0, 5);
+```
+
+***Résultat***
+
+```js
+Hello
+```
+
+Le premier chiffre correspond à la position du premier caractère à extraire et le dernier à la position du dernier non inclus.
+
+***Concaténer***
+
+La concaténation permet de coller des chaînes de caractères entre elles.
+
+```js
+let hello = 'Hello';
+let firstName = 'John';
+
+console.log(hello + firstName);
+```
+
+***Résultat***
+
+```js
+HelloJohn
+```
+
+***Templates literals***
+
+Grâce aux backticks (``), les templates literals permettent de concaténer plus facilement des chaînes de caractère.
+
+```js
+let hello = 'Hello';
+let firstName = 'John';
+
+console.log(`${hello} ${firstName}`);
+```
+
+***Résultat***
+
+```js
+Hello John
+```
+
+***Accéder à un caractère***
+
+Pour accéder à un caractère spécifique, il suffit de renseigner sa position au sein de la chaîne de caractère.
+
+```js
+let name = 'John McClane';
+console.log(name[0]);
+```
+
+***Résultat***
+
+```js
+J
+```
+
+***Les booléens***
+
+Les booléens sont les réponses de type "oui" ou "non" au format informatique.
+
+Un programme à souvent besoin de répondre à des questions simples comme "L’utilisateur est-il connecté ?" ou "Le paiement est-il validé ?".
+
+
+***Équivalent du "oui" :***
+
+```js
+true;
+```
+
+***Équivalent du "non" :***
+
+```js
+false;
+```
+

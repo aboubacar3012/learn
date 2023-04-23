@@ -1,0 +1,184 @@
+# DEBUG
+
+## CONTEXTE
+
+**Mon code ne s’exécute pas ou mal, que faire ?**
+
+Un code qui ne s’exécute pas ou pas correctement traduit la présence d’un ou plusieurs bugs. 
+Un bug est un défaut de conception qui entraîne un dysfonctionnement.
+
+Le débogage est le processus effectué par le développeur pour supprimer les erreurs empêchant le code de bien fonctionner.
+
+Il n’existe pas de débogage type car chaque bug est intrinsèque au code auquel il appartient. 
+Cependant, beaucoup sont de même nature et arrive de façon récurrente, par exemple une erreur de syntaxe, 
+un fichier mal lié… En apprenant certaines règles de bases et en adoptant quelques réflexes, 
+cette étape qui peut sembler compliquée au départ peut ainsi être facilitée.
+
+Dans ce cours nous aborderons le débogage pour les langages HTML, CSS et Javascript à travers les erreurs 
+les plus fréquentes et en présentant des outils très utiles pour analyser et corriger son code.
+
+## FONCTIONNEMENT
+
+Le débogage est un métier de détective, il faut remonter à la source d’un problème en observant et en collectant tous les indices. 
+Ce processus nécessite une approche proactive, il faut analyser avec précision, réfléchir à des déductions possibles puis remonter à la cause.
+
+Par exemple, un bug HTML et/ou CSS se traduit par une page web non conforme à une maquette.
+
+***Maquette***
+
+![alt img31](/images/courses/level1/img31.png)
+
+*VS. Reality*
+
+![alt img32](/images/courses/level1/img32.png)
+
+Un bug javascript se traduira quant à lui sous forme de message d’erreur dans la console de votre IDE et/ou dans celle votre inspecteur d’éléments.
+
+***Exemple de code invalide :***
+
+```js
+const firstName = 'Vanessa';
+firstName = 'John';
+console.log(firstName);
+```
+***Erreur affichée :***
+
+![alt img33](/images/courses/level1/img33.png)
+
+***HTML***
+
+***Les erreurs fréquentes***
+
+- **“Le toit avant le plancher”**
+```js
+  ...
+<body>
+   <div>
+     <img src="logo.jpg" />
+     <p>Ceci est un paragraphe</p>
+   </body>
+ </div>
+...
+```
+
+La balise ```</body>``` doit se fermer en dessous du contenu de la page.
+
+
+- **Une balise mal fermée**
+```js
+...
+ <body>
+   <div>
+     <img src="logo.jpg" />
+     <p>Ceci est un paragraphe
+   </div>
+ </body>
+...
+```
+
+- **Des fautes dans le nom des balises**
+
+```js
+...
+ <body>
+   <div>
+     <img src="logo.jpg" />
+     <pa>Ceci est un paragraphe</pa>
+   </div>
+ </body>
+...
+```
+
+## CSS
+
+***Les erreurs fréquentes***
+
+- **Le fichier CSS n’est pas relié au fichier HTML**
+
+```js
+<head>
+ ???
+</head>
+
+<body>
+ ...
+</body>
+```
+
+- **Les mauvais sélecteurs sont utilisés**
+
+```js
+// HTML
+...
+<div>
+<p class="red-text">Mon texte</p>
+</div>
+...
+
+// CSS
+#red-text {
+color: red;
+}
+```
+
+Dans cet exemple, le paragraphe possède une classe nommée ```“red-text”``` côté HTML mais côté CSS seul l’id ```“red-text”``` possède un style.
+
+***Déboguer avec l’inspecteur d’éléments du navigateur***
+
+Un outil très utile pour déboguer du CSS est l’inspecteur d’éléments du navigateur.
+
+En ciblant la balise HTML ou directement l'élément qui pose problème pour le style sur la page web, 
+l’inspecteur indique l’ensemble des règles CSS qui lui sont appliquées par ordre de priorité.
+
+![alt img34](/images/courses/level1/img34.png)
+
+## JAVASCRIPT
+
+***Les erreurs fréquentes***
+
+- **On oublie encore de refermer…**
+```js
+for (let i = 0; i < contacts.length; i++) {
+        if (contacts[i].prenom === 'john') {
+                console.log(contacts[i].prenom)
+        }
+
+```
+
+- **“Chaque caractère compte”**
+En javascript chaque variable, fonction, argument, méthode… a une orthographe qui lui est propre. 
+Celle-ci peut-être définie par Javascript, c’est le cas pour les méthodes ou par le développeur.
+
+
+Dans les deux cas, il faut absolument respecter les caractères utilisés quand ces éléments sont réutilisés, 
+autrement une erreur va inévitablement se produire.
+
+```js
+function sayHi() {
+ console.log("Bonjour");
+}
+
+sayhi()
+```
+
+**L’instruction console.log()**
+
+C’est véritablement l’outil indispensable pour déboguer et comprendre son code.
+
+```js
+ function totalBasket(items) {
+ let total = 0;
+ for (let i = 0; i < items.length; i++) {
+   total += items[i].price;
+   console.log('Total updated', total);
+ }
+ return total;
+}
+```
+
+
+Dans cet exemple, la fonction ```totalBasket()``` calcule le prix total d’un panier.
+
+
+Si je souhaite avoir l’évolution du montant total mis à jour à chaque tour de boucle (à chaque élément ajouté), 
+pour repérer un éventuel problème dans mon code (prix invalide, total qui ne se met pas à jour…), je peux mettre en place un ```console.log()```.

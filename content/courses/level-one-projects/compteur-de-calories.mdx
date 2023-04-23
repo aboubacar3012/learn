@@ -1,0 +1,110 @@
+# Compteur de calories
+
+Le but final est de réaliser une version basique d'application de gestion de menu avec compteur de calories, 
+comme on peut en trouver dans les sites ou applications de bien-être ou santé.
+
+## PARTIE 1
+
+L'objectif de cette première partie est d'avoir un compteur de calorie pour un repas comme illustré ci-dessous :
+
+![alt img76](/images/courses/level1/img76.gif)
+
+***Format des données***
+
+Les fichiers ```categories.js``` et ```ingredients.js``` fournissent la liste des catégories et les plats ou ingrédients de chaque catégorie.
+
+Chaque fichier contient les données dans un objet JavaScript, respectivement avec les variables ```categories``` et ```ingredients```.
+
+Une catégorie est représentée par un objet qui contient son intitulé et un identifiant :
+
+```
+{
+    "categorie": "Entrées et plats composés",
+    "id": "cat_2487"
+}
+```
+
+Chaque ingrédient est défini par un objet contenant son identifiant, 
+l'identifiant de la catégorie auquel il appartient, son nom, sa valeur énergétique en kCal pour 100g et 
+les quantités (en g) de protéines, glucides, lipides et sucres, par exemple :
+
+```
+{
+    "id":"item_58293648",
+    "categorie":"cat_2487",
+    "ingredient":"Taboul\u00e9 ou Salade de couscous, pr\u00e9emball\u00e9",
+    "energie":179,
+    "proteines":4,
+    "glucides":23,
+    "lipides":6,
+    "sucres":4
+}
+```
+***NB:*** Les caractères accentués ont été encodés en UTF-8.
+
+### ETAPE 1 : Chargement des categories
+
+Clonez le projet de base :
+```js
+git clone https://github.com/Innotech-Academy-Corporation/project-1-compteur.git
+```
+
+Le formulaire de choix d'ingrédient contient 2 éléments ```fieldset```. Au chargement de la page, 
+le premier (à gauche) doit être rempli avec les catégories qui sont fournies par la liste contenue dans la variable ```categories```.
+
+![alt img77](/images/courses/level1/img77.png)
+
+Écrire la fonction ```afficheCategories()``` qui affiche la liste des catégories. 
+Pour pouvoir ensuite afficher la liste des ingrédients correspondants, il faudra avoir l'identifiant de la catégorie. 
+Ajouter à chaque item un attribut ```categorie-id``` en utilisant la propriété ```dataset``` des éléments.
+
+Chaque item de la liste doit capter le clic et appeler la fonction ```makeSelectIngredients```. 
+Pour commencer, cette fonction fera simplement un ```console.log``` de l'identifiant de la catégorie cliquée.
+
+### ETAPE 2 : Chargement des ingredients
+
+Compléter la fonction ```makeSelectIngredients```, qui va remplir l'élément ```select``` d'identifiant ```select-ingredients```. 
+Il faut donc y ajouter des éléments ```<option>``` avec pour attribut ```value``` l'identifiant de l'ingrédient.
+[Voir la documentation sur ```<select>```](https://developer.mozilla.org/fr/docs/Web/HTML/Element/select)
+
+***Indication*** : pour avoir les ```ingrédients``` de la catégorie, il faut prendre tous les éléments de la liste ```ingredients``` 
+qui correspondent à l'identifiant de la catégorie. 
+Pour cela, on pourra [utiliser la méthode filter des tableaux](https://developer.mozilla.org/fr/docs/Web/JavaScript/Reference/Global_Objects/Array/filter).
+
+***Attention*** : penser à enlever les ingrédients déjà présents dans le ```select``` avant d'y ajouter ceux de la catégorie cliquée. 
+Sinon les ingrédients continuent de s'ajouter au select quand on clique sur des catégories. 
+*Attention*, il faut conserver le premier élément ```option```.
+
+Ajouter le capteur d'évènement ```submit``` au formulaire (au chargement de la page) et créer la fonction ```ajouterIngredient``` 
+qui commencer par bloquer la soumission du formulaire et fait un ```console.log``` de l'identifiant de l'ingrédient à ajouter.
+
+### ETAPE 3 : Compteur
+
+Pour pouvoir ajouter plusieurs ingrédients à un repas, on va utiliser une liste qui garde en mémoire les ingrédients ajoutés et leur poids.
+
+Créer une variable globale ```listeIngredients``` initialisée à une liste vide.
+
+Compléter la fonction ```ajouterIngredient``` pour :
+
+- ajouter à la ```listeIngredients``` un élément sus la forme d'un objet du type ```{ "item": ingredient, "poids": poids }```.
+- appeller une fonction ```afficheRepas(liste)``` qui parcourt la liste donnée en argument (ici ```listeIngredients```) 
+et recrée le tableau d'affichage du repas comme sur le modèle ci-dessous. La première et dernière ligne contiennent des éléments ```th```, 
+et la CSS incluse dans la page met le tableau en forme comme sur le modèle. **Indication** : pour afficher le tableau, 
+commencer par vider la division d'identifiant ```compteur``` et refaire le tableau en entier à chaque afichage.
+
+![alt img78](/images/courses/level1/img78.png)
+
+***Indication*** : pour retrouver l'ingrédient sélectionné dans la liste complète, on peut rechercher dans la liste en la parcourant avec un ```for```, 
+mais on peut aussi utiliser la [méthode find()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/find) des tableaux.
+
+***Indication*** : pour éviter d'avoir trop de décimales dans les valeurs numériques, 
+utiliser la [méthode toFixed()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number/toFixed).
+
+### Etape 4
+
+Il faut pouvoir commencer un nouveau repas sans avoir à recharger la page pour tout réinitialiser.
+
+Ajouter un capteur de ```clic``` au bouton d'identifiant ```reset``` au chargement de la page. Au clic cela doit appeler la fonction ```raz```.
+
+Écrire la fonction ```raz``` qui réinitialise la liste ```listeIngredients```, vide le select des ingrédients (sauf le premier élément option) 
+et vide la division d'affichage du repas.

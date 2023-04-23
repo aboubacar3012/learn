@@ -1,0 +1,150 @@
+# CHALLENGES OPTIONNELS
+
+## SPARE CHANGE
+
+### Exercice 1: Spare change
+
+Nous allons créer un algorithme pour simuler la logique d’un distributeur de billets.
+
+Les billets disponibles dans le distributeur sont des billets de 5, 10, 20, 50, 100, 200 et 500.
+
+```js
+function deliverBills (amount) {
+  const withdrawal = [];
+  // insert your code here
+  
+  return withdrawal;
+}
+
+console.log(deliverBills(770)); 
+// Expected: [500,200,50,20]
+console.log(deliverBills(1360));
+// Expected: [500,500,200,100,50,10]
+```
+Complétez la fonction ```deliverBills``` afin de retourner un tableau contenant le minimum de billets pour arriver à la somme demandée. 
+
+### Exercice 2: Invasion Romaine
+
+Cet exercice est une évolution de l’exercice précédent, il met le focus sur les conditions particulières à prendre en compte pour qu’un résultat soit correct.
+
+La valeur des chiffres romains est la suivante :
+
+```
+1 = I
+5 = V
+10 = X
+50 = L
+100 = C
+500 = D
+1000 = M
+```
+**Attention**, certains chiffres romains s’expriment différemment (ex: 4 = IV soit “1 avant 5”).
+
+```js
+function toRomanNumerals (number) {
+  let romanValue = ''
+  // Insert your code here
+  
+  return romanValue
+}
+
+console.log(toRomanNumerals(984)) 
+// Expected: 'CMLXXXIV'
+```
+
+Complétez la fonction ```toRomanNumerals``` qui prend un nombre arabe en entrée et retourne une chaîne de caractères 
+exprimant la valeur demandée en chiffres romains. 
+
+## FIBONACCI
+
+En mathématiques, la suite de Fibonacci est une suite de nombres entiers dans laquelle chaque terme est la somme des deux termes qui le précèdent.
+
+Cette suite permet de représenter en termes mathématiques (ou en code algorithmique !) des motifs qui se produisent spontanément dans la nature.
+
+```js
+function fibonacci(n) {
+ let result = [0, 1];
+ let first = 0;
+ let second = 1;
+ let next;
+  
+ //Ecrivez votre code ici
+
+ return result;
+}
+```
+Complétez la fonction ```fibonacci``` pour renvoyer les termes de la suite de Fibonacci en fonction du nombre de termes **n** fourni en argument.
+
+Les 2 premiers termes de la suite sont dans le tableau **result**. À vous de la compléter !
+
+## PALINDROME
+
+Un palindrome est un texte ou un mot dont l'ordre des lettres reste le même, qu'on le lise de gauche à droite ou de droite à gauche.
+
+Le but de ce challenge est de trouver parmi les différents mots d’un tableau ceux qui ne sont pas des palindromes.
+
+La liste de mots reçue en paramètre et la liste finale des palindromes seront en majuscule.
+
+```js
+function getPalindromes(words) {
+    const palindromes = [];
+    
+    // Insert your code here
+    
+    return palindromes;
+}
+
+const examplePalindromes = ['HELLO', 'KAYAK', 'ANNA', 'TOTO', 'JAVASCRIPT','LOL', "MODEM"];
+console.log(getPalindromes(examplePalindromes));
+// Expected: ['ANNA', 'KAYAK', LOL']
+```
+
+Complétez la fonction ```getPalindromes``` pour qu’elle retourne une liste des palindromes issue du tableau de chaine de caractères ```"words"``` reçu en paramètre.
+
+La liste des palindromes renvoyée devra être triée par ordre alphabétique.
+
+## ANAGRAMME
+
+### Exercice 1: Find by ndirefs
+
+Une anagramme est une permutation des lettres formant un nouveau mot qui a un nouveau sens.
+
+Par exemple, pour le mot "AGE" : AEG, AGE, EAG, EGA, GAE, GEA.
+
+```js
+function filterAnagrams(word, array) {
+    const anagrams = [];
+    
+    // Insert your code here
+    return anagrams;
+}
+
+console.log(filterAnagrams("LEAST", ["STEAL", "STALE", "LANCE", "CRASH", "SLATE", "ROAST", "TESLA"]));
+
+// Expected: ["SLATE","STALE","STEAL","TESLA"]
+```
+
+La fonction ```filterAnagrams``` reçoit en argument un mot et un tableau. Filtrez le tableau pour trouver les anagrams du mot.
+
+La liste des anagrammes renvoyée devra être triée par ordre alphabétique, sans aucun doublon.
+
+### Exercice 2: Anagram me
+
+Montons en puissance ! Maintenant que vous savez ```retrouver``` des anagrammes grâce à un algo, 
+la prochaine étape est de pouvoir ```générer``` les anagrammes d’un mot grâce à un algorithme ```récursif```.
+
+```js
+function anagramMe(word) {
+    const anagramList = [];
+    
+    // Insert your code here
+    
+    return anagramList;
+}
+
+console.log(anagramMe('AGE'));
+// Expected: ['AEG', 'AGE', 'EAG', 'EGA', 'GAE
+```
+Complétez la fonction ```anagramMe``` afin qu’elle retourne la liste des anagrammes issue de la chaîne de caractères word reçue en paramètre.
+
+La liste des anagrammes renvoyée devra être triée par ordre alphabétique, sans aucun doublon.

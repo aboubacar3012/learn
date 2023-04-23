@@ -1,0 +1,80 @@
+# API & WEBSERVICES
+
+## CONTEXTE
+
+Une API (Application Programming Interface) est une interface sur laquelle on peut se brancher pour utiliser un service.
+
+Les API sont très utilisées sur les applications web et mobiles car elles permettent d’enrichir leurs services proposés.
+
+Prenons l’exemple d’un site touristique sur Paris qui souhaite afficher en direct la météo de la ville. 
+L’équipe technique n’a ni la capacité, ni le temps, ni les moyens de développer un système permettant de récupérer cette donnée. Comment faire ?
+
+Grâce à JavaScript et aux API, ce site peut récupérer ces informations auprès d’une interface externe spécialisée dans ce domaine.
+
+***API vs. webservices***
+
+La différence majeure entre une **API** et un **webservice** est leur accessibilité.
+
+Une **API** est accessible par une application uniquement lorsqu’elles se trouvent sur la même machine. 
+Les deux évoluent sur le même environnement.
+
+Un **webservice** quant à lui est accessible depuis une URL, il faut forcément passer par un réseau internet pour pouvoir 
+le faire communiquer avec une application. Ils évoluent ainsi sur des environnements différents.
+
+## FONCTIONNEMENT
+
+Le fonctionnement d’un webservice se base sur les étapes suivantes :
+
+- Tout commence par une demande au webservice via une URL, ce processus est appelé une requête.
+- Le webservice reçoit l’information et effectue le traitement nécessaire.
+- Le webservice répond à la requête en fournissant l’information demandée. 
+Cette réponse est au format brut et pourra ensuite être traitée par une application.
+
+![alt img72](/images/courses/level1/img72.png)
+
+Il est possible d’envoyer une requête à un webservice en utilisant une url, par exemple: ```http://urlduwebservice```.
+
+Pour spécifier le type de réponse souhaitée, il faut modifier l’url en lui ajoutant des paramètres:
+
+```http://urlduwebservice/critère1/critère2/…```
+
+Les paramètres peuvent aider à filtrer le résultat de la requête. 
+Par exemple, si à l’origine la requête permet d’obtenir une liste  de milliers d’utilisateurs, en passant un certain paramètre, 
+il est possible de limiter le nombre d’utilisateurs obtenus  pour s’adapter à nos besoins.
+
+Pour savoir quels paramètres il est possible de passer à un url pour faire une requête à un webservice, 
+il est nécessaire de lire la documentation du webservice.
+
+## TESTER UN WEBSERVICE
+
+La première étape essentielle à l’utilisation d’un web service est de bien lire sa documentation. 
+Chaque webservice propose sa propre documentation avec sa propre logique.
+
+Il est ensuite important de tester le webservice pour s’assurer qu’ils correspondent bien à vos besoins.
+
+Pour tester un webservice il existe des outils permettant de simuler des requêtes.
+
+***L’outil Thunder Client***
+
+**Thunder Client** est une extension ```VSCode``` permettant de simuler des requêtes envoyées aux webservices comme si elles étaient envoyées par une application. 
+C’est l’outil idéal pour valider le fonctionnement et votre bonne compréhension du web service avant de l'intégrer à votre environnement.
+
+***Utilisation de Thunder Client***
+
+Pour comprendre le fonctionnement de ```Thunder Client```, 
+prenez connaissance du webservice : [https://api.chucknorris.io/](https://api.chucknorris.io/) (webservice fournissant des fun facts sur Chuck Norris).
+
+La première étape est de se rendre sur la documentation du webservice et de récupérer l’url avec lequel nous pourrons faire une requête HTTP.
+
+La documentation vous précise qu’il faut utiliser une requête de type GET.
+
+Il existe 4 types principaux de requêtes HTTP, mais pour le moment nous allons nous focaliser sur les requêtes GET qui permettent de lire de l’information et nous découvrirons les autres plus tard dans le programme.
+
+Une fois l’extension Thunder Client ouverte sur votre IDE, les étapes à suivre sont:
+
+- Configurez le type de requête en haut à gauche de l’écran (GET dans notre cas)
+- Saisissez l’URL donnée par le webservice
+- Appuyez sur le bouton ```“Send”```
+
+Dans notre exemple, le webservice retourne un objet de façon aléatoire avec différentes clés et valeurs (id, url, value…). 
+A chaque requête, il envoie un nouvel objet avec un nouveau fun fact.

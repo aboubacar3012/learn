@@ -1,0 +1,486 @@
+# CHALLENGES
+***
+
+***Configuration*** : 
+Pour pouvoir écrire du code pour cet atelier, nous utiliserons un éditeur de code en ligne : [JS Bin](https://jsbin.com/?js,console)
+Voici à quoi il ressemble 👇
+
+![alt img23](/images/courses/level1/img23.png)
+
+## TYPES DE DONNEES ET VARIABLES
+
+### Exercice 1: Les variables
+
+Maintenant que vous êtes familiarisés avec les types et les structures en JavaScript, il est temps de les mettre en pratique !
+
+```js
+// Insert your code here
+
+
+// Do not edit/remove code under this line
+function checkValue(num) {
+    return num;
+}
+
+console.log(checkValue(second));
+```
+
+Créez une variable "second" avec une valeur initiale de 60 (à la ligne 2).
+
+### Exercice 2: Les nombres
+Les nombres permettent de faire des calculs arithmétiques et de manipuler les valeurs numériques : amusez-vous avec eux !
+
+```js
+function newEmail(emails) {
+    // 1 - Insert your code here
+
+    
+    return emails;
+}
+
+console.log(newEmail(24));
+```
+1. La fonction ```newEmail``` reçoit un nombre "emails" en argument. À l'intérieur de la première fonction, incrémentez la valeur de 1.
+***
+```js
+function calculateSeconds(minutes) {
+    // 2 - Insert your code here
+
+    
+    return minutes;
+}
+
+console.log(calculateSeconds(45));
+```
+2. La fonction ```calculateSeconds``` reçoit un nombre "minutes" en argument. À l’intérieur de la seconde fonction, multipliez la valeur par 60.
+***
+
+```js
+function addThree(num) {
+    // 3 - Insert your code here
+
+    
+    return num;
+}
+
+console.log(addThree(6));
+```
+3. La fonction ```addThree``` reçoit un nombre "num" en argument. À l’intérieur de la dernière fonction, ajoutez 3 à la valeur.
+
+### Exercice 3: Les chaines de caracteres
+
+En revanche, les chaînes de caractères (ou "string") sont plus adaptées à nos besoins car elles permettent de stocker des données sous forme de texte.
+
+```js
+// Insert your code here
+
+
+// Do not edit/remove code below this line
+function checkContact(name) {
+    return name;
+}
+
+console.log(checkContact(name));
+```
+Créez une variable "contact" avec "George" comme valeur initiale.
+
+## MANIPULER LES CHAINES DE CARACTERES
+
+### Exercice
+Comme les nombres, les chaînes de caractères ont des propriétés spécifiques, telles que la possibilité de les concaténer, 
+de les tronquer et de transformer le contenu.
+
+```js
+function sendGreeting(name) {
+    const greeting = "Welcome to La Capsule,";
+    
+    // 1-2 - Insert your code here
+    
+    return name;
+}
+
+console.log(sendGreeting("Elsa"));
+```
+1. La fonction ```sendGreeting``` prend une chaîne de caractères "name" en argument. Dans la fonction se trouve une variable "greeting". 
+Modifiez la fonction afin de renvoyer la concaténation de greeting et name.
+
+2. Il devrait y avoir un espace entre les deux, mais JavaScript n’en ajoutera pas automatiquement si on ne lui indique pas explicitement. 
+Modifiez la fonction pour introduire un espace entre greeting et name.
+***
+
+```js
+function sendTweet(tweet) {
+    // 3-4 - Insert your code here
+    
+    return tweet;
+}
+
+
+console.log(sendTweet("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis vel arcu mi. Donec dictum auctor finibus. Aliquam suscipit dolor at justo finibus, dictum vulputate metus efficitur. Quisque elementum pharetra nunc, quis congue metus posuere quis. Duis tincidunt dictum justo, non mattis purus maximus eu. Integer est diam, sodales sit amet nisi laoreet."));
+```
+3. La fonction sendTweet reçoit en argument une chaîne de caractères "tweet". Or, Twitter limite le nombre de caractères d’un tweet à 280. 
+Afin de déterminer si la chaîne de caractères est un tweet valide, modifiez la fonction pour renvoyer la longueur de la chaîne de caractères "tweet".
+
+4. Pour être conforme aux règles de Twitter, on voudrait n’envoyer que les premiers 280 caractères de la valeur du tweet. 
+Modifiez la fonction afin d’extraire et de renvoyer les 280 premiers caractères de la valeur.
+***
+
+```js
+function formatName(name) {
+    // 5-6 Insert your code here
+    
+    return name;
+}
+
+console.log(formatName("daNIEl"));
+```
+5. Notre web designer voudrait afficher tous les noms en minuscule. La fonction ```formatName``` reçoit un argument "name". 
+Modifiez la fonction pour renvoyer name en minuscule.
+
+6. Avec un peu de recul, le web designer a décidé d’afficher les noms en majuscule. Modifiez la fonction formatName pour envoyer le nom en majuscule.  
+
+## TABLEAUX & OBJETS
+
+### Exercice 1: Creer un tableau
+Même si ces types de données permettent de réaliser certaines choses, 
+nous allons vite être limités lorsque l’on va commencer à manipuler un nombre important de données.
+
+Grâce aux tableaux, JavaScript va nous permettre de regrouper des données de manière plus intéressante.
+
+```js
+// Insert your code here
+
+
+// Do not edit/remove code under this line
+function makeShoppingList(array) {
+    return array;
+}
+
+console.log(makeShoppingList(list));
+```
+Créez un tableau stocké dans une variable “list” contenant les valeurs “peaches”, “apples” et “apricots”.
+
+### Exercice 2: Modifier un tableau
+
+Même après la création d’un tableau, il est possible de modifier, ajouter ou supprimer des éléments.
+
+```js
+function addItem(array) {
+    // 1 - Insert your code here
+
+    return array;
+}
+
+
+console.log(addItem(["peaches", "apples"]));
+```
+1. La fonction ```addItem``` reçoit en argument un tableau. Complétez la fonction afin qu’elle puisse ajouter l’élément “blueberries” 
+à la fin du tableau et renvoyer le tableau modifié.
+***
+
+```js
+function deleteItem(array) {
+    // 2 - Insert your code here
+
+    return array;
+}
+
+
+console.log(deleteItem(["apricots", "pears", "dragonfruit"]));
+```
+2. La fonction deleteItem reçoit en argument un tableau. Complétez la fonction afin qu’elle puisse supprimer 
+le premier élément du tableau et renvoyer le tableau modifié.
+***
+
+```js
+function editItem(array) {
+    // 3 - Insert your code here
+
+    return array;
+}
+
+console.log(editItem(["strawberries", "melon", "watermelon", "oranges"]));
+```
+3. La fonction editItem reçoit en argument un tableau. Complétez la fonction afin qu’elle puisse remplacer l’élément 
+à l’index 1 du tableau par “bananas” et renvoyer le tableau modifié.
+
+### Exercice 2: Creer un objet
+
+Les objets permettent aussi de regrouper des informations tout en leur donnant un label spécifique.
+
+```js
+// Insert your code here
+
+
+// Do not edit/remove code under this line
+function newContact(obj) {
+    return obj;
+}
+
+console.log(newContact(contact));
+```
+
+Créez un objet dans la variable ```“contact”``` contenant une propriété “name” avec la valeur “Veronica Mars”, 
+une propriété “email” avec la valeur “veronica@marsinvestigations.io” et une propriété “phone” avec la valeur “+33774765600”.
+
+### Exercice 4: Manipuler un objet
+
+Il est également possible de manipuler les propriétés à l'intérieur d’un objet.
+
+```js
+function getName(obj) {
+    // 1 - Insert your code here
+    
+    return obj;
+}
+
+console.log(getName({
+    name: "Astérix le Gaulois",
+    email: "asterix@lesirreductibles.com",
+}));
+```
+1. La fonction ```getName``` reçoit en argument un objet avec une propriété “name”. 
+Modifiez la fonction afin de renvoyer seulement la valeur stockée dans la propriété name.
+***
+
+```js
+function setName(obj) {
+    // 2 - Insert your code here
+    
+    return obj;
+}
+
+console.log(setName({
+    email: "johnledev@amazon.com",
+}));
+```
+2. La fonction ```setName``` reçoit en argument un objet et un nouveau nom. 
+Modifiez la fonction afin qu’elle puisse ajouter une propriété “name” à l’objet avec la valeur “John”.
+
+### Exercice 5: Les tableaux d'objets
+
+Nous pouvons également stocker des objets dans des tableaux pour mieux organiser nos données.
+
+```js
+function updateQuantity(array) {
+    // Insert your code here
+    
+    return array;
+}
+
+// Do not edit/remove code under this line
+console.log(updateQuantity([
+    {
+        product: "beets",
+        quantity: 20,
+    },
+    {
+        product: "green tea",
+        quantity: 23,
+    },
+    {
+        product: "basil",
+        quantity: 34,
+    },
+]));
+```
+
+La fonction ```updateQuantity``` reçoit en argument un tableau avec une liste de courses et leurs quantités souhaitées. 
+Modifiez la fonction afin qu’elle mette à jour la quantité de l’élément à l’index 2 avec la valeur 6.
+
+## BOUCLES, CONDITIONS ET OPERATEURS LOGIQUES
+
+### Exercice 1: Les booleens
+
+Pour gérer les conditions et les boucles, place à un autre type de données : les booléens.
+
+```js
+// Insert your code here
+
+
+// Do not edit/remove code under this line
+function isTrue(bool) {
+    return bool;
+}
+
+console.log(isTrue(myBoolean));
+```
+Créez une variable booléenne "myBoolean" avec la valeur true.
+
+### Exercice 2: Les conditions et les operateurs logiques
+
+Une condition est comme un filtre, c’est elle qui va bloquer ou non l’exécution d’un bloc de code.
+
+Les opérateurs logiques nous permettent d’exprimer de nombreuses conditions en termes de true et false.
+
+```js
+function isLogged(name) {
+    // 1 - Insert your code here
+    
+    return name;
+}
+
+console.log(isLogged("jamesbond"));
+```
+1. La fonction ```isLogged``` reçoit un nom d’utilisateur en argument. Modifiez la fonction isLogged pour qu’elle renvoie 
+le booléen true si le nom d’utilisateur est égal à "bondjamesbond", false sinon.
+***
+
+```js
+function isGreater(num) {
+    // 2 - Insert your code here
+    
+    return num;
+}
+
+console.log(isGreater(13));
+```
+2. La fonction ```isGreater``` reçoit un nombre en argument. Modifiez la fonction pour qu’elle renvoie true si 
+la valeur est strictement plus grande que 11, false sinon.
+***
+
+```js
+function isLong(array) {
+    // 3 - Insert your code here
+    
+    return array;
+}
+
+console.log(isLong(["Japan", "France", "China", "Zimbabwe"]));
+```
+3. La fonction ```isLong``` reçoit un tableau en argument. Modifiez la fonction pour qu’elle renvoie true 
+si le tableau contient au moins trois éléments, false sinon.
+
+### Exercice 3: Les boucles
+
+Les boucles permettent d’exécuter un même morceau de code plusieurs fois sans avoir à le réécrire.
+
+```js
+function loopMe(num) {
+    // Insert your code here
+}
+
+// Do not edit/remove code under this line
+loopMe(5);
+```
+1. La fonction ```loopMe``` reçoit en argument un nombre "num". À l’intérieur de la fonction, créez une boucle qui va tourner "num" fois. 
+Cette boucle devra afficher la phrase "1 tour de boucle" en utilisant console.log.
+2. Pour chaque tour de boucle, concaténer la variable i à la fin de la chaîne de caractères. Pensez à insérer un espace entre l’indice et le texte.
+
+### Exercice 4: Les boucles et les tableaux
+
+Les boucles pourraient nous servir à parcourir l’intégralité des données enregistrées dans un tableau.
+
+```js
+function loopContacts(contacts) {
+    // Insert your code here
+}
+
+// Do not edit/remove code under this line
+loopContacts(["Vanessa", "Joey", "Lucas", "Alexis", "Antoine"]);
+```
+1. La fonction ```loopContacts``` reçoit un tableau de contacts en argument. À l’intérieur de la fonction, 
+créez une boucle pour parcourir le tableau qui tournera 5 fois. Pour chaque tour de boucle, 
+affichez un élément du tableau ("Vanessa", "Hugo", "Michael"...). 
+En effet, les indices de 0 - 4 nous permettent d’accéder à chaque élément du tableau !
+2. Améliorons encore cette approche pour éviter d'avoir à modifier les conditions de la boucle à chaque fois que le tableau évolue. 
+Remplacez le chiffre 5 de la condition de la boucle par l’instruction permettant de récupérer la longueur du tableau contact. 
+
+### Exercice 5: Les boucles et les conditions
+
+Grâce aux boucles et aux conditions, vous pouvez maintenant créer des algorithmes qui vont pouvoir traiter des listes de données de façons différentes.
+
+```js
+function validateOrders(orders) {
+    // Insert your code here
+}
+
+// Do not edit/remove code under this line
+validateOrders([
+    {
+        product: "shoes",
+        quantity: 2,
+        stock: 10,
+    },
+    {
+        product: "flowers",
+        quantity: 12,
+        stock: 8,
+    },
+    {
+        product: "wallets",
+        quantity: 1,
+        stock: 0,
+    },
+]);
+```
+
+La fonction ```validateOrders``` reçoit en argument un tableau de commandes. 
+À l’intérieur de la fonction, créez une boucle pour parcourir tous les éléments du tableau. Cette boucle devra afficher le message ***"Order validated: "*** 
+et le produit validé (par exemple, **"Order validated: jeans"**) dans la console seulement si le stock (propriété "stock") 
+est supérieur ou égal à la quantité (propriété "quantity") commandée.
+
+
+## LONGEST WORD
+
+Le tableau words contient différentes façons de dire au revoir en Europe, sous la forme de chaînes de caractères.
+
+```js
+function findLongestWord(words) {
+    let longestWord = '';
+    
+    // Insert your code here
+    
+    return longestWord;
+}
+
+console.log(findLongestWord(["Adiós", "Goodbye", "Au revoir", "Auf wiedersehen"]));
+// Expected: Auf wiedersehen
+```
+A l’aide d’une boucle for, trouvez le mot le plus long dans le tableau "words".
+
+Le résultat devra être retourné par la fonction ```findLongestWord```.
+
+## UPPER FIRST
+
+L’objectif de ce challenge est de formater une liste de prénoms en mettant seulement la première lettre en majuscule et le reste en minuscule.
+
+```js
+function upperFirst(contacts) {
+    const formattedContacts = [];
+    
+    // Insert your code here
+    
+    return formattedContacts;
+}
+
+console.log(upperFirst(['pierre', 'PAUL', 'jAcqUes']));
+// Expected: ['Pierre', 'Paul', 'Jacques']
+```
+A l’aide d’une boucle for et des méthodes String, formatez les prénoms reçus dans le tableau "contacts".
+
+Le résultat devra être retourné par la fonction ```upperFirst```.
+
+## SHOPPING PRICE
+
+Maintenant que les boucles et les conditions n’ont plus de secret pour vous, 
+il est temps de vous familiariser avec les objets et plus particulièrement les tableaux d’objets.
+
+```js
+function getTotal(cart) {
+    let total = 0;
+    
+    // Insert your code here
+    
+    return total;
+}
+
+const exampleCart = [
+    { name: 'iPhone', price: 909, quantity: 1 },
+    { name: 'Samsung Galaxy', price: 799, quantity: 3 },
+    { name: 'Steam Deck', price: 419, quantity: 10 },
+];
+console.log(getTotal(exampleCart));
+// Expected: 7496
+```
+Complétez la fonction ```getTotal``` afin qu’elle retourne le prix total des articles (en fonction de la quantité) reçus dans le tableau d’objet cart".

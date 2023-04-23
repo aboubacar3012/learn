@@ -1,0 +1,277 @@
+# CHALLENGES
+***
+
+***Configuration*** : 
+Pour pouvoir écrire du code pour cet atelier, nous utiliserons un éditeur de code en ligne : [JS Bin](https://jsbin.com/?js,console)
+Voici à quoi il ressemble 👇
+
+![alt img23](/images/courses/level1/img23.png)
+
+## CSS
+
+### Exercice 1: Le selecteur d'element
+
+Le sélecteur d'élément permet de cibler directement une balise en fonction de son type (paragraphe, div, body…).
+
+```html
+<!DOCTYPE html>
+<html>
+<head>
+<link rel='stylesheet' href='/style.css' />
+</head>
+<body>
+
+  <h1>Coding bootcamp begin</h1>
+
+  <h2>Introduction to HTML</h2>
+
+  <p>learn to write html tag to structure page</p>
+
+  <h2>Introduction to CSS</h2>
+
+  <p>Design your html page</p>
+
+  <h2>Introduction to Javascript</h2>
+
+  <p>Learn manipulate variable, loop, condition ... and add the intaractivity </p>
+</body>
+</html>
+```
+1. Via un sélecteur d'élément appliquez à la balise body de la page la couleur de fond : #130f40
+2. Via un sélecteur d'élément, appliquez sur l'ensemble des titres H2 la couleur hexadécimale #eb4d4b ainsi qu'une taille de 18px
+3. Via un sélecteur d'élément, appliquez sur l'ensemble des paragraphes la couleur #c8d6e5 ainsi qu'une taille de 14px
+4. Toujours via un sélecteur d'élément, appliquez sur le grand titre H1 la couleur #f0932b ainsi qu'une taille de 22px
+
+### Exercice 2: Le selecteur d'ID
+
+Le sélecteur d’ID ne servira que pour la balise portant l’ID ciblée, celui-ci démarre par un #.  
+
+```html
+<!DOCTYPE html>
+<html>
+<head>
+<link rel='stylesheet' href='/style.css' />
+</head>
+<body>
+
+  <h1>Les Dalton</h1>
+
+  <ul>
+    <li>Joe</li>
+    <li>William</li>
+    <li>Jack</li>
+    <li>Averell</li>
+  </ul>
+
+</body>
+</html>
+```
+1. Ajoutez l'ID first-item au 1er élément li
+2. Via un sélecteur d'élément, appliquez aux balises li de la page la couleur : #2ecc71
+3. Via un sélecteur d'ID, appliquez à l'élément dont l'ID est first-item la couleur : #e74c3c
+4. Ajoutez l'ID last-item au dernier élément li et à l'aide d'un sélecteur d'ID, appliquez à cet élément la couleur : #e67e22
+
+### Exercice 3: Le selecteur de classe
+
+Le sélecteur de classe démarre toujours par un point.
+
+```html
+<!DOCTYPE html>
+<html>
+<head>
+<link rel='stylesheet' href='/style.css' />
+</head>
+<body>
+
+  <h1>Top playlists </h1>
+
+  <h2> Hits </h2>
+  <p>Hits 2019</p>
+  <p>Nouveautés Pop</p>
+  <p>Rap Club</p>
+
+  <h2> Mood </h2>
+  <p>Sport Power</p>
+  <p>Dance Fitness</p>
+  <p>Matin difficile</p>
+
+</body>
+</html>
+```
+1. Via un sélecteur d'élément, appliquez aux balises h2 de la page une hauteur de 50px.
+2. Appliquez les instructions suivantes pour chacun des titres h2 de la page :
+    - Ajoutez au 1er titre h2 l'ID title-hits, puis utilisez un sélecteur d'ID pour lui appliquer la couleur de fond suivante : #B52644
+    - Ajoutez au 2ème titre h2 l'ID title-mood, puis utilisez un sélecteur d'ID pour lui appliquer la couleur de fond suivante : #51A68F
+3. Appliquez les instructions suivantes pour les groupes de paragraphes en-dessous de chaque titre h2 :
+    - Pour les 3 paragraphes en dessous du titre Hits, ajoutez une classe nommée music-hits sur chacun d'eux. 
+    Puis utilisez un sélecteur de classe pour leur appliquer la couleur suivante : #E85E5F
+    - Pour les 3 paragraphes en dessous du titre Mood, ajoutez une classe nommée music-mood sur chacun d'eux. 
+    Puis utilisez un sélecteur de classe pour leur appliquer la couleur suivante : #69BCC8
+
+## SKY IS THE LIMIT
+
+Utilisez HTML, CSS et les notions vues dans le cours du jour afin d’intégrer la maquette ci-dessous (le gif peut mettre quelques secondes à charger).
+
+![alt img49](/images/courses/level1/img49.gif)
+
+👉 Créez un fichier index.html, un fichier style.css et liez les deux
+
+👉 A l’intérieur des deux fichiers nouvellement créés, utilisez HTML couplée à des règles CSS afin de développer la page web en respectant la maquette.
+
+👉 Utiliser [https://unsplash.com](https://unsplash.com/fr/s/photos/galaxy) pour trouver des images qui se rapprochent de la maquette.
+
+***Quelques conseils pour réaliser ce challenge :***
+
+- Vous devez utiliser une div avec l’id "header" qui contiendra la bannière de votre page web, le titre et le logo.
+- Vous devez également utiliser une div avec l’id "container" qui devra englober trois autres div de class "row" vous permettant de placer chaque description de galaxie.
+- Afin d’aligner l’image à gauche du texte, vous aurez besoin de la propriété float en CSS.
+
+## MISSING COORDINATES
+
+Le tableau list regroupe des utilisateurs avec leurs coordonnées. Certaines de ces coordonnées sont malheureusement manquantes et 
+matérialisées par une chaîne de caractères vide ou un simple espace.
+
+```js
+function checkValues(data) {
+    let newList = [];
+    
+    // Insert your code here
+
+    return newList;
+}
+
+const list = [
+   { fullname: 'John Doe', age: 42, tel: '', email: ' ' },
+   { fullname: 'Vanessa Williams', age: '', tel: ' ', email: 'v.williams@gmail.com' },
+   { fullname: 'Richard Lawson', age: 42, tel: '0765432109', email: '' },
+];
+console.log(checkValues(list));
+// Expected:
+// [{ fullname: 'John Doe', age: 42, tel: null, email: null },
+//     { fullname: 'Vanessa Williams', age: null, tel: null, email: 'v.williams@gmail.com' },
+//     { fullname: 'Richard Lawson', age: 42, tel: '0765432109', email: null }]
+```
+1. À l’aide d’une boucle **for…in** remplacez les valeurs manquantes par ```null``` pour chacun des utilisateurs et 
+ajoutez ces objets modifiés au tableau newList.
+2. Le résultat devra être retourné par la fonction ```checkValues```.
+
+## ARE YOU THERE ?
+
+La fonction ```findUser``` sert à vérifier la présence d’un utilisateur au sein de la liste usersList.
+
+```js
+function findUser(request, list) {
+    let userFound = false;
+    
+    // Insert your code here
+    
+   return userFound;
+}
+
+const search = 'Lucas';
+const usersList = ['Lucas', 'Juliette', 'William', 'Camille', 'Pauline', 'Sébastien'];
+
+console.log(findUser(search, usersList));
+// Expected: true
+```
+En vous servant de la méthode ```find()``` complétez la fonction ```findUser```. 
+Elle renverra un booléen indiquant la présence, ou non, de l’utilisateur recherché dans la usersList.
+
+## FLEXBOX
+
+### Exercice 1: Les directions
+
+Entraînez-vous à gérer les directions avec Flexbox.
+
+```html
+<!DOCTYPE html>
+<html>
+    <head>
+     <link rel='stylesheet' href='/style.css' />
+    </head>
+    <body>
+      <div id='frame-box'>
+        <div class='box' id='green'>Green box</div>
+        <div class='box' id='red'>Red box</div>
+        <div class='box' id='blue'>Blue box</div>
+      </div>
+    </body>
+</html>
+```
+1. En utilisant un sélecteur d'ID qui cible frame-box, placez via flexbox les boîtes de couleurs horizontalement.
+2. Modifiez la position flexbox pour que les éléments s'affichent verticalement.
+
+### Exercice 2: Alignement sur l'axe principal
+
+Si les éléments sont alignés en colonne, l’axe principal est l’axe vertical et s’ils sont en ligne, l’axe principal devient l’axe horizontal.
+
+```html
+<!DOCTYPE html>
+<html>
+<head>
+<link rel='stylesheet' href='/style.css' />
+</head>
+<body>
+
+  <div id='frame-box'>
+    <div class='box' id='green'>Green box</div>
+
+    <div class='box' id='red'>Red box</div>
+
+    <div class='box' id='blue'>Blue box</div>
+  </div>
+
+</body>
+</html>
+```
+1. En utilisant un sélecteur d'ID qui cible frame-box, centrez via flexbox les boîtes de couleurs sur l'axe horizontal (en gardant une direction en ligne)
+2. Modifiez la règle précédente pour centrer via flexbox les boîtes de couleurs sur l'axe vertical (en modifiant la direction pour un affichage en colonne).
+
+  **Attention :** pour que le centrage vertical puisse fonctionner, la div parent (frame-box) doit avoir une hauteur supérieure à celle de ses éléments enfants (box). Pour cela, ajoutez une hauteur de 100vh (hauteur totale de la zone d'affichage) sur la div parent.
+
+
+### Exercice 3: Alignement sur l'axe secondaire
+
+Si les éléments sont alignés en colonne, l’axe secondaire est l’axe horizontal et s’ils sont en ligne, l’axe secondaire est l’axe vertical.
+
+```html
+<!DOCTYPE html>
+<html>
+<head>
+<link rel='stylesheet' href='/style.css' />
+</head>
+<body>
+
+  <div id='frame-box'>
+    <div class='box' id='green'>Green box</div>
+
+    <div class='box' id='red'>Red box</div>
+
+    <div class='box' id='blue'>Blue box</div>
+  </div>
+
+</body>
+</html>
+```
+1. En utilisant un sélecteur d'ID qui cible frame-box, définissez l'axe horizontal comme axe principal puis centrez via flexbox les boîtes de couleurs sur l'axe vertical. Attention : pensez à étirer la div parent (frame-box) sur la totalité de la hauteur de la zone d'affichage !
+2. Modifiez la règle précédente pour définir l'axe vertical comme étant l'axe principal.
+3. Les boîtes de couleurs sont maintenant centrées horizontalement (car la règle CSS stipule que l'on souhaite centrer les boîtes sur l'axe secondaire).
+Ajoutez une instruction CSS pour centrer également les éléments sur l'axe vertical. L'objectif est de déplacer les boîtes de couleurs au milieu de la zone d'affichage.
+
+## LOOP IN RANGE
+
+L’objectif de cet exercice est de créer un tableau comprenant tous les nombres entiers compris entre les valeurs stockées dans les variables min et max.
+
+```js
+function getRangeTable(minVal, maxVal) {
+    const list = [];
+    
+    // Insert your code here
+    
+    return list
+};
+
+console.log(getRangeTable(-5, 5));
+// Expected: [-5, -4, -3, -2, -1, 0, 1, 2, 3, 4, 5]
+```
+Complétez la fonction rangeTable afin que celle-ci renvoie la liste ordonnée des nombres compris entre les valeurs min et max fournies en argument.

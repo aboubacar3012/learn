@@ -1,0 +1,148 @@
+# CHALLENGES
+***
+
+***Configuration*** : 
+Pour pouvoir écrire du code pour cet atelier, nous utiliserons un éditeur de code en ligne : [JS Bin](https://jsbin.com/?js,console)
+Voici à quoi il ressemble 👇
+
+![alt img23](/images/courses/level1/img23.png)
+
+## READ THE DOCUMENTATION
+
+### Partie 1
+Le but de ce challenge est de vous préparer à un concept incontournable dans le développement : 
+la découverte de nouvelles méthodes à travers la documentation.
+
+On commence tranquillement avec un ensemble de méthodes liées à la manipulation des nombres en JavaScript : 
+l’objet [Math](https://developer.mozilla.org/fr/docs/Web/JavaScript/Reference/Global_Objects/Math) qui, malgré son nom, 
+ne nécessite pas de faire des mathématiques (promis).
+
+Vous pouvez écrire votre code Javascript dans le panneau de gauche et voir la sortie de ce code dans celui de droite, incroyable n'est-ce pas ?🚀
+
+***Exercice***
+
+La fonction getMaxValue reçoit un tableau "values" contenant une liste de nombres positifs.
+
+Complétez cette fonction afin qu’elle renvoie le nombre le plus élevé de cette liste.
+
+```js
+function getMaxValue(values) {
+    // Insert your code here
+    return 0;
+}
+
+console.log(getMaxValue([1, 3, 4, 2]));
+// Expected: 4
+```
+
+
+### Partie 2
+
+On enchaîne avec un ensemble de méthodes légèrement plus compliquées, mais bien plus complètes : 
+la manipulation des chaînes de caractères pour mettre un message en majuscules, ou le découper, par exemple.
+
+Trêves de bavardages, voici la documentation : [String](https://developer.mozilla.org/fr/docs/Web/JavaScript/Reference/Global_Objects/String). 
+Bonne lecture !
+
+***Exercice***
+
+La fonction cleanString reçoit une chaîne de caractères **"str"** contenant une phrase.
+
+Complétez cette fonction afin qu’elle "nettoie" et renvoie la chaîne de caractères en retirant les espaces inutiles au début et à la fin du message.
+
+```js
+function cleanString(str) {
+    // Insert your code here
+}
+
+console.log(cleanString('  Hello world!     '));
+// Expected:'Hello world!'
+```
+***
+
+## JS TOOLKIT ( Optionnel )
+
+Ce challenge va vous permettre de découvrir davantage de méthodes JavaScript grâce à la création d’une **"boîte à outils"** 
+de fonctions permettant divers cas d’usage.
+
+
+Notez que l’objectif des challenges optionnels est d’aller plus loin que la notion du jour et que les instructions 
+seront naturellement moins guidées : vous devrez faire preuve d’autonomie et d’entraide ! 💪🏼
+
+***Exercices***
+
+Complétez les 6 fonctions réparties dans les différents fichiers JS en prenant soin 
+d’utiliser les méthodes JavaScript adéquates pour chaque fonctionnalité
+
+***1. findPositiveValue*** : renvoie la seule valeur positive parmi une liste de nombres reçue via l’argument "values".
+
+```js
+function findPositiveValue(values) {
+    // a completer
+    return null
+}
+
+console.log(findPositiveValue([-54, -82, 2, -10, -9]));
+// Expected: 2
+```
+
+***2. findNegativeValue*** : renvoie la seule valeur négative parmi une liste de nombres reçue dans "values".
+
+```js
+function findNegativeValue(values) {
+    // a completer
+    return null;
+}
+
+console.log(findNegativeValue([54, 82, 2, -10, 9]));
+// Expected: -10
+```
+
+***3. replaceWord*** : remplace un mot ("oldWord") par un autre mot ("newWord") à l’intérieur d’une phrase ("str") 
+et renvoie la nouvelle chaîne de caractères.
+
+```js
+function replaceWord(str, oldWord, newWord) {
+  return str.replace(oldWord, newWord)
+}
+
+
+console.log(replaceWord('I hate JavaScript!', 'hate', 'love'));
+// Expected: I love JavaScript!
+```
+
+***4. hideWord*** : remplace chaque lettre d’un mot ("word") par le caractère * à l’intérieur d’une phrase (str) 
+et renvoie la nouvelle chaîne de caractères.
+
+```js
+function hideWord(str, word) {
+  const passValue="*"
+  return str.replace(word, passValue.repeat(word.length))
+}
+
+console.log(hideWord('My password is qwerty', 'qwerty'));
+// Expected: My password is ******
+```
+
+
+***5. ascendingSort*** : renvoie la liste de nombre (positifs uniquement) reçue via l’argument "values" triée du plus petit au plus grand.
+
+```js
+function ascendingSort(values) {
+  return values.sort()
+}
+
+console.log(ascendingSort([5, 2, 1, 3, 4]));
+// Expected: [1, 2, 3, 4, 5]
+```
+
+***6. descendingSort*** : renvoie la liste de nombre (positifs uniquement) reçue via l’argument "values" triée du plus grand au plus petit.
+
+```js
+function descendingSort(values) {
+  return values.sort().reverse()
+}
+
+console.log(descendingSort([5, 2, 1, 3, 4]));
+// Expected: [5, 4, 3, 2, 1]
+```

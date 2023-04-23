@@ -1,0 +1,447 @@
+# CSS 3
+
+## CONTEXTE
+
+Le CSS (Cascading Style Sheets ou feuille de style en cascade) est responsable de l’apparence et de la mise en page d’un site web via les balises HTML.
+
+## FONCTIONNEMENT
+
+Il existe trois façons d’appliquer du CSS à une page HTML :
+
+- Directement dans une balise HTML en utilisant l’attribut “style”
+- Dans le fichier HTML
+- Dans des fichiers CSS à part qui seront reliés aux pages HTML
+
+La dernière option est la plus recommandée car le code est plus lisible et cela permet de mutualiser des styles sur différentes pages du site web.
+
+***Lier son fichier CSS***
+
+La liaison d’un fichier de style se fait dans l’entête (head) du fichier HTML grâce à la balise link.
+
+```html
+<head>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    ...
+</body>
+```
+
+***Principes de base***
+
+Un style CSS s’applique grâce à des sélecteurs qui visent les balises HTML et des règles à appliquer sous la forme propriété/valeur.
+
+```css
+selector {    
+ property-1 : value;
+ property-2 : value;
+ property-3 : value;
+ property-4 : value;
+}
+```
+
+*Par exemple, mettons le titre principal de couleur rouge :*
+```html
+<head>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>Mon titre</h1>
+</body>
+```
+```css
+h1 {    
+  color: red;
+}
+```
+
+## LES STYLES PRINCIPAUX
+
+***Les couleurs***
+
+*Définir une couleur grâce à son nom :*
+
+```css
+color: red;
+```
+
+*Définir une couleur grâce à sa valeur hexadécimale :*
+
+```css
+color: #FF0000;
+```
+
+*Définir une couleur grâce à sa valeur rgba :*
+
+```css
+color: rgba(255, 0, 0, 1);
+```
+
+Il s’agit d’une autre manière de représenter les couleurs, là encore, en utilisant les couleurs primaires avec des indices de 0 à 255.
+
+***Les polices***
+
+```css
+font-family: 'Open Sans';
+```
+
+Il est possible de définir plusieurs polices de caractère par ordre de préférence séparées par des virgules. 
+Dans le cas où un caractère n’existe pas pour la police prioritaire, c’est la police suivante qui sera utilisée.
+
+```css
+font-family: 'Georgia', serif;
+```
+
+***La taille de la police***
+
+```css
+font-size: 55px;
+```
+
+***Couleur de fond***
+
+```css
+background-color: blue;
+```
+
+***Image de fond***
+
+*Pour appliquer une image de fond à un élément HTML, il faut ajouter les propriétés suivantes :*
+
+- **background-image :** définit l’url de l’image à afficher.
+- **background-position :** règle le positionnement de l’image à l’intérieur de l’élément parent
+- **background-size :** définit la taille de l’image. Par exemple, “cover” indique que l’image de fond doit prendre l’ensemble de l’espace de l’élément parent.
+
+```css
+background-image: url('home.jpg');
+background-position: center center;
+background-size: cover;
+```
+
+***Bordures***
+
+```css
+border: 1px solid black;
+```
+
+*La propriété border attend 3 valeurs :*
+
+- La taille de la bordure en pixels
+- Le type de bordure : solid pour une bordure pleine, dashed pour une bordure en pointillés, etc.
+- La couleur de la bordure
+
+La propriété ```border-radius``` ajoute un arrondi à la bordure en précisant un rayon de courbure.
+
+```css
+border-radius: 50%;
+```
+
+***Opacité***
+
+L’opacité peut varier de 0 (transparent) à 1 (opaque).
+
+```css
+opacity: 0.5;
+```
+
+***Les dimensions***
+
+Les propriétés ```width``` (largeur) et ```height``` (hauteur) permettent de définir la taille d’un élément HTML.
+
+```css
+width: 150px;
+height: 200px;
+```
+
+***Les marges internes***
+
+```css
+padding : 15px;
+```
+
+![alt img37](/images/courses/level1/img37.png)
+
+
+Nous pouvons également appliquer des marges intérieures différentes pour chaque côté.
+
+```css
+padding-top : 15px;
+padding-bottom : 45px;
+padding-right: 25px;
+padding-left: 25px;
+```
+![alt img38](/images/courses/level1/img38.png)
+
+
+***Les marges externes***
+
+```css
+margin : 15px;
+```
+
+![alt img37](/images/courses/level1/img37.png)
+
+
+Comme pour la propriété padding, il est possible de définir des marges différentes pour chaque côté.
+
+```css
+margin-top : 15px;
+margin-bottom : 45px;
+margin-right: 25px;
+margin-left: 25px;
+```
+
+![alt img38](/images/courses/level1/img38.png)
+
+***Les conteneurs***
+
+```Span```
+Span applique un style particulier à une portion de texte. 
+Par exemple en mettant une partie du texte en rouge.
+
+```html
+<p>
+    Ceci est un <span>paragraphe</span>
+</p>
+```
+```css
+span {    
+  color: red;
+}
+```
+![alt img39](/images/courses/level1/img39.png)
+
+```Div```
+Div applique un style particulier à un ensemble d’éléments regroupés.
+
+```html
+<div>
+ <img src="image.jpg" />
+ <p class="asset-text">...</p>
+</div>
+```
+
+Dans cet exemple, nous ajoutons une marge gauche de 150px sur notre image et notre paragraphe.
+
+Au lieu d’appliquer cette marge unitairement, nous pouvons regrouper ces éléments dans un conteneur générique et appliquer la marge gauche au conteneur.
+
+```css
+div {    
+ margin-left: 150px;
+}
+```
+
+![alt img40](/images/courses/level1/img40.png)
+
+## LE PRINCIPE DES BOITES
+
+L’ensemble des éléments HTML sont matérialisés par des boîtes rectangulaires.
+
+Selon le type d’éléments, le positionnement (display) de ces boîtes diffère.
+
+***Les éléments de type block***
+
+Les éléments ```div, p, h1-6``` ont par défaut une largeur de 100% de leur élément parent.
+
+Comme ils prennent l’ensemble de la largeur disponible, ils vont s’afficher les uns en dessous des autres.
+
+Par défaut, ces éléments ont une propriété CSS display de valeur “block”.
+
+```css
+display: block;
+```
+![alt img41](/images/courses/level1/img41.png)
+
+Il est possible de positionner le contenu à l’intérieur de la boîte des éléments de type block en utilisant la propriété text-align.
+
+Pour positionner le texte à gauche de la boîte :
+
+```css
+text-align: right;
+```
+![alt img42](/images/courses/level1/img42.png)
+
+Pour centrer le texte à l’intérieur de la boîte :
+
+```css
+text-align: center;
+```
+![alt img43](/images/courses/level1/img43.png)
+
+Pour justifier le texte à l’intérieur de la boîte :
+
+```css
+text-align: justify;
+```
+![alt img44](/images/courses/level1/img44.png)
+
+
+***Les éléments de type inline***
+
+Les ```img, a, span``` sont des éléments de type inline. À la différence des éléments de type bloc, 
+ils ne prennent pas toute la largeur de leur élément parent mais uniquement la largeur nécessaire à l’affichage de l’élément.
+
+Leur affichage est horizontal et ils ne contiennent pas d’autres éléments enfants.
+
+Par défaut, ces éléments ont une propriété CSS display de valeur “inline”.
+
+```css
+display: inline;
+```
+![alt img45](/images/courses/level1/img45.png)
+
+***Changer de type de boîte***
+
+Il est possible de modifier le display par défaut d’un élément pour modifier son positionnement.
+
+```html
+<span>Bonjour</span> <span>John.D</span>
+```
+
+Par exemple: afficher des span avec un *display:block*.
+
+```css
+span {
+ display: block;
+}
+```
+![alt img46](/images/courses/level1/img46.png)
+
+***Faire disparaître une boîte***
+
+L’élément sera bien présent dans le HTML mais sera masqué grâce au CSS.
+
+```css
+display: none;
+```
+
+## LES SELECTEURS
+
+Les sélecteurs identifient les éléments sur lesquels nous souhaitons appliquer des règles d’affichage.
+
+```html
+<div id="header">
+ <p class="asset-text">...</p>
+ <p class="asset-text">...</p>
+ <p class="asset-text">...</p>
+</div>
+<div id="footer">
+ <p>...</p>
+ <p class="asset-text">...</p>
+ <p class="asset-text">...</p>
+</div>
+```
+
+***Sélecteur HTML***
+
+Le sélecteur HTML permet d’identifier l’ensemble des éléments d’une même balise HTML pour y appliquer des règles CSS.
+
+```css
+p {
+ font-family: 'Open Sans', sans-serif;
+}
+```
+
+***Sélecteur d’ID***
+
+Pour cibler un élément unique, il est possible d’utiliser le sélecteur d’ID (le nom de l’ID précédé d’un #).
+
+```css
+#base-line {    
+ font-size: 28px;
+}
+```
+
+***Sélecteur de classe***
+
+Le sélecteur de classe va permettre d’identifier tous les éléments ayant le même nom de classe pour leur appliquer les règles CSS voulues. 
+Le sélecteur doit être le nom de la classe précédé d’un point.
+
+```css
+.asset-text {    
+ font-size: 14px;
+}
+```
+
+***Sélecteur contextuel***
+
+Le sélecteur contextuel cible des éléments grâce à des règles de recherche plus complexes en combinant différents types de sélecteur.
+
+```css
+.footer > p {    
+  color: red;
+}
+```
+
+## LE PRINCIPE DU CASCADING
+
+Le principe du cascading déclare un ordre de priorité entre les différentes manières d’appliquer du style. 
+Plus le sélecteur est spécifique, plus il sera prioritaire.
+
+Voici les priorités de la plus importante à la moins importante :
+
+- !important 
+```css
+p {
+ color : red !important;
+}
+```
+- Le CSS directement dans le HTML
+
+- Le sélecteur ID
+
+- Le sélecteur de classe
+
+- Le sélecteur contextuel
+
+## LE PRINCIPE D’HERITAGE
+
+Un élément enfant hérite des styles définis pour son parent.
+
+```html
+<div id="header">
+ <p class="asset-text">...</p>
+ <p class="asset-text">...</p>
+ <p class="asset-text">...</p>
+</div>
+```
+
+Dans cet exemple, les paragraphes ont comme parent la div ```“header”```, ils vont donc hériter du style qui lui est appliqué.
+
+**Attention :** certaines propriétés ne peuvent pas être héritées du parent, c’est notamment le cas des bordures, 
+des marges... Ces propriétés ne s'appliquent qu’à l’élément parent.
+
+## LES UNITES
+
+***Pixels***
+
+Le pixel est une unité fixe, elle ne dépend pas de la taille de notre page web ou des éléments parents.
+
+```css
+width: 150px;
+```
+
+***Pourcentage***
+
+Le pourcentage permet de définir une dimension relative à l’élément parent.
+
+```css
+width: 50%;
+```
+
+Ici, la largeur de notre élément sera égale à 50% de son élément parent. 
+Si la largeur du parent est de 200px, notre élément mesurera 100px.
+
+![alt img47](/images/courses/level1/img47.png)
+
+***vh/vw***
+
+La notation ```vh/vw``` définit une dimension relative à la taille de l’écran. 
+```vh``` correspond à la hauteur (height) et ```vw``` à la largeur (width).
+
+```css
+height: 100vh;
+width: 100vw;
+```
+
+![alt img48](/images/courses/level1/img48.png)

@@ -1,0 +1,102 @@
+# CHALLENGES
+
+## SECRET WEBSERVICE
+
+Le principe de ce challenge est de s’entraîner à manipuler Thunder Client en faisant une requête en GET auprès de 
+l’API suivante : [https://secret-webservice.vercel.app/code](https://secret-webservice.vercel.app/code) afin de récupérer un code secret.
+
+```js
+function getSecretCode() {
+    const code = 7777;
+    
+    return code;
+}
+
+console.log(getSecretCode());
+```
+
+A partir de ```Thunder Client```, décortiquez la réponse renvoyée par l’API et conservez uniquement la valeur de 
+la propriété "```realSecretCode```". Assignez cette valeur à la variable "```code```" dans la fonction ```getSecretCode```.
+
+
+## FETCH IT ALL !
+
+### Exercice 1: Brancher un webservice et lire ses informations
+
+A travers le cours vous avez découvert ce qu’est une API et comment récupérer des informations depuis votre code grâce au fetch.
+
+**Passons maintenant à la pratique !**
+
+Le service [JSONPlaceholder](https://jsonplaceholder.typicode.com/) est un webservice de test permettant de récupérer 
+des jeux de données et s’entraîner à la manipulation d’API.
+
+```js
+const getUserInfo; // a completer
+```
+Après avoir pris connaissance de la documentation, assignez à la variable "getUserInfo" l’instruction permettant 
+de faire une requête afin de récupérer l’utilisateur portant l’```ID 5``` (```Chelsey Dietrich```).
+
+Votre instruction devra contenir un console.log du résultat ainsi qu’un return pour pouvoir l’exploiter.
+
+### Exercice 2: Exploiter les informations
+
+Cette seconde étape consiste à sélectionner et exploiter les ressources reçues dans l’étape précédente afin de pouvoir manipuler le DOM d’une page web.
+
+N’hésitez pas à revenir en arrière pour bien comprendre la structure de la réponse et récupérer le nom de chaque propriété.
+
+```index.html```
+```html
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="style.css">
+    </head>
+    <body>
+        <h1 id="name"></h1>
+        <p id="e-mail"></p>
+        <p id="phoneNumber"></p>
+        <script src="script.js"></script>    
+    </body>
+</html>
+```
+
+```style.css```
+```css
+body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#title {
+    font-size: 18px;
+}
+
+#img {
+    width: 20vw;
+}
+
+#explanation {
+    text-align: center;
+    width: 70vw;
+}
+```
+
+```script.js```
+```js
+function displayUserInfo(userId) {
+    return fetch('https://jsonplaceholder.typicode.com/users/' + userId)
+        .then(response => response.json())
+        .then(data => {
+            // Insert your code here
+            return data;
+        });
+}
+
+displayUserInfo(5);
+```
+
+Assignez les valeurs des propriétés **"name", "email" et "phone"** de la réponse du webservice aux balises correspondantes du fichier HTML.
+
+

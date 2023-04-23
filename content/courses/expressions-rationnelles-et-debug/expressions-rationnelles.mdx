@@ -1,0 +1,268 @@
+# Expression rationnelles et debug
+
+## CONTEXTE
+
+Les expressions rationnelles (ou expressions régulières / regex) sont des outils qui permettent de faire des recherches complexes et totalement configurables à l’intérieur d’une chaîne de caractère et de vérifier, modifier ou analyser un texte.
+
+Imaginez que vous vouliez modérer les messages d’injures sur un chat.
+
+Message :
+
+![alt img25](/images/courses/level1/img25.png)
+
+Message modéré :
+
+![alt img26](/images/courses/level1/img26.png)
+
+Sans les expressions rationnelles, le traitement d’une chaîne de caractère est assez fastidieux.
+
+```js
+const message = 'Your website is so boring !! 🤬'
+const messageInArray = message.split(' ');
+let newMessage = '';
+
+for (let i = 0; i < messageInArray.length; i++) {
+ if (messageInArray[i] === 'boring') {
+   newMessage += '****** ';
+ } else {
+   newMessage += messageInArray[i] + ' ';
+ }
+}
+
+console.log(newMessage);
+```
+
+## FONCTIONNEMENT
+
+Toute création d’une regex démarre par la définition d’un pattern qui correspond à un modèle qu’il faut trouver dans un texte.
+
+Par exemple, trouvez tous les numéros de téléphone contenus dans ce message.
+
+![alt img27](/images/courses/level1/img27.png)
+
+Une fois la chaîne de caractère ciblée avec un pattern, trois opérations sont possibles :
+
+- ***Tester***
+![alt img28](/images/courses/level1/img28.png)
+
+- ***Extraire***
+![alt img29](/images/courses/level1/img29.png)
+
+- ***Remplacer***
+![alt img30](/images/courses/level1/img30.png)
+
+## STEP BY STEP
+
+***Syntaxe d’un pattern***
+
+Un pattern est toujours défini entre / /
+
+
+```js
+/pattern/
+```
+
+***Regex simple***
+
+Par exemple, vérifier si un texte commence par "Hello", indépendamment de la casse.
+
+```js
+const message = 'HELLO world';
+const pattern = /^hello/i;
+
+const found = pattern.test(message);
+console.log(found);
+```
+
+***Résultat***
+
+```js
+true
+```
+
+Pour chercher si un texte commence par un mot précis, il faut utiliser le limiteur ^ :
+
+```js
+const str = "Hello world";
+
+const pattern = /^world/;
+
+
+// Aucun résultat
+```
+
+Pour chercher si un texte termine par un mot précis, il faut utiliser le limiteur $ :
+
+```js
+const str = "Hello world";
+
+const pattern = /world$/;
+
+
+// world
+```
+
+***Recherche simple d’un mot dans un texte:***
+
+```js
+const str = "Hello world, I said HELLO";
+
+const pattern = /hello/;
+
+
+// Aucun résultat
+```
+
+Insensible à la casse (ne prend pas en compte majuscule et minuscule) :
+
+```js
+const str = "Hello world, I said HELLO";
+
+const pattern = /hello/i;
+
+// Hello
+```
+
+Recherche globale en cumulant l’option d’insensibilité à la casse :
+
+```js
+const str = "Hello world, I said HELLO";
+
+const pattern = /hello/gi;
+
+// Hello et HELLO
+```
+
+***Regex avancée***
+
+Par exemple, vérifier la présence d’un numéro de téléphone.
+
+```js
+const message = 'I give you my number: 0612345678 bye! 😉';
+const message2 = 'Text me on 061234';
+
+const pattern = /06[0-9]{8}/;
+console.log(pattern.test(message));
+
+console.log(pattern.test(message2));
+```
+
+***Résultat***
+
+```js
+true
+
+false
+```
+
+***Rechercher plusieurs caractères :***
+
+```js
+const str = "My number: 0612345678";
+const pattern = /num.*/;
+
+// number: 0612345678
+```
+
+***Rechercher uniquement des lettres démarrant par num :***
+
+```js
+const str = "My number: 0612345678";
+const pattern = /num[a-z]*/;
+
+// number
+```
+
+***Rechercher uniquement des chiffres démarrant par 06:***
+
+```js
+const str = "My number: 0612345678";
+const pattern = /06[0-9]*/;
+
+// 0612345678
+```
+
+***Rechercher un certain nombre de caractères, par exemple 2 chiffres après 06 :***
+
+```js
+const str = "My number: 0612345678";
+const pattern = /06[0-9]{2}/;
+
+// 0612
+```
+
+***Rechercher un certain nombre de caractères, par exemple 3 lettres après num :***
+
+```js
+const str = "My number: 0612345678";
+const pattern = /num[a-z]{3}/;
+
+// number
+```
+
+***En résumé***
+
+- ***/ /*** permet de définir un modèle de recherche
+
+- ***. (point)*** est un caractère joker qui désigne n’importe quel caractère
+
+- ***\* (étoile)*** est un caractère joker qui précise que le caractère cherché peut apparaître aucune ou plusieurs fois à la suite
+
+- ***[a-z]*** est un joker qui désigne n’importe quel caractère compris entre a et z
+
+- ***[0-9]*** est un joker qui désigne n’importe quel caractère compris entre 0 et 9
+
+- ***+*** est un caractère joker similaire au caractère joker * mais qui précise que le caractère cherché peut apparaître au moins une fois ou plusieurs fois à la suite
+
+- ***^*** signifie que le texte doit commencer par le modèle de recherche
+
+- ***$*** signifie que le texte doit toujours finir par le modèle de recherche
+
+- ***//g*** permet une recherche globale
+
+- ***//i*** permet une recherche qui ne prend pas en compte la casse
+
+***Extraire***
+Les regex permettent également d’extraire une partie d’un texte, par exemple tous les numéros de téléphone.
+
+```js
+const message = `You can call me at :
+0612345678 or 0698765432
+Or this one 😉 0607080910`;
+
+const pattern = /06*[0-9]{8}/g;
+const phoneNumbers = message.match(pattern);
+console.log(phoneNumbers[0]);
+console.log(phoneNumbers[1]);
+```
+
+***Résultat***
+
+```js
+0612345678
+0698765432
+0607080910
+```
+
+***Remplacer***
+
+Le remplacement d’un texte censuré peut aussi être fait avec des regex, cela évite d’utiliser des boucles ou autre traitement fastidieux..
+
+```js
+let message = 'Your website is so BORING !! 🤬';
+const pattern = /boring/i;
+
+const newMessage = message.replace(pattern, '******');
+console.log(newMessage);
+```
+
+***Résultat***
+
+```js
+Your website is so ****** !! 🤬
+```
+
+***Tester vos regex***
+
+Les expressions rationnelles demandent de l'entraînement. En attendant de devenir un expert, 
+vous pouvez vous aider de sites comme [regexr.com](regexr.com) pour tester vos regex.

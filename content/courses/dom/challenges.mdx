@@ -1,0 +1,100 @@
+# CHALLENGES
+
+***Configuration*** : 
+Pour pouvoir écrire du code pour cet atelier, nous utiliserons un éditeur de code en ligne : [JS Bin](https://jsbin.com/?js,console)
+Voici à quoi il ressemble 👇
+
+![alt img23](/images/courses/level1/img23.png)
+
+## DYNAMIC RECIPE
+
+Pour mettre le cours sur le DOM en pratique, vous allez tout d’abord manipuler les ingrédients d’une recette.
+
+```html```
+```html
+<!DOCTYPE html>
+<html>
+<head>
+<link rel='stylesheet' href='/style.css' />
+<link href="https://fonts.googleapis.com/css2?family=Sacramento&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <h1>Recette madeleines</h1>
+
+<ul id="list">
+  <li id='todo-1'>120gr farine</li>
+  <li id='todo-2'>100gr sucre</li>
+  <li id='todo-3'>80gr beurre</li>
+  <li id='todo-4'>3 oeufs</li>
+  <li id='todo-5'>1 cc levure chimique</li>
+</ul>
+ 
+  <script src='script.js'></script>
+
+</body>
+</html>
+```
+
+```style.css```
+```css
+body {
+    font-family: "Sacramento";
+    color: #03224c;
+    font-size: 20px;
+    background-color: #f2eebb;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+h1 {
+    font-size: 36px;
+}
+```
+
+```script.js```
+```js
+// a completer
+```
+1. Modifiez le texte du paragraphe dont l'ID est ```todo-1``` afin d'y renseigner la valeur suivante : **"140gr de farine"**.
+2. Supprimez le paragraphe dont l'ID est todo-2. 
+3. Ajoutez un nouvel ingrédient à la liste qui aura comme valeur **"1 pincée de sel"**. Le nouvel élément HTML doit porter l’ID ```"todo-6"```.
+
+Imaginons maintenant que nous souhaitions manipuler plusieurs éléments de la recette en une seule action.
+
+Rappelez-vous, la méthode ```.querySelectorAll()``` renvoie un tableau. Grâce à une boucle vous pourrez parcourir chaque élément du tableau.
+
+4. Parcourez l'ensemble des éléments de la liste pour modifier le texte afin de le mettre en majuscules via la méthode ```toUpperCase()```.
+
+
+## TOP DEALS
+
+Le tableau ordersList recense un exemple d’achats effectués par un client sur différents sites partenaires, 
+avec un cashback exprimé en pourcentage (ex: 5 vaut 5 %).
+Le cashback est un montant rétribué au client, venant alimenter une cagnotte dont il peut disposer comme il le souhaite.
+
+```js
+function cashback(data){
+    let total = 0;
+ 
+    // Insert your code here
+    
+    return total;
+}
+
+const ordersList = [
+   {partner: 'Carrefour', total: 57.45, cashback: 5},
+   {partner: 'Amazon', total: 60.20, cashback: 3},
+   {partner: 'Boulanger', total: 149, cashback: 6},
+   {partner: 'Fnac', total: 84.15, cashback: 4},
+];
+console.log(cashback(ordersList)); 
+// Expected: 16.98
+```
+À l’aide d’une boucle ```for of```, calculez le montant total du cashback et arrondissez-le à 2 décimales avec la méthode ```toFixed()```.
+
+Le total devra être retourné par la fonction ```cashback```.
+
+

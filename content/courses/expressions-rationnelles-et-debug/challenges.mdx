@@ -1,0 +1,98 @@
+# CHALLENGES
+***
+
+***Configuration*** : 
+Pour pouvoir écrire du code pour cet atelier, nous utiliserons un éditeur de code en ligne : [JS Bin](https://jsbin.com/?js,console)
+Voici à quoi il ressemble 👇
+
+![alt img23](/images/courses/level1/img23.png)
+
+## MY FIRST REGEX
+
+### Exercice 1: Tester une chaine de caracteres
+
+L’objectif de cet exercice est de tester si une regex valide ou non une chaîne de caractère.
+
+```js
+function testRegex(text) {
+    
+    return result
+}
+
+const str = "My address is: 256 brick lane.";
+console.log(testRegex(str))
+// Expected : true
+```
+A l’aide d’une expression rationnelle et de la méthode ```.test()```, complétez la fonction ```testRegex``` pour qu’elle puisse 
+vérifier si la chaîne de caractères ```str``` possède au moins un ```chiffre```.
+
+Le résultat renvoyé par la fonction devra être un booléen.
+
+### Exercice 2: Extraire une chaine de caracteres
+
+L’objectif de cet exercice est d'extraire certains mots d’une chaîne de caractère grâce à une regex.
+
+```js
+function extractText(text) {
+    
+    return result
+}
+
+const str = "My name is vanessa Vampire";
+console.log(extractText(str))
+// Expected : vanessa, Vampire
+```
+À l’aide d’une seule expression rationnelle et de la méthode ```.match()```, complétez la fonction ```extractText``` 
+pour qu’elle puisse extraire les mots commençant par ```v```, indépendamment de la casse.
+
+Le résultat renvoyé par la fonction devra être un tableau.
+
+### Exercice 3: Remplacer une chaine de caracteres
+
+L’objectif de cet exercice est de pouvoir cibler un mot dans une chaîne de caractères puis de le remplacer par un autre mot défini en amont.
+
+```js
+function replaceText(text) {
+    
+    return result
+}
+
+const str = "J'adore le codage informatique!";
+console.log(replaceText(str))
+// Expected : J'adore le code informatique!
+```
+
+A l’aide d’une expression rationnelle et de la méthode ```.replace()```, complétez la fonction ```replaceText``` pour qu’elle remplace 
+le mot ```“codage”``` de la chaîne de caractères str par le mot ```“code”```.
+
+Le résultat renvoyé par la fonction devra être une string.
+
+## CALCULATION BUG
+
+La fonction ```getTotal``` est censée calculer le total de la commande, sauf que le résultat affiché dans la console n’est pas correct…
+
+Ce code comporte une boucle ```"for of"```, une alternative à la boucle ```for``` "classique". 
+Vous pouvez consulter la [documentation](https://developer.mozilla.org/fr/docs/Web/JavaScript/Reference/Statements/for...of) 
+pour voir comment elle fonctionne.
+
+```js
+function getTotal(products) {
+    let total = 0;
+
+    for (let item of products) {
+        total++;
+    }
+    
+    return total;
+}
+
+console.log(getTotal([
+    { product: 't-shirt', price: '15' },
+    { product: 'jeans', price: '60' },
+    { product: 'sweater', price: '30' },
+]));
+// Expected: 105
+```
+Modifiez le code de la fonction sans toucher aux valeurs du tableau order pour que le calcul puisse s’effectuer correctement.
+
+Le résultat devra être retourné par la fonction ```getTotal```.

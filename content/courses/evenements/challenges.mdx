@@ -1,0 +1,89 @@
+# CHALLENGES
+
+## PLAY WITH EVENTS
+
+### Exercice 1: Un evenements sur un element
+
+Entraînez-vous tout d’abord à capter un événement. Une fois l'événement capté, une action peut être déclenchée, telle que la manipulation du DOM.
+
+```index.html```
+```html
+<!DOCTYPE html>
+<html>
+    <head>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Caveat&display=swap" />
+    </head>
+    <body>
+        <h1>Shopping list</h1>
+        <ul>
+          <li id="item-1">5 carrots</li>
+          <li id="item-2">6 potatoes</li>
+          <li id="item-3">1 Lettuce</li>
+          <li id="item-4">Milk</li>
+          <li id="item-5">Chocolate</li>
+        </ul>
+        <script src="script.js"></script>
+    </body>
+</html>
+```
+
+```style.css```
+```css
+body {
+    height: 90vh;
+    font-family: 'Caveat', cursive;
+    font-size: 16px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+h1 {
+    font-size: 40px;
+}
+```
+
+```script.js```
+```js
+// a completer
+```
+
+1. Écrivez un événement qui se déclenche au clic sur l’élément portant l’ID ```item-2```. 
+Au clic sur l’élément portant l’ID ```item-2```, modifiez le contenu du texte par "Done!" grâce à l’opérateur this. 
+
+Il est également possible d'interagir avec plusieurs éléments d’une page avec un seul événement grâce à une boucle.
+
+2. Mettez en place une mécanique permettant d'écouter l'événement "```mouseover```" sur l'ensemble des ```<li>``` 
+afin de remplacer le contenu du texte par ```"Done!"``` lorsque celui-ci est survolé.
+
+## IDENTIQUES OU DIFFERENTES ?
+
+Le tableau ```arrays``` contient des sous-tableaux contenant eux-mêmes des éléments de différentes natures 
+(booléens, nombres, chaîne de caractères…).
+
+```js
+function checkDifferences(arrays) {
+    let result = [];
+ 
+    // Insert your code here
+
+    return result;
+}
+
+console.log(checkDifferences([
+    [true, true, true, true],
+    ['test', 'test', 'test'],
+    [1, 1, 1, 2],
+    ['10', 10, 10, 10]
+]));
+// Expected: true, true, false, false
+```
+
+Pour chaque tableau, vérifiez si les éléments présents sont identiques ou différents.
+
+Si tous les éléments d’un sous-tableau sont identiques, ajoutez la valeur ```true``` dans le tableau result. Dans le cas contraire, ajoutez ```false```.
+
+Le résultat devra être retourné par la fonction ```checkDifferences```.
+

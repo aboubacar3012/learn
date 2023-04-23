@@ -1,0 +1,164 @@
+# LES EVENEMENTS EN JAVASCRIPT
+
+## CONTEXTE
+
+Un événement est un signal invisible lié à une action de l’utilisateur dans le navigateur.
+
+Le principe d’évènements en JavaScript est inhérent au DOM, le principe étant de dynamiser la page après que l’utilisateur ait interagi avec celle-ci.
+
+## FONCTIONNEMENT
+
+Les évènements javascript se décomposent en 3 étapes :
+
+- L’écoute
+- Le signal
+- L’action
+
+Chaque événement émet un signal qui est capté par le navigateur qui est ensuite interprété par le code JavaScript.
+
+Par exemple, dans le cadre d’une messagerie instantanée, l’écoute serait placée sur l’icône de corbeille, le signal correspond au clic de l’utilisateur sur l’icône et l'action serait la suppression du message associé.
+
+![alt img68](/images/courses/level1/img68.png)
+
+
+***Step-by-step***
+
+**Cibler l'élément à écouter**
+
+Pour capter le signal émis, la première étape consiste à cibler l’élément HTML que l’on souhaite écouter. 
+Par exemple en ciblant son identifiant :
+
+```index.html```
+
+```html
+<body>
+ <ul>
+   <li id="t1">Go to 👁</li>
+   <li id="t2">Lesson 🎾</li>
+ </ul>
+</body>
+```
+
+```script.js```
+
+```js
+document.querySelector('#t1');
+```
+
+***Mettre l’élément sur écoute***
+
+Cette seconde étape consiste à ajouter la méthode addEventListener() qui permet de mettre sur écoute un ou plusieurs éléments HTML.
+
+```js
+document.querySelector('#t1').addEventListener();
+```
+
+***Choisir un signal***
+
+La méthode ```addEventListener()``` ne fonctionne pas seule, il faut lui indiquer le type de signal à surveiller 
+(un clic, un scroll, une saisie sur le clavier, le survol d’un élément…) qui déclenchera l'événement à réaliser.
+
+```js
+document.querySelector('#t1').addEventListener('click');
+```
+
+***Définir l’action à effectuer***
+La fonction de callback de la méthode ```addEventListener``` se déclenche dès que le signal surveillé se produit, 
+elle indique le traitement à effectuer en réponse à cet évènement.
+
+```js
+document.querySelector('#t1').addEventListener('click',
+
+  function () {
+   console.log('Click detected!');
+ }
+);
+```
+
+Dans notre exemple, on souhaite effectuer un ```console.log``` avec le message **“click détected !”** 
+dès que l’utilisateur clique sur la balise portant l’id “t1”..
+
+## L’ASYNCHRONIE
+
+Par défaut le code s'exécute de façon synchrone, les lignes sont automatiquement lues les unes après les autres .
+
+Cependant, il est parfois nécessaire d’attendre le résultat d’une ligne pour pouvoir lire la suivante. 
+C’est le cas des lignes qui se trouvent dans la fonction de callback d’un événement. 
+Elles doivent s'exécuter uniquement lors de la remontée d’un signal, on parle alors d'exécution asynchrone de cette tâche.
+
+Dans l’exemple ci-dessous, l'événement se base sur le click sur la balise portant l’id “t1”.
+
+```js
+console.log('Start');
+
+document.querySelector('#t1').addEventListener('click',
+ function (){
+   console.log('Click detected!');
+ }
+);
+
+console.log('End');
+```
+
+Les ```console.log()``` permettent d’illustrer le principe d'asynchronie qui sera visible dans la console.
+
+***Au chargement du script***
+
+![alt img69](/images/courses/level1/img69.png)
+
+***Après le clic sur l'événement***
+
+![alt img70](/images/courses/level1/img70.png)
+
+## ECOUTER PLUSIEURS ELEMENTS
+
+Imaginons que nous souhaitions mettre sur écoute plusieurs éléments.
+
+```js
+<body>
+ <ul>
+   <li id="t1">Go to 👁</li>
+   <li id="t2">Lesson 🎾</li>
+ </ul>
+</body>
+```
+
+Pour mettre sur écoute plusieurs éléments vous devez passer par une boucle qui passe sur 
+l’ensemble des balises que vous souhaitez surveiller. Par exemple toutes les balises ```<li>```:
+
+```js
+for (let i = 0; i < document.querySelectorAll('li').length; i++) {
+ document.querySelectorAll('li')[i].addEventListener('click',
+   function () {
+     console.log('Click detected on <li>');
+   }
+ );
+}
+``
+
+## L'OPERATEUR THIS
+
+En factorisant le traitement avec une boucle, nous avons perdu une information essentielle : 
+celle de connaître quel élément a été cliqué.
+
+Lorsqu’on clique sur un paragraphe, l’information s’affiche dans la console mais nous ne 
+sommes plus capables de connaître l’élément sélectionné.
+
+La méthode ```addEventListener()``` propose un opérateur afin d’identifier directement 
+dans la fonction de callback l’élément écouté : ```this```.
+
+```js
+for (let i = 0; i < document.querySelectorAll('li').length; i++) {
+ document.querySelectorAll('li')[i].addEventListener('click',
+   function () {
+     console.log(this);
+   }
+ );
+}
+```
+
+***Après le clic sur un élément de la liste***
+
+![alt img71](/images/courses/level1/img71.png)
+
+De façon générale, l’opérateur “this” fait référence au contexte qui l’englobe.

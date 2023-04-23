@@ -1,0 +1,430 @@
+# Tableaux et Objets
+***
+
+## Les Tableaux
+Les tableaux sont des variables qui permettent de stocker des données sous forme de liste et ainsi évitent de 
+créer une multitude de variables indépendantes.
+
+***Avec un tableau :***
+
+```js
+const names = [
+ "Vanessa",
+ "Hugo",
+ "Victor"
+];
+```
+
+***Sans tableau :***
+
+```js
+const name1 = "Vanessa";
+const name2 = "Hugo";
+const name3 = "Victor";
+```
+
+***Accéder à une valeur***
+
+Pour accéder à une valeur du tableau, il faut utiliser son indice.
+
+```js
+const names = [
+ "Vanessa",
+ "Hugo",
+ "Victor"
+];
+
+
+console.log(names[1]);
+```
+
+***Résultat***
+
+```js
+Hugo
+```
+
+***Modifier une valeur***
+
+A nouveau, il faut utiliser l’indice de l’élément à modifier pour lui affecter une nouvelle valeur.
+
+```js
+const names = [
+ "Vanessa",
+ "Hugo",
+ "Victor"
+];
+
+names[1] = "John";
+console.log(names);
+```
+
+***Résultat***
+
+```js
+[
+ "Vanessa",
+ "John",
+ "Victor"
+]
+```
+
+***Longueur d’un tableau***
+
+La longueur d’un tableau correspond au nombre d’éléments stockés.
+
+```js
+const names = [
+ "Vanessa",
+ "Hugo",
+ "Victor"
+];
+
+console.log(names.length);
+```
+
+***Résultat***
+
+```js
+3
+```
+
+
+**Attention :** ne confondez pas avec la "length" d’une chaîne de caractères. L’une renvoie la longueur de la chaîne alors que celle-ci 
+renvoie le nombre d’éléments.
+
+***Ajouter un élément***
+
+Pour ajouter un élément à la fin d’un tableau, il faut utiliser la méthode .push().
+
+```js
+const names = [
+ "Vanessa",
+ "Hugo",
+ "Victor"
+];
+
+names.push("Alice");
+console.log(names);
+```
+
+***Résultat***
+
+```js
+[
+ "Vanessa",
+ "Hugo",
+ "Victor",
+ "Alice"
+]
+```
+
+Pour ajouter un élément au début d’un tableau, il faut utiliser la méthode .unshift().
+
+```js
+const names = [
+ "Vanessa",
+ "Hugo",
+ "Victor"
+];
+
+names.unshift("Alice");
+console.log(names);
+```
+
+***Résultat***
+
+```js
+[
+  "Alice",
+ "Vanessa",
+ "Hugo",
+ "Victor"
+]
+```
+
+***Supprimer un élément***
+
+Pour supprimer le dernier élément d’un tableau, il faut utiliser la méthode .pop().
+
+```js
+const names = [
+ "Vanessa",
+ "Hugo",
+ "Victor"
+];
+
+name.pop();
+console.log(names);
+```
+
+***Résultat***
+
+```js
+[
+ "Vanessa",
+ "Hugo",
+]
+```
+
+Pour supprimer le premier élément d’un tableau, il faut utiliser la méthode .shift().
+
+```js
+const names = [
+ "Vanessa",
+ "Hugo",
+ "Victor"
+];
+
+name.shift();
+console.log(names);
+```
+
+***Résultat***
+
+```js
+[
+ "Hugo",
+ "Victor"
+]
+```
+
+## Les Objets
+
+Les objets permettent de stocker des données dans une seule variable tout en leur donnant une propriété (un label). 
+Sans les objets il faudrait créer autant de variables que de valeurs qu’on souhaite enregistrer.
+
+***Avec un objet***
+
+```js
+const contact = {
+ name: "Vanessa",
+ phone: "0612345678",
+ mail: "vaness@gmail.com"
+};
+```
+
+***Sans objet***
+
+```js
+const name = "Vanessa";
+const phone = "0612345678";
+const mail = "vaness@gmail.com";
+```
+
+***Accéder à une valeur***
+
+Pour accéder à une valeur dans un objet, il faut utiliser sa propriété.
+
+Il existe deux types de notation, la notation par crochets ou la notation pointée.
+
+***Notation par crochets***
+
+```js
+const contact = {
+ name: "Vanessa",
+ phone: "0612345678",
+ mail: "vaness@gmail.com"
+};
+
+console.log(contact["name"]);
+```
+
+***Notation pointée***
+
+```js
+const contact = {
+ name: "Vanessa",
+ phone: "0612345678",
+ mail: "vaness@gmail.com"
+};
+
+console.log(contact.name);
+```
+
+***Résultat***
+
+```js
+Vanessa
+```
+
+***Modifier une valeur***
+
+Il faut également utiliser la propriété d’une valeur pour pouvoir la modifier.
+
+```js
+const contact = {
+ name: "Vanessa",
+ phone: "0612345678",
+ mail: "vaness@gmail.com"
+};
+
+contact["name"] = "Alex";
+console.log(contact);
+```
+
+***Résultat***
+
+```js
+{
+ name: "Alex",
+ phone: "0612345678",
+ mail: "vaness@gmail.com"
+}
+```
+
+***Ajouter un élément***
+
+Il faut utiliser une nouvelle propriété afin de lui affecter une valeur.
+
+```js
+const contact = {
+ name: "Vanessa",
+ phone: "0612345678",
+ mail: "vaness@gmail.com"
+};
+
+contact.city = "Paris";
+console.log(contact);
+```
+
+***Résultat***
+
+```js
+{
+ name: "Vanessa",
+ phone: "0612345678",
+ mail: "vaness@gmail.com",
+ city: "Paris"
+}
+```
+
+## Les Tableaux et les Objets
+
+***Quand les utiliser ?***
+
+On utilisera un tableau lorsque la liste des valeurs désigne une seule et même propriété.
+
+
+**Par exemple :**
+
+- une liste de prénoms
+- une liste de téléphones
+- une liste de produit
+
+On utilisera un objet lorsque la liste des valeurs désigne différentes propriétés.
+
+**Par exemple :**
+- informations d’une personne : prénom, nom, email…
+- informations d’un produit : référence, prix…
+
+## Les Tableaux d'Objets
+
+
+Les tableaux peuvent également stocker des objets afin d’avoir une liste plus complète dans une seule variable.
+
+```js
+const contacts = [
+ {
+   name: "Vanessa",
+   phone: "0612345678",
+   mail: "vaness@gmail.com"
+ },
+ {
+   name: "John",
+   phone: "+33689567487",
+   mail: "john@gmail.com"
+ }
+];
+```
+
+***Accéder à une valeur***
+
+Pour accéder à une valeur d’un objet il faut utiliser son indice puis sa propriété.
+
+Il existe deux types de notation, la notation par crochets ou la notation pointée.
+
+
+**Notation par crochets**
+
+```js
+const contacts = [
+ {
+   name: "Vanessa",
+   phone: "0612345678",
+   mail: "vaness@gmail.com"
+ },
+ {
+   name: "John",
+   phone: "+33689567487",
+   mail: "john@gmail.com"
+ }
+];
+
+console.log(contacts[1]["name"]);
+```
+
+***Notation pointée***
+
+```js
+const contacts = [
+ {
+   name: "Vanessa",
+   phone: "0612345678",
+   mail: "vaness@gmail.com"
+ },
+ {
+   name: "John",
+   phone: "+33689567487",
+   mail: "john@gmail.com"
+ }
+];
+
+console.log(contacts[1].name);
+```
+
+***Résultat***
+
+```js
+John
+```
+
+***Modifier la valeur d’un objet***
+
+A nouveau, il faut utiliser l’indice de l’objet concerné puis la propriété de la valeur pour pouvoir la modifier.
+
+```js
+const contacts = [
+ {
+   name: "Vanessa",
+   phone: "0612345678",
+   mail: "vaness@gmail.com"
+ },
+ {
+   name: "John",
+   phone: "+33689567487",
+   mail: "john@gmail.com"
+ }
+];
+
+contacts[1].name = "Doe";
+
+console.log(contacts);
+```
+
+***Résultat***
+
+```js
+[
+ {
+   name: "Vanessa",
+   phone: "0612345678",
+   mail: "vaness@gmail.com"
+ },
+ {
+   name: "Doe",
+   phone: "0687654321",
+   mail: "john@gmail.com"
+ }
+]
+```

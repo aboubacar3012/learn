@@ -1,0 +1,141 @@
+# Les fonctions
+***
+
+Une fonction est un bloc de code que l’on va pouvoir réutiliser afin d’éviter l’accumulation de lignes de code et 
+de la redondance de certains traitements.
+
+Par exemple, si on a besoin de générer 2 nombres aléatoires dans un intervalle de 1 à 1000.
+
+Sans fonction, on serait obligé de faire :
+
+```js
+const min = 1;
+const max = 1000;
+let randomNumber;
+
+randomNumber = Math.random() * (max - min) + min;
+randomNumber = Math.floor(randomNumber);
+console.log(randomNumber);
+
+randomNumber = Math.random() * (max - min) + min;
+randomNumber = Math.floor(randomNumber);
+console.log(randomNumber);
+```
+
+***Structure***
+Une fonction s’écrit avec l’instruction “function” suivi d’un nom décrivant son utilité (ici getRandomNumber).
+
+Le code compris entre les accolades pourra être réutilisé sans être réécrit.
+
+```js
+function getRandomNumber() {
+ const min = 1;
+ const max = 1000;
+ let randomNumber;
+
+
+ randomNumber = Math.random() * (max - min) + min;
+ randomNumber = Math.floor(randomNumber);
+
+
+ console.log(randomNumber);
+}
+```
+
+***L’exécution***
+
+Pour exécuter le code de la fonction il suffit d’utiliser son nom suivi de ().
+
+Dans cet exemple, la fonction getRandomNumber() est exécutée deux fois.
+
+```js
+getRandomNumber();
+getRandomNumber();
+```
+
+***Résultat***
+
+```js
+747
+176
+```
+
+Chaque exécution est indépendante et donne un résultat différent.
+
+***Les paramètres***
+
+Les paramètres permettent d’envoyer des informations externes à la fonction. Cela permet de rendre le code encore plus modulable.
+
+Dans cet exemple, un nombre minimum et maximum sont transmis à la fonction.
+
+```js
+getRandomNumber(1, 1000);
+getRandomNumber(1, 6);
+```
+
+```js
+function getRandomNumber(min, max) {
+ let randomNumber;
+
+
+ randomNumber = Math.random() * (max - min) + min;
+ randomNumber = Math.floor(randomNumber);
+
+
+ console.log(randomNumber);
+}
+```
+
+***Résultat***
+
+```js
+821
+3
+```
+
+**Attention :** l’ordre des arguments a une grande importance, car les valeurs vont se stocker dans les arguments qui correspondent à leur position.
+
+***Le résultat de retour***
+
+Une fonction peut renvoyer un résultat qui pourra être stocké et exploité plus tard.
+
+Ci-dessous, la constante randomNumber va recevoir le résultat renvoyé par la fonction getRandomNumber.
+
+```js
+const number = getRandomNumber(1, 6);
+```
+
+Avec l’instruction return, la fonction appelée renvoie directement le résultat.
+
+```js
+function getRandomNumber(min, max) {
+ let randomNumber;
+
+
+ randomNumber = Math.random() * (max - min) + min;
+ randomNumber = Math.floor(randomNumber);
+
+
+ return randomNumber;
+}
+```
+
+***Exploiter le résultat d’une fonction***
+
+Le résultat renvoyé par une fonction peut être exploité après son appel.
+
+```js
+const number = getRandomNumber(1, 6);
+
+
+if (number === 6) {
+ console.log("You won! 🏆🏆");
+}
+```
+
+
+
+Dans cet exemple, la fonction permet de générer un nombre aléatoire mais ne détermine pas si c’est gagné ou non, car ce n’est pas son rôle.
+
+Cependant, le résultat de la fonction pourra être utilisé, cela permet d’ailleurs de réaliser un code toujours 
+plus modulable : avec la même fonction on peut réaliser des règles différentes.

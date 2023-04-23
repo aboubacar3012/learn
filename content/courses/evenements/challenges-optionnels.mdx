@@ -1,0 +1,114 @@
+# CHALLENGES OPTIONNELS
+
+## COOKIES
+
+L'objectif de cet exercice est de manger les cookies au clic.
+
+L’URLl de l’image d’un cookie croqué est : [https://raw.githubusercontent.com/Innotech-Academy-Corporation/cookies/main/cookie-2.jpg](https://raw.githubusercontent.com/Innotech-Academy-Corporation/cookies/main/cookie-2.jpg) 
+
+```index.html```
+```html
+<!DOCTYPE html>
+<html>
+	<head>
+        <link rel="stylesheet" href="style.css" />
+	</head>
+	<body>
+        <img class="cookie" src="https://raw.githubusercontent.com/Innotech-Academy-Corporation/cookies/main/cookie-1.jpg" alt="Cookie" />
+        <img class="cookie" src="https://raw.githubusercontent.com/Innotech-Academy-Corporation/cookies/main/cookie-1.jpg" alt="Cookie" />
+        <img class="cookie" src="https://raw.githubusercontent.com/Innotech-Academy-Corporation/cookies/main/cookie-1.jpg" alt="Cookie" />
+        <img class="cookie" src="https://raw.githubusercontent.com/Innotech-Academy-Corporation/cookies/main/cookie-1.jpg" alt="Cookie" />
+        <script src="script.js"></script>
+	</body>
+</html>
+```
+
+```style.css```
+```css
+body {
+    margin: 0;
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+}
+
+.cookie {
+    width: 60px;
+    margin: 15px;
+}
+```
+
+```script.js```
+```js
+// a completer
+```
+
+1. Au clic sur un cookie, affichez la nouvelle image avec le cookie croqué. 
+2. Au second clic, le cookie doit être supprimé. Vous devez utiliser la méthode ```indexOf()``` 
+permettant la vérification de la valeur de l’attribut ```src```.
+
+## SUPER MARIO DOM
+
+L'objectif de cet exercice est de déplacer Mario sur l’écran à l’aide des touches directionnelles du clavier. 
+
+**Astuce:** les événements de claviers contiennent une information **“key”** qui permet de connaître la touche utilisée.
+
+Pour ce faire, vous devrez modifier l’image de Mario selon la direction dans laquelle il va et le faire avancer en modifiant 
+sa position par rapport à son élément parent.
+
+**Par exemple :** flèche droite pour un déplacement à droite avec image du profil droit de Mario.
+
+Les propriétés **offsetTop** (en haut) et **offsetLeft** (à gauche) permettent de connaître la position (en pixels) d’un élément par rapport à son parent.
+
+Grâce aux propriétés de positionnement (**top** et **left**) et l’attribut **style**, 
+modifiez le placement de Mario au déclenchement des touches directionnelles.
+
+**Voici les URL des images :**
+
+[https://raw.githubusercontent.com/Innotech-Academy-Corporation/mario/main/mario-front-1.png](https://raw.githubusercontent.com/Innotech-Academy-Corporation/mario/main/mario-front-1.png)
+[https://raw.githubusercontent.com/Innotech-Academy-Corporation/mario/main/mario-back-1.png](https://raw.githubusercontent.com/Innotech-Academy-Corporation/mario/main/mario-back-1.png)
+[https://raw.githubusercontent.com/Innotech-Academy-Corporation/mario/main/mario-left-1.png](https://raw.githubusercontent.com/Innotech-Academy-Corporation/mario/main/mario-left-1.png)
+[https://raw.githubusercontent.com/Innotech-Academy-Corporation/mario/main/mario-right-1.png](https://raw.githubusercontent.com/Innotech-Academy-Corporation/mario/main/mario-right-1.png)
+
+*⚠️ Veillez à cliquer sur la zone browser pour activer l’écoute de l'événement.*
+
+```index.html```
+```html
+<!DOCTYPE html>
+<html>
+	<head>
+	    <link rel="stylesheet" href="style.css" />
+	</head>
+	<body>
+	    <img id="player" src="https://static.lacapsule.academy/practice/mario/mario-front-1.png" alt="Mario">
+        <script src="script.js"></script>
+	</body>
+</html>
+```
+
+```style.css```
+```css
+body {
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+#player {
+    position: absolute;
+}
+```
+
+```script.js```
+```js
+// a completer
+```
+
+À l'aide des quatre touches directionnelles du clavier, déplacez Mario sur votre écran.  
+
+

@@ -1,0 +1,181 @@
+# DÉMARRER AVEC GIT
+
+## CONTEXTE
+
+Git est un outil de versioning, il permet de suivre l’évolution des différents fichiers d’un projet. 
+Il mémorise toute création, modification ou suppression de ces fichiers.
+
+![alt img12](/images/courses/level1/img12.png)
+
+Chaque modification du projet est enregistrée et accompagnée d’informations détaillées:
+
+- Qui ? Qui a modifié le projet
+- Quand ? Quand a eu lieu la modification
+- Quoi ? Quelles modifications ont été faites
+- Pourquoi ? Quel est le but de ces modifications
+
+Git est un outil très utilisé en entreprise car il facilite le travail collaboratif.
+
+Les développeurs d’une équipe peuvent facilement sauvegarder et transférer un projet et chaque modification peut être traquée et fusionnée simplement.
+
+## FONCTIONNEMENT
+
+Chaque modification d’un projet est enregistrée sur l’ordinateur. Un enregistrement s’appelle un **commit** et le lieu de stockage s’appelle un **dépôt**.
+
+Les commits nous donnent les informations spécifiées ci-dessus répondant aux questions: Qui ? Quand ? Quoi ? Pourquoi ?
+
+![alt img13](/images/courses/level1/img13.png)
+
+## Initialiser un depot local
+
+Attention, un dépôt Git est toujours associé à un projet. Avant d’initialiser un dépôt, 
+assurez-vous que vous êtes bien positionné à l’intérieur de celui-ci.
+
+Vous pouvez vérifier votre positionnement directement dans le menu de gauche sur VSCode ou dans votre terminal avec la commande pwd.
+
+![alt img14](/images/courses/level1/img14.png)
+
+Nous allons ensuite initialiser le dépôt Git avec la commande git init. Git va alors créer un dépôt local du projet sur votre ordinateur.
+
+```js
+git init 
+```
+
+### Travailler sur un depot local
+
+Comment faire pour sauvegarder mes fichiers dans mon dépôt local ?
+
+L’enregistrement d’une version d’un projet sur un dépôt local (principe du commit) s’effectue en deux étapes:
+
+- Choisir les fichiers à “photographier”
+- Prendre une photo du projet pour l’enregistrer
+
+La commande git add permet de sélectionner les fichiers à enregistrer.
+
+Pour sélectionner un seul fichier :
+
+```js
+git add nomFichier
+```
+
+Pour sélectionner tous les fichiers :
+
+```js
+git add .
+```
+
+La commande git commit photographie le projet en tenant compte des fichiers sélectionnés avec le git add et 
+enregistre cette “photo” dans le dépôt local.
+
+Il faut lui associer un message décrivant la raison du commit **(ex: first commit)**.
+
+```js
+git commit -m “First commit”
+```
+
+Avant d’enregistrer vos modifications, vous pouvez prendre le réflexe de vérifier les fichiers ajoutés ou non grâce 
+à la commande git status qui fait un état des lieux du dépôt.
+
+```js
+git status
+```
+
+Dans l’exemple ci-dessous, les répertoires et/ou les fichiers en rouge ont été créés ou modifiés mais 
+n’ont pas encore été ajoutés via la commande git add, ils ne feront donc pas partie du prochain commit.
+
+![alt img16](/images/courses/level1/img16.png)
+
+Lorsque les répertoires et/ou les fichiers sont en vert, ils sont prêts à être enregistrés dans le prochain commit.
+
+![alt img17](/images/courses/level1/img17.png)
+
+### Consulter l’historique
+
+```js
+git log
+```
+
+Cette commande permet de lister l’ensemble des versions du projet.
+
+Chaque version (commit) contient les informations suivantes :
+
+- Un identifiant unique
+- L’auteur des modifications
+- La date à laquelle cette version est enregistrée
+- Le message saisi lors de l’enregistrement
+
+![alt img18](/images/courses/level1/img18.png)
+
+Appuyez sur la touche “q” pour quitter et revenir à l’invite de votre terminal.
+
+Il est également possible de consulter directement le détail d’un commit précis avec la commande git show suivi de l’ID 
+du commit (cf. en jaune sur le screen ci-dessus).
+
+```js
+git show COMMIT_ID
+```
+
+On y retrouve les informations suivantes :
+
+- L’auteur et la date du commit
+- Le message du commit
+- Les fichiers impliqués dans le commit
+- Le code où interviennent les modifications
+- Les lignes de codes supprimées (rouge)
+- Les lignes de code ajoutées (vert)
+
+![alt img19](/images/courses/level1/img19.png)
+
+### Travailler sur un depot distant
+
+À chaque commit effectué, vous enregistrez vos modifications dans votre dépôt local. 
+Pour conserver ces versions sur le cloud ou tout simplement pour partager votre travail avec votre équipe, 
+il va être essentiel de créer un dépôt distant.
+
+Le dépôt distant permet de rendre le projet accessible depuis internet.
+
+![alt img20](/images/courses/level1/img20.png)
+
+Pour créer un dépôt distant, vous devez tout d’abord créer un compte et un nouveau repository (dépôt) sur [https://github.com](https://github.com).
+
+Pour associer votre dépôt local à votre dépôt distant nouvellement créé, il faut exécuter la ligne de 
+commande suivante à la racine du projet avec l’url récupérée depuis Github.
+
+```js
+git remote add origin https://urlDuDepot.git
+```
+
+Le mot ***“origin”*** est le nom du dépôt par convention, vous êtes libre de donner le nom que vous souhaitez. 
+Il servira ensuite de raccourci faisant référence à l’url qui lui a été attribué.
+
+Vous pouvez maintenant envoyer le projet sur le dépôt distant avec la commande ```git push```.
+
+```js
+git push origin main
+```
+
+**“origin”** fait référence au nom du dépôt et “main” au nom de la branche à déposer (“main” ou “master” par convention).
+
+Git n’envoie pas l’ensemble des fichiers à chaque push, mais uniquement les différences des fichiers optimisant ainsi la mise à jour du dépôt distant.
+
+Votre projet est maintenant disponible sur Github.
+
+![alt img21](/images/courses/level1/img21.png)
+
+Il est possible de consulter l’historique et le détail des commits très facilement.
+
+![alt img22](/images/courses/level1/img22.png)
+
+### Cloner un depot
+
+Cloner un projet équivaut à récupérer un projet via son dépôt distant. Par exemple: vous pourrez récupérer chaque jour les solutions des projets.
+
+La commande git clone permet de :
+
+- Récupérer l’intégralité d’un projet
+- Créer un dépôt local sur votre ordinateur
+- Vous avez besoin de l’url du dépôt pour le cloner.
+
+```js
+git clone https://github.com/facebook/react.git
+```

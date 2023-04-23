@@ -1,0 +1,148 @@
+# Terminal de commande
+
+## Contexte
+
+Un terminal est un outil permettant d'interagir avec le système d’exploitation via des lignes de commandes textuelles.
+
+
+Auparavant, il s’agissait même de l’unique moyen de communiquer avec le système d’exploitation, il n’y avait ni bouton ni menu pour naviguer.
+
+
+Les **interfaces graphiques** (UI) ont été ensuite développées pour améliorer l’expérience utilisateur. 
+Chaque interaction (par exemple un double clic) est désormais automatiquement retranscrite en commandes.
+
+
+Cependant, le terminal est toujours présent !
+
+
+Pour les développeurs, il est utilisé comme moyen de lancer certaines actions en relation avec d’autres applications **(Node, Git)**, 
+de manipuler certains logiciels qui n’ont pas d’interface graphique, de lancer localement des serveurs, 
+de créer ou supprimer des répertoires ou des fichiers…
+
+## Fonctionnement
+
+Une ligne de commande s’écrit avec le clavier et se valide avec la touche entrée. 
+Le résultat de la commande s'affiche ensuite à la ligne en dessous.
+
+![alt img1](/images/courses/level1/img1.png)
+
+## SETUP
+
+Très pratique, ```VSCode``` permet d’utiliser le terminal directement dans son environnement.
+
+
+Pour ouvrir le terminal sur VSCode, sélectionnez dans la barre de menu : **Terminal > New terminal (ou Nouveau terminal)**
+
+### Choix du terminal
+
+VSCode vous permet d’utiliser différents types de terminaux.
+
+Pour des raisons de compatibilité nous allons utiliser :
+
+- zsh ou bash sous MacOS / Linux
+- Git bash sous Windows
+
+Cliquez sur le bouton encadré en rouge ci-dessous > **Select Default Profile (ou Sélectionner le profil par défaut)**.
+
+![alt img2](/images/courses/level1/img2.png)
+
+## QUELQUES COMMANDES
+
+### Afficher notre position
+
+La commande pwd vous indique le répertoire dans lequel votre terminal se trouve.
+
+```js
+pwd
+```
+
+Résultat :
+
+![alt img3](/images/courses/level1/img3.png)
+
+### Lister des elements
+
+La commande ls vous permet de lister les fichiers et répertoires contenus dans le répertoire courant.
+
+```js
+ls
+```
+
+Résultat :
+
+![alt img4](/images/courses/level1/img4.png)
+
+### Descendre dans un repertoire
+
+La commande cd nomDuDossier vous permet de descendre dans le répertoire “nomDuDossier”.
+
+```js
+cd Desktop
+```
+
+Attention, il n’y a pas de résultat visible dans le terminal :
+
+![alt img5](/images/courses/level1/img5.png)
+
+### Remonter dans un repertoire
+
+```js
+La commande cd .. vous permet de remonter au répertoire parent.
+```
+
+Attention, il n’y a pas de résultat visible dans le terminal :
+
+![alt img6](/images/courses/level1/img6.png)
+
+### Creer un repertoire
+
+```js
+mkdir myapp
+```
+
+Attention, il n’y a pas de résultat visible dans le terminal :
+
+![alt img7](/images/courses/level1/img7.png)
+
+### Creer un fichier
+
+```js
+touch index.html
+```
+
+Attention, il n’y a pas de résultat visible dans le terminal :
+
+![alt img8](/images/courses/level1/img8.png)
+
+Il est préférable de nommer ces répertoires et fichiers sans accent ni espace, car selon les systèmes d’exploitation, 
+cela peut rendre leur interprétation et leur manipulation plus difficiles.
+
+### Lire un fichier
+
+```js
+cat index.html
+```
+
+Résultat 
+
+![alt img9](/images/courses/level1/img9.png)
+
+### Supprimer un fichier
+
+```js
+rm index.html
+```
+
+Attention, il n’y a pas de résultat visible dans le terminal :
+
+![alt img10](/images/courses/level1/img10.png)
+
+### Supprimer un repertoire
+
+```js
+rm -r myapp
+```
+
+Attention, pas de résultat visible dans le terminal :
+
+![alt img11](/images/courses/level1/img11.png)
