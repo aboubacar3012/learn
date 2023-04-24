@@ -100,7 +100,7 @@ mais on peut aussi utiliser la [méthode find()](https://developer.mozilla.org/e
 ***Indication*** : pour éviter d'avoir trop de décimales dans les valeurs numériques, 
 utiliser la [méthode toFixed()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number/toFixed).
 
-### Etape 4
+### ETAPE 4
 
 Il faut pouvoir commencer un nouveau repas sans avoir à recharger la page pour tout réinitialiser.
 
@@ -108,3 +108,116 @@ Ajouter un capteur de ```clic``` au bouton d'identifiant ```reset``` au chargeme
 
 Écrire la fonction ```raz``` qui réinitialise la liste ```listeIngredients```, vide le select des ingrédients (sauf le premier élément option) 
 et vide la division d'affichage du repas.
+
+## PARTIE 2: Compteur de calories - 2ème partie
+
+### ETAPE 5 : Enregistrement des repas
+
+Créer une variable globale ```listeRepas``` initialisée à une liste vide. 
+On ajoutera dans cette liste les repas enregistrés, qui seront affichés grâce à cette 
+liste (comme on affichait les ingrédients à partir de la liste ```listeIngredients```).
+
+Pour enregistrer un repas, ajouter le formulaire dont le code HTML est donné ci-dessous après la division d'identifiant ```compteur```. 
+Ce formulaire est caché par défaut avec la CSS fournie dans la page. 
+Compléter la fonction ```afficheRepas``` pour rendre le formulaire visible quand on affiche les ingrédients, 
+et compléter la fonction ```raz``` pour le cacher à nouveau quand on clique sur le bouton Recommencer.
+
+```html
+<form id="save">
+    <fieldset>
+        <legend>Enregistrer</legend>
+        <label>Nom du repas : <input name="nom" value="" id="nom"></label>
+        <button>Enregistrer</button>
+    </fieldset>
+</form>
+```
+
+Dans la fonction qui initialise la page (```init()```), faire que ce formulaire capte le ```submit``` et que cela appelle la fonction ```enregistrerRepas```, 
+qui devra commencer par bloquer l'envoi du formulaire (```event.preventDefault()```).
+
+On enregistrera un repas sous la forme d'un objet avec la structure suivante :
+
+```
+{ "nom": "le nom du repas", "repas": listeIngredients }
+```
+
+où ```listeIngredients``` est la liste des ingrédients telle que définie dans la 1ère partie.
+
+Compléter la fonction ```enregistrerRepas``` pour ajouter le repas à enregistrer à ```listeRepas``` 
+et appeler une fonction ```afficheListeRepas(liste)``` qui affichera les repas enregistrés dans ```listeRepas``` (etape suivante).
+
+### ETAPE 6 : Affichage des repas
+
+Ajouter en fin de page une division d'identifiant ```mes-repas``` avec un titre de niveau 2.
+
+Écrire de reste de la fonction ```afficheListeRepas(liste)``` qui prend en argument une liste de repas et qui :
+
+- vide la division d'identifiant ```mes-repas``` **sauf** le titre de niveau 2
+- affiche les noms des repas enregistrés (on récrée la liste entière)
+
+![alt img79](/images/courses/level1/img79.png)
+
+### ETAPE 7 : Enregistrement en stockage local
+
+Pour l'instant les repas sont enregistrés **uniquement en mémoire vive**. Si vous rechargez votre page, aucun repas enregistré ne s'affiche. 
+On va donc maintenant gérer la persistence de ces données.
+
+Le stockage local ne peut enregistrer que des données scalaires, on va donc avoir besoin de sérialiser les informations à enregistrer, 
+avec ```JSON.stringify```.
+
+Compléter la fonction ```enregistrerRepas``` pour que celle-ci enregistre dans le ```localStorage``` une clé ```liste-repas``` 
+qui contiendra la sérialisation du tableau Javascript ```listeRepas```.
+
+Attention à bien respecter la clé ```liste-repas```.
+
+Vérifier avec les outils de console si vous avez bien les données dans le localStorage :
+
+![alt img80](/images/courses/level1/img80.png)
+
+Les données sont bien enregistrées, mais si vous rechargez votre page, aucun repas enregistré ne s'affiche.
+
+Il faut donc maintenant que la liste des repas enregistrés dans le ```localStorage``` soit, au chargement de la page, 
+chargée en mémoire dans le tableau Javascript ```listeRepas``` et que l'affichage des repas soit fait.
+
+Écrire la fonction ```initStorage``` (sans argument), qui regarde si le ```localStorage``` contient une clé ```liste-repas```, 
+et si oui prend les données, les désérialise, initialise le tableau Javascript ```listeRepas``` et appelle la fonction qui affiche les repas.
+
+Pour terminer, appeler ```initStorage``` au chargement de la page (fonctionn ```init```).
+
+Normalement, on doit maintenant avoir les repas enregistrés qui s'affichent à nouveau lorsqu'on recharge la page.
+
+### ETAPE 8 : Suppression d'un enregistrement (Optionnel)
+
+Compléter la fonction d'affichage des repas pour avoir un bouton de suppression d'un repas et créer 
+la fonction ```supprimeRepas``` (appelée quand on clique sur le bouton) et qui va supprimer le repas du 
+tableau Javascript ```listeRepas```(penser à utiliser [splice](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/splice)), 
+enregistre en ```localStorage``` la nouvelle version de ```listeRepas```, 
+et raffraichit l'affichage des repas enregistrés (il suffit de rappeler la fonction ```afficheListeRepas```).
+
+![alt img81](/images/courses/level1/img81.png)
+
+### ETAPE 9 : Export HTML des repas enregistrés
+
+On veut pouvoir réaliser l'export des repas enregistrés sous la forme d'un fichier HTML, comme sur l'exemple ci-dessous.
+
+![alt img82](/images/courses/level1/img82.png)
+![alt img83](/images/courses/level1/img83.png)
+![alt img84](/images/courses/level1/img84.png)
+
+Créer le bouton d'export et créer la fonction ```exportHtml``` qui sera appelée. Cette fonction doit :
+
+1. créer le code HTML **au format texte** (et non DOM) de la page d'export
+2. créer un Blob et un object URL associé
+3. créer un lien avec l'URL créée en 2°
+4. activer le lien (cliquer dessus automatiquement, ce qui déclenche le téléchargement)
+5. supprimer ensuite le lien créé
+
+***Indications :***
+
+- [Template literals](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals) : 
+pour faciliter l'écriture du code HTML (évite les multiples concaténations de chaines)
+- [Objet Blob et comment en créer un](https://developer.mozilla.org/en-US/docs/Web/API/Blob).
+- Pour le Content-Type, le type MIME d'un fichier HTML est text/html.
+Attention le contenu du Blob doit être un tableau Javascript (cf. l'exemple sur MDN)
+- [Méthode URL.createObjectURL()](https://developer.mozilla.org/en-US/docs/Web/API/URL/createObjectURL) pour avoir une URL à partir du Blob
+- [Simuler un clic sur un élément](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/click) pour cliquer sur le lien automatiquement

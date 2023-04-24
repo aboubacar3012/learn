@@ -2,7 +2,7 @@
   "introduction-au-terminal-de-commande": {
     "title": "Inroduction au terminal et git",
     "slug": "introduction-au-terminal-de-commande",
-    "description": "Dans cette partie, nous allons nous familiariser avec les modalités pratiques de suivi du cours. Par la suite, nous aurons un aperçu des bases du développement Web et parlerons également des progrès dans le domaine du développement d'applications Web au cours des dernières décennies.",
+    "description": "Dans cette partie, nous abordons l'introduction au terminal et à Git, deux outils de développement essentiels. Le terminal est un environnement de ligne de commande permettant une interaction plus puissante avec l'ordinateur. Git est un système de contrôle de version distribué pour suivre les modifications apportées au code et collaborer avec d'autres développeurs. Nous examinons les concepts de base de Git, tels que les dépôts, les commits, les branches et les fusionnements, ainsi que les principales commandes Git. Vous devriez être en mesure de naviguer et de travailler efficacement avec le terminal, ainsi que de comprendre les bases de Git pour gérer votre code et collaborer avec d'autres développeurs.",
     "image": "/images/courses/terminal.png",
     "level":1,
     "learnFeatures": [
@@ -56,7 +56,7 @@
   "introduction-a-javascript": {
     "title": "Introduction a JavaScript",
     "slug": "introduction-a-javascript",
-    "description": "Dans cette partie, nous allons nous familiariser avec les modalités pratiques de suivi du cours. Par la suite, nous aurons un aperçu des bases du développement Web et parlerons également des progrès dans le domaine du développement d'applications Web au cours des dernières décennies.",
+    "description": "Dans cette partie, nous couvrons les concepts de base de la programmation JavaScript, y compris les variables, les fonctions, les boucles et les conditions. Nous examinons également le modèle d'objet document (DOM) du navigateur pour interagir avec le contenu HTML et créer des pages interactives et dynamiques. Enfin, vous devriez être capable de créer des pages Web interactives en utilisant JavaScript et en manipulant l'HTML et le CSS avec JavaScript.",
     "image": "/images/courses/javascript.png",
     "level":1,
     "learnFeatures": [
@@ -148,7 +148,7 @@
   "expressions-rationnelles-et-debug": {
     "title": "Expressions rationnelles et debug",
     "slug": "expressions-rationnelles-et-debug",
-    "description": "Dans cette partie, nous allons nous familiariser avec les modalités pratiques de suivi du cours. Par la suite, nous aurons un aperçu des bases du développement Web et parlerons également des progrès dans le domaine du développement d'applications Web au cours des dernières décennies.",
+    "description": "Dans cette partie, nous explorons les expressions régulières ('regex'), qui sont des séquences de caractères utilisées pour rechercher et manipuler des chaînes de texte selon des motifs spécifiques. Nous examinerons les concepts de base des regex, ainsi que les techniques de débogage pour identifier et résoudre les bugs dans votre code. À la fin de cette partie, vous devriez être en mesure d'utiliser les regex pour rechercher et manipuler des chaînes de texte, ainsi que de déboguer efficacement votre code pour identifier et résoudre les problèmes.",
     "image": "/images/courses/debugging.png",
     "level":1,
     "learnFeatures": [
@@ -214,7 +214,7 @@
   "html-et-css": {
     "title": "HTML 5 & CSS 3",
     "slug": "html-et-css",
-    "description": "Dans cette partie, nous allons nous familiariser avec les modalités pratiques de suivi du cours. Par la suite, nous aurons un aperçu des bases du développement Web et parlerons également des progrès dans le domaine du développement d'applications Web au cours des dernières décennies.",
+    "description": "Dans cette partie, nous couvrons les fondamentaux du développement Web en utilisant les dernières normes HTML 5 et CSS 3. Nous explorerons les balises HTML pour structurer le contenu de votre site Web, ainsi que les différentes propriétés CSS pour styliser et mettre en forme votre site. En outre, nous aborderons les techniques de mise en page CSS, y compris le positionnement, le flottant et la grille CSS. À la fin de cette partie, vous devriez être en mesure de créer des sites Web simples et responsives en utilisant les dernières normes HTML et CSS.",
     "image": "/images/courses/html&css.png",
     "level":1,
     "learnFeatures": [
@@ -291,9 +291,9 @@
     ]
   },
   "dom": {
-    "title": "Le DOM",
+    "title": "Le DOM (Document Object Model)",
     "slug": "le-dom",
-    "description": "Dans cette partie, nous allons nous familiariser avec les modalités pratiques de suivi du cours. Par la suite, nous aurons un aperçu des bases du développement Web et parlerons également des progrès dans le domaine du développement d'applications Web au cours des dernières décennies.",
+    "description": "Dans cette partie, nous explorerons le DOM (Document Object Model), qui est une représentation du contenu HTML d'une page Web en tant qu'objet arborescent. Nous aborderons les différents éléments du DOM et comment ils sont organisés en une structure arborescente, ainsi que comment le DOM peut être manipulé en utilisant JavaScript et comment les événements peuvent être utilisés pour ajouter de l'interactivité à vos pages Web.",
     "image": "/images/courses/console.png",
     "level":1,
     "learnFeatures": [
@@ -346,7 +346,7 @@
   "evenements": {
     "title": "Les Evenements",
     "slug": "evenements",
-    "description": "Dans cette partie, nous allons nous familiariser avec les modalités pratiques de suivi du cours. Par la suite, nous aurons un aperçu des bases du développement Web et parlerons également des progrès dans le domaine du développement d'applications Web au cours des dernières décennies.",
+    "description": "Dans cette partie, nous aborderons les événements, qui sont des actions qui se produisent sur une page Web, et comment ils sont gérés en utilisant JavaScript. Nous examinerons les différents types d'événements disponibles et comment les fonctions peuvent être utilisées pour y répondre, afin d'ajouter de l'interactivité à vos pages Web.",
     "image": "/images/courses/toucher.png",
     "level":1,
     "learnFeatures": [
@@ -399,7 +399,7 @@
   "api-et-fetch": {
     "title": "API & Fetch",
     "slug": "api-et-fetch",
-    "description": "Dans cette partie, nous allons nous familiariser avec les modalités pratiques de suivi du cours. Par la suite, nous aurons un aperçu des bases du développement Web et parlerons également des progrès dans le domaine du développement d'applications Web au cours des dernières décennies.",
+    "description": "Dans cette partie, nous explorerons les API et les Web Services, ainsi que la méthode Fetch en JavaScript pour récupérer des données à partir d'un serveur. Nous aborderons les différents formats de données, y compris JSON et XML, et comment ils peuvent être utilisés pour représenter et échanger des données entre les applications.",
     "image": "/images/courses/api.png",
     "level":1,
     "learnFeatures": [
@@ -465,7 +465,7 @@
   "level-one-projects": {
     "title": "Projets",
     "slug": "projets",
-    "description": "Dans cette partie, nous allons nous familiariser avec les modalités pratiques de suivi du cours. Par la suite, nous aurons un aperçu des bases du développement Web et parlerons également des progrès dans le domaine du développement d'applications Web au cours des dernières décennies.",
+    "description": "Dans cette partie, vous trouverez une série de projets pratiques. Ces projets pratiques en HTML, CSS et JavaScript sont conçus pour consolider les notions apprises durant la formation. Chaque projet variera en complexité et en durée, avec des instructions détaillées et des ressources pour vous aider à démarrer. À la fin de cette partie, vous devriez avoir une solide expérience pratique en développement web et être prêt à travailler sur des projets plus avancés.",
     "image": "/images/courses/projets.png",
     "level":1,
     "learnFeatures": [
