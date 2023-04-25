@@ -140,18 +140,18 @@ export default function Header() {
               </div>
             </div>
             <div className="md:flex items-center hidden">
-              {/* <Link href="/" className="text-gray-800 text-sm font-semibold hover:text-purple-600 mr-4">
+              <Link href="/" className="text-blue-800 text-sm font-semibold hover:text-purple-600 mr-4">
+                  Administration
+              </Link>
+              <Link href="/" className="text-gray-800 text-sm font-semibold hover:text-purple-600 mr-4">
                   Accueil
-              </Link> */}
-              {/* <a
-                href="#"
-                className="text-gray-800 text-sm font-semibold hover:text-purple-600 mr-4"
-              >
-                Emploie
-              </a> */}
-              {/* <Link href="/contact" className="text-gray-800 text-sm font-semibold hover:text-purple-600 mr-4">
+              </Link>
+              <Link href="/lessons" className="text-gray-800 text-sm font-semibold hover:text-purple-600 mr-4">
+                  Programme
+              </Link>
+              <Link href="/contact" className="text-gray-800 text-sm font-semibold hover:text-purple-600 mr-4">
                   Contact
-              </Link> */}
+              </Link>
             </div>
             {auth.isConnected ? (
               <div className="flex items-center">
@@ -194,21 +194,21 @@ export default function Header() {
               <>
                 <div className="hidden md:flex items-center">
                   <Link
-                    href="/sign-in"
+                    href="/connexion"
                     className="text-gray-800 text-sm font-semibold hover:text-purple-600 mr-4"
                   >
                     Connexion
                   </Link>
-                  <Link
-                    href="/sign-up"
+                  {/* <Link
+                    href="/inscription"
                     className="text-gray-800 text-sm font-semibold border px-4 py-2 rounded-lg hover:text-purple-600 hover:border-purple-600"
                   >
                     Inscription
-                  </Link>
+                  </Link> */}
                 </div>
                 <div className="md:hidden flex items-center">
                   <Link
-                    href="/sign-in"
+                    href="/connexion"
                     className="text-blue-500 mx-1 text-sm font-semibold border px-4 py-2 rounded-lg hover:text-blue-600 hover:border-blue-600 cursor-pointer"
                   >
                     <svg
@@ -226,8 +226,8 @@ export default function Header() {
                       />
                     </svg>
                   </Link>
-                  <Link
-                    href="/sign-up"
+                  {/* <Link
+                    href="/inscription"
                     className="text-red-500 mx-1 text-sm font-semibold border px-4 py-2 rounded-lg hover:text-red-600 hover:border-red-600 cursor-pointer"
                   >
                     <svg
@@ -244,7 +244,7 @@ export default function Header() {
                         d="M19 7.5v3m0 0v3m0-3h3m-3 0h-3m-2.25-4.125a3.375 3.375 0 11-6.75 0 3.375 3.375 0 016.75 0zM4 19.235v-.11a6.375 6.375 0 0112.75 0v.109A12.318 12.318 0 0110.374 21c-2.331 0-4.512-.645-6.374-1.766z"
                       />
                     </svg>
-                  </Link>
+                  </Link> */}
                 </div>
               </>
             )}

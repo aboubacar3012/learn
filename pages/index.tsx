@@ -11,6 +11,11 @@ import Footer from "../components/Footer"
 import type { RootState } from "../redux/store"
 import { useSelector, useDispatch } from "react-redux"
 import Link from "next/link"
+import HomePlans from "../components/Home/HomePlans"
+import WhyUs from "../components/Home/whyUs"
+import HomeApplyForm from "../components/Home/HomeApplyForm"
+import HomeStatistics from "../components/Home/HomeStatistics"
+import HomeLessons from "../components/Home/HomeLessons"
 
 export default function Home({ content, courses }) {
   const [courseSlugToShow, setCourseSlugToShow] = useState(courses[0])
@@ -21,7 +26,6 @@ export default function Home({ content, courses }) {
   const auth = useSelector((state: RootState) => state.auth)
   const dispatch = useDispatch()
 
-  
   return (
     <Layout content={content} courses={courses} progressService={progressService}>
       <Head>
@@ -34,9 +38,15 @@ export default function Home({ content, courses }) {
       {!auth.isConnected ? (
         <>
           <HomeHero />
-          {/* <HomeFeatures /> */}
-          <HomeCourses courses={courses} content={content} progressService={progressService} />
+          <HomeStatistics />
+          <HomeApplyForm />
+          <HomeFeatures />
+          <WhyUs />
+          <HomeLessons />
+          <HomePlans />
+          {/* <HomeCourses courses={courses} content={content} progressService={progressService} /> */}
           <CallToAction />
+          {/* <Footer /> */}
         </>
       ) : (
         <div id="courses" className="features mx-auto w-full px-3 lg:block xl:py-15 xl:px-44">
@@ -56,7 +66,7 @@ export default function Home({ content, courses }) {
                   <div className="space-y-4" role="none">
                     {courses.map(
                       (course, index) =>
-                        index >=0 && (
+                        index >= 0 && (
                           <div
                             key={index}
                             className="border-2 border-gray-200 hover:border-blue-500  bg-white opacity-50 flex cursor-pointer items-center justify-between rounded-lg px-6 py-4"
