@@ -52,10 +52,8 @@ const Contact = () => {
           <div className="w-full lg:-mt-96 lg:w-2/6 px-8 py-12 ml-auto bg-blue-800 rounded-2xl">
             <div className="flex flex-col text-white">
               <h1 className="font-bold uppercase text-4xl my-4">Innotech Academy</h1>
-              <p className="text-gray-400">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam tincidunt arcu
-                diam, eu feugiat felis fermentum id. Curabitur vitae nibh viverra, auctor turpis
-                sed, scelerisque ex.
+              <p className="text-gray-100">
+              <strong>Innotech Academy</strong> est un centre de formation spécialisé dans les technologies de l'information. Nous proposons des formations de haute qualité pour les débutants et les professionnels, en mettant l'accent sur la pratique et l'apprentissage continu.
               </p>
               <div className="flex my-4 ">
                 <div className="flex flex-col">
@@ -64,7 +62,7 @@ const Contact = () => {
                 <i className="fas fa-map-marker-alt pt-2 pr-2">
                   <div className="flex flex-col">
                     <h2 className="text-2xl">Adresse</h2>
-                    <p className="text-gray-400">5555 Tailwind RD, Pleasant Grove, UT 73533</p>
+                    <p className="text-gray-400">Conakry/Guinee</p>
                   </div>
                 </i>
               </div>
@@ -76,8 +74,8 @@ const Contact = () => {
                   <i className="fas fa-phone-alt pt-2 pr-2">
                     <div className="flex flex-col">
                       <h2 className="text-2xl">Contacts</h2>
-                      <p className="text-gray-400">Tel: +33 07 58 44 17 73</p>
-                      <p className="text-gray-400">E-mail: contact@innotech-academy.com</p>
+                      <p className="text-gray-100">Tel: +33 07 58 44 17 73</p>
+                      <p className="text-gray-100">E-mail: contact@innotech-academy.com</p>
                     </div>
                   </i>
                 </div>

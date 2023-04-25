@@ -3,7 +3,7 @@ const CallToChat = () => {
         <section className="bg-gray-100">
         <div className="container mx-auto flex flex-col justify-around p-2 text-center md:p-10 lg:flex-row">
             <div className="hidden md:flex flex-col justify-center lg:text-left">
-                <h1 className="text-3xl font-medium leading-tight title-font">Réjoignez le groupe des etudiants</h1>
+                <h1 className="text-3xl font-medium leading-tight title-font">Réjoignez le groupe public des étudiants</h1>
             </div>
             <div className="md:hidden flex flex-col justify-center lg:text-left">
                 <h1 className="text-3xl font-medium leading-tight title-font">Groupe de tchat</h1>
