@@ -43,7 +43,7 @@ export default function Home({ content, courses }) {
         <>
           <HomeHero />
           <HomeStatistics />
-          <HomeApplyForm />
+          {/* <HomeApplyForm /> */}
           <HomeFeatures />
           <WhyUs />
           <HomeLessons />

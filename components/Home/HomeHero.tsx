@@ -138,10 +138,10 @@ export default function HomeHero() {
               Devenez un développeur fullstack web & mobile
             </span>
           </h1>
-          <p className="mt-3 text-base text-gray-500  font-semibold sm:mt-5 sm:text-xl lg:text-lg xl:text-xl text-center md:text-left">
+          <p className="mt-3 text-base text-gray-900  font-semibold sm:mt-5 sm:text-xl lg:text-lg xl:text-xl text-center md:text-left">
             Apprenez à créer des applications web et mobiles de qualité professionnelle
           </p>
-          <p className="mt-4 text-sm text-gray-500 dark:text-gray-400 lg:text-base">
+          <p className="mt-4 text-sm text-gray-800 dark:text-gray-400 lg:text-base">
             Notre programme de formation vous permet de devenir un développeur fullstack web et
             mobile compétent. Vous apprendrez à concevoir et développer des applications de qualité
             professionnelle en utilisant les dernières technologies et méthodes de développement.
@@ -151,10 +151,10 @@ export default function HomeHero() {
           </p>
           <div className="flex flex-col mt-6 space-y-3 lg:space-y-0 lg:flex-row">
             <a
-              href="/lessons"
+              href="/inscription"
               className="block l px-12 py-4 text-md font-medium tracking-wider text-center text-white transition-colors duration-300 transform bg-blue-900 rounded-md hover:bg-blue-700"
             >
-              VOIR LE PROGRAMME
+              POSTULER GRATUITEMENT
             </a>
           </div>
         </div>

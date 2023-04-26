@@ -16,7 +16,7 @@ const CallToAction = () => {
           </p>
           <div className="flex mt-8">
             <Link
-              href="/"
+              href="/inscription"
               className="px-4 py-2 mr-4 text-white uppercase bg-blue-500 border-2 border-transparent rounded-lg text-md hover:bg-blue-400"
             >
               Commencer

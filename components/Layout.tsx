@@ -6,12 +6,7 @@ const Footer = dynamic(() => import("./Footer"), {
   ssr: false,
 })
 
-export default function Layout({
-  children,
-  content,
-  courses,
-  progressService,
-}) {
+export default function Layout({ children, content, courses, progressService }) {
   return (
     <>
       <Head>

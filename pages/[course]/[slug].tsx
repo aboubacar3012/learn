@@ -97,7 +97,7 @@ export default function LessonPage({
 }: Props) {
   useActor(progressService)
 
-  const { isConnected } = useSelector((state: RootState) => state.auth)
+  const { isConnected, user } = useSelector((state: RootState) => state.auth)
 
   const router = useRouter()
 
@@ -112,6 +112,7 @@ export default function LessonPage({
         <meta name="description" content={lessonData.description} />
       </Head>
 
+      
       <LessonLayout
         toc={toc}
         source={source}

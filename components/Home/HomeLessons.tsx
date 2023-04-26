@@ -20,7 +20,7 @@ const HomeLessons = () => {
           <div className="mt-12 inline-flex rounded-md shadow">
             <button
               type="button"
-              className="flex justify-center items-center bg-indigo-600 rounded-xl py-5 px-4 text-center text-white text-xl"
+              className="block l px-12 py-4 text-md font-medium tracking-wider text-center text-white transition-colors duration-300 transform bg-blue-900 rounded-md hover:bg-blue-700"
             >
               VOIR LE PROGRAMME
             </button>

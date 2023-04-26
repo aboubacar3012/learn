@@ -102,8 +102,8 @@ const HomePlans = () => {
               </li>
             </ul>
             <a
-              href="#/"
-              className="flex justify-center items-center bg-indigo-600 rounded-xl py-5 px-4 text-center text-white text-xl"
+              href="/inscription"
+              className="flex justify-center items-center px-12 py-4 text-md font-medium tracking-wider text-center text-white transition-colors duration-300 transform bg-blue-900 rounded-md hover:bg-blue-700"
             >
               Je postule
               <img
@@ -192,8 +192,8 @@ const HomePlans = () => {
               </li>
             </ul>
             <a
-              href="#/"
-              className="flex justify-center items-center bg-indigo-600 rounded-xl py-6 px-4 text-center text-white text-2xl"
+              href="/inscription"
+              className="flex justify-center items-center px-12 py-4 text-md font-medium tracking-wider text-center text-white transition-colors duration-300 transform bg-blue-900 rounded-md hover:bg-blue-700"
             >
               Je postule
               <img
@@ -262,8 +262,9 @@ const HomePlans = () => {
               </li>
             </ul>
             <a
-              href="#/"
-              className="flex justify-center items-center bg-indigo-600 rounded-xl py-5 px-4 text-center text-white text-xl"
+              href="/inscription"
+              className="flex justify-center items-center px-12 py-4 text-md font-medium tracking-wider text-center text-white transition-colors duration-300 transform bg-blue-900 rounded-md hover:bg-blue-700"
+
             >
               Je postule
               <img

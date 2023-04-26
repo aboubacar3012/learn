@@ -4,6 +4,8 @@ import { MDXRemote } from "next-mdx-remote"
 import dynamic from "next/dynamic"
 import Script from "next/script"
 import LessonProgress from "./LessonProgress"
+import { useSelector } from "react-redux"
+import { RootState } from "../../redux/store"
 
 export default function LessonLayout({
   toc,
@@ -16,6 +18,8 @@ export default function LessonLayout({
   lessonData,
   course,
 }) {
+
+  const { isConnected, user } = useSelector((state: RootState) => state.auth)
   return (
     <>
       <LessonBreadcrumbs
@@ -42,7 +46,27 @@ export default function LessonLayout({
               <div className="relative bg-white overflow-hidden">
                 <div className="relative px-4 sm:px-6 lg:px-8">
                   <div className="prose prose-blue prose-lg text-gray-500 mx-auto">
+                  {user && user.isActive ? (
                     <MDXRemote {...source} components={components} />
+                  ) : (
+                    
+                    <div className="border-t border-gray-200 text-center pt-8 bg-white rounded-lg shadow-md max-w-4xl">
+                      <h1 className="text-9xl font-bold text-purple-400">OOOOPS !!!</h1>
+                      <h1 className="text-6xl font-medium py-8">Votre compte n'est pas encore activé</h1>
+                      <p className="text-2xl pb-8 px-12 font-medium">
+                        Cher étudiant, veuillez noter que votre compte n'est pas encore activé, ce qui vous empêche d'accéder aux cours. Veuillez contacter notre équipe pour activer votre compte. Nous serons ravis de vous aider à résoudre ce problème et de vous permettre de profiter de notre contenu de formation. Merci pour votre compréhension et votre collaboration.
+                      </p>
+                      <div className=" justify-center    ">
+                      <a href="https://wa.me/message/WPENVTYKOINKH1" className="inline-flex items-center px-5 py-3 rounded-lg dark:bg-violet-400 dark:text-gray-900">
+                          <img src="/images/whatsapp-color-svgrepo-com.svg" width={50} />
+                          <span className="flex flex-col items-start ml-4 leading-none">
+                              {/* <span className="mb-1 text-xs">GET IT ON</span> */}
+                              <span className="font-semibold title-font">Whatsapp</span>
+                          </span>
+                      </a>
+                      </div>
+                    </div>
+                  )}
                   </div>
                 </div>
               </div>

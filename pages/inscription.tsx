@@ -26,10 +26,6 @@ const SignUp = () => {
     if (auth.isConnected) router.push("/")
   }, [auth])
 
-  useEffect(() => {
-     router.push("/")
-  }, [])
-
   const handleSubmit = async (event) => {
     const url = `${process.env.NEXT_PUBLIC_API_URL}/auth/signup`
     event.preventDefault()
