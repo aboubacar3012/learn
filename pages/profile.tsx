@@ -14,6 +14,8 @@ const Profile = () => {
     if (!isConnected) router.push("/")
   }, [isConnected])
 
+  if(!user) return <></>
+  
   return (
     <div className="container mx-auto my-5 p-5">
       <div className="md:flex justify-center  no-wrap md:-mx-2 ">
