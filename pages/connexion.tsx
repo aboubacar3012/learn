@@ -85,7 +85,7 @@ const SignIn = () => {
                 />
               </div>
               <div className="text-right mt-2">
-                <Link href="#"
+                <Link href="/reset-password"
                   className="text-sm font-semibold text-gray-700 hover:text-blue-700 focus:text-blue-700">
                     Mot de passe oublié?
                 </Link>
@@ -142,7 +142,7 @@ const SignIn = () => {
             </button> */}
             <p className="mt-8 text-center">
               Pas encore de compte?{" "}
-              <Link href="/sign-up" className="text-blue-500 hover:text-blue-700 font-semibold">
+              <Link href="/inscription" className="text-blue-500 hover:text-blue-700 font-semibold">
                   Créer votre compte
               </Link>
             </p>

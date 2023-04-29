@@ -1,1 +1,174 @@
 # Images Flickr
+
+## PARTIE 1
+Un des objectifs de cet exercice est d'utiliser des outils réels du web. Pour cette première partie, nous utiliserons les services de Flickr.
+[Flickr](https://www.flickr.com/) est un service de gestion et de partage d'images qui propose une ```API``` 
+permettant d'explorer les images publiques des utilisateurs.
+
+## Creation de compte et de cle d'API
+
+Pour utiliser l'API de Flickr, il faut avoir un compte utilisateur et une clé d'API fournie par Flickr sur demande.
+
+1. Créer un compte utilisateur [https://identity.flickr.com/sign-up](https://identity.flickr.com/sign-up)
+2. Créer une clé d'API [https://www.flickr.com/services/apps/create/](https://www.flickr.com/services/apps/create/)
+
+Choisir application non commerciale.
+
+***Noter votre clé publique*** qui servira par la suite
+
+Pour avoir la liste de toutes vos applications Flickr : [https://www.flickr.com/services/apps/by/me](https://www.flickr.com/services/apps/by/me) 
+(en étant connecté bien sûr).
+
+## Decouverte de l'API Flickr
+
+La documentation de l'API Flickr est disponible à [https://www.flickr.com/services/api/](https://www.flickr.com/services/api/)
+
+Consulter les pages de la section Read these first, en particulier Overview, Encoding, Dates, Tags, URLs.
+
+À noter que la partie User Authentication n'a rien à voir avec votre clé d'API et que ***nous n'utiliserons pas l'authentification*** 
+pour les fonctionnalités que nous allons développer.
+
+Pour commencer, nous allons faire une recherche d'images et afficher les petites images des résultats.
+
+Consulter la [documentation sur la recherche d'image](https://www.flickr.com/services/api/flickr.photos.search.html) et 
+expérimenter avec l'API Explorer (en bas de page) en utilisant votre clé d'API (choisir le format JSON et l'option Do not sign call).
+Cela vous montre les URLs utilisées pour faire des requêtes.
+
+***Noter en particulier*** que l'URL se termine par ```format=json&nojsoncallback=1```
+
+## Recherche d'images
+
+Clonez le projet de base :
+```js
+git clone https://github.com/Innotech-Academy-Corporation/flickr.git
+```
+
+Compléter la fonction ```init()``` pour que le formulaire capte le ```submit```.
+
+Écrire la fonction ```recherche``` qui est déclenchée au ```submit``` du formulaire et qui va effectuer la 
+recherche d'images en effectuant une requête XHR vers le service web de Flickr. Attention penser à bloquer le ```submit``` avec ```preventDefault()``` 
+comme d'habitude.
+***Attention*** si le champ de recherche est vide ou ne contient que des espaces, 
+il ne faut pas interroger le service web et il faut afficher un message d'erreur comme dans l'exercice précédent.
+
+L'évènement ```load``` de la requête XHR déclenchera la fonction ```afficheReponse``` 
+(on pourra commencer en y mettant simplement un ```console.log``` de la réponse reçue.
+
+Écrire la fonction ```afficheReponse``` qui affichera les résultats de l'interrogation du service web.
+***Attention*** il faut regarder si la réponse contient un message d'erreur ou non.
+
+Si la valeur contenue dans la clé ```stat``` correspond à une erreur, afficher le message d'erreur dans le formulaire comme dans l'exercice précédent.
+
+Si la liste des résultats est vide, afficher aucun résultat comme dans l'exercice précédent.
+
+Si la liste des résultats est non vide, afficher les images dans la section ```resultats``` 
+en utilisant l'image carrée 75x75 (voir la page de documentation sur les URLs). 
+La CSS fournie dans la page doit alors permettre d'avoir 3 images par ligne.
+
+Mettre le titre de l'image pour les valeurs des attributs ```alt``` et ```title``` de l'élément image.
+
+Compléter les paramètres de la requête pour avoir un nombre de résultats multiple de 3 (par défaut Flickr renvoie 100 résultats), et ce qui permet donc de n'avoir que des lignes complètes, comme ci-dessous.
+
+![alt img89](/images/courses/level1/img89.png)
+
+Compléter la fonction ```afficheReponse``` pour que les images captent le clic. Au clic sur une image, la fonction ```getDetails``` est appelée.
+Pour une première version de cette fonction, la section ```details``` affichera l'image en grand (par exemple la version large en 1024px).
+
+## Affichage des details
+
+Modifier la fonction ```getDetails``` pour que celle-ci, au lieu de simplement afficher l'image en grand, interroge à nouveau Flickr pour avoir les détails de l'image (titre, description, etc).
+Voir la méthode ```flickr.photos.getInfo```
+
+Il faut donc faire une nouvelle requête XHR qui appellera la fonction ```afficheDetails``` pour le traitement de sa réponse.
+
+Afficher le titre, la description, la date de création et le pseudo du propriétaire de l'image.
+Sur le pseudo, on fera un lien vers la page Flickr de cet utilisateur, comme ci-dessous :
+
+![alt img90](/images/courses/level1/img90.png)
+
+## PARTIE 2
+
+## Objectifs
+
+Nous voulons pouvoir afficher la localisation d'une image sur une carte, puis ajouter sur la carte les images 
+Flickr qui sont géolocalisées sur cette région. La vidéo suivante montre la réalisation à obtenir.
+
+[https://github.com/Innotech-Academy-Corporation/flickr/blob/main/flickr-maps.webm?raw=true](https://github.com/Innotech-Academy-Corporation/flickr/blob/main/flickr-maps.webm?raw=true)
+
+
+## Recherche d'images geolocalisees
+
+Pour commencer, il faut demander à Flickr de renvoyer uniquement des images dont la géolocalisation est connue.
+
+Pour cela, modifier la requête de recherche Flickr en y ajoutant le paramètre ```has_geo=1``` comme indiqué sur la 
+[documentation de recherche d'images](https://www.flickr.com/services/api/flickr.photos.search.html).
+
+Lorsque vous faites la requête pour avoir les détails d'une image, 
+la réponse JSON doit alors contenir une propriété ```location``` qui contient les détails géographiques de l'image :
+
+![alt img91](/images/courses/level1/img91.png)
+
+## Leaflet
+
+Pour la carte géographique, nous allons utiliser [Leaflet](https://leafletjs.com/), une bibliothèque Javascript open-source pour gérer 
+l'affichage des cartes et les interactions avec la carte. Leaflet permet l'utilisation de fonds de cartes de diverses sources, mais est souvent utilisé 
+[avec Open Street Map, base de connaissances géographiques libre de droits et gérée par la communauté](https://www.openstreetmap.org/#map=6/46.449/2.210).
+
+Liens utiles pour la suite du Projet
+
+- [Quick start](https://leafletjs.com/examples/quick-start/)
+- [Documentation](https://leafletjs.com/reference.html)
+
+## Initialisation de la carte
+
+Ajouter dans le code HTML une division d'identifiant ```carte``` après le ```<main>``` et lui mettre le style ci-dessous. Cette division servira à afficher la carte.
+
+```css
+#carte {
+    height: 500px;
+    margin: 20px;
+    padding: 10px;
+    border: 1px solid grey;
+}
+```
+
+Déclarer une variable globale ```map``` initialisée à ```null```. Puis initialiser la carte dans la fonction ```init```. 
+Puisqu'aucune localisation n'est à afficher pour l'instant, initialiser la carte sur la position (0, 0) et au niveau de zoom 2, comme ci-dessous.
+
+![alt img92](/images/courses/level1/img92.png)
+
+## Mise a jour de la carte
+
+Modifier la fonction ```afficheDetails``` pour que, lorsque les détails d'une image s'affichent, 
+la carte se centre sur la géolocalisation de cette image et zoome sur ce point (utiliser un niveau de zoom de 10).
+
+Afin de garder une trace des marqueurs utilisés (on aura besoin de les enlever par la suite, créer une variable globale ```allMarkers``` initialisée à une liste vide
+
+Placer un marqueur sur la géolocalisation de l'image et y associer un popup qui est automatiquement ouvert. La popup contiendra l'image en 75x75, le titre et la description de l'image, et un lien vers la page de cette image sur le site Flickr.
+
+Enfin, ajouter le marqueur créé à la liste ```allMarkers```.
+
+On doit donc arriver à cette étape :
+
+![alt img93](/images/courses/level1/img93.png)
+
+## Affichages des images proches
+
+Ajouter, dans la ```afficheDetails```, le code pour lancer une nouvelle requête XHR au service web de Flickr qui va demander la liste des images géolocalisées sur la zone de la carte affichée. On limitera le nombre de réponses à 20.
+
+Indications pour construire la requête :
+
+- ```le méthode getBounds``` de la carte permet d'obtenir les corrdonnées des coins opposés de la carte
+- Penser à mettre le paramètre ```has_geo=1``` pour l'interrogation de Flickr
+- Consulter la page de [documentation de la méthode de recherche de Flickr](https://www.flickr.com/services/api/flickr.photos.search.html) 
+pour voir comment utiliser les paramètres bbox et extras dans la requête à utiliser.
+- Le paramètre ```extras``` permettra d'obtenir les données de géolocalisation et la description chaque image dans la liste des 
+résultats et ainsi évitera de faire d'autres requêtes XHR.
+
+Pour chaque résultat, ajouter un marqueur sur la carte avec une popup (non affichée par défaut). 
+Penser à ajouter chqaue marqueur créé à la liste ```allMarkers```. Penser enfin utiliser cette liste (et la réinitialiser à vide) 
+dans la fonction ```afficheDetails``` afin d'enlever tous les marqueurs présents sur la carte avant d'afficher localisation d'une nouvelle image.
+
+***On arrive donc à la version finale :***
+
+![alt img94](/images/courses/level1/img94.png)

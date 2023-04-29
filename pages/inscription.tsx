@@ -4,6 +4,9 @@ import { useState, useEffect } from "react"
 import type { RootState } from "../redux/store"
 import { useSelector, useDispatch } from "react-redux"
 import { login } from "../redux/slices/auth.slice"
+// import PhoneInput from 'react-phone-input-2'
+// import 'react-phone-input-2/lib/material.css'
+
 
 const SignUp = () => {
   const [firstName, setFirstName] = useState<string>("")
@@ -13,6 +16,7 @@ const SignUp = () => {
   const [email, setEmail] = useState<string>("")
   const [password, setPassword] = useState<string>("")
   const [repeatPassword, setRepeatPassword] = useState<string>("")
+  const [country, setCountry] = useState<string>("")
 
   const [errorMessage, setErrorMessage] = useState<string>(null);
   const [successMessage, setSuccessMessage] = useState<string>(null);
@@ -29,19 +33,23 @@ const SignUp = () => {
   const handleSubmit = async (event) => {
     const url = `${process.env.NEXT_PUBLIC_API_URL}/auth/signup`
     event.preventDefault()
+    if(password !== repeatPassword){
+      setErrorMessage("Les deux mot de passe ne correspondent pas");
+      return;
+    }
     const response = await fetch(url, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ email, password, firstName, lastName, dateOfBirth, phone }),
+      body: JSON.stringify({ email, password, firstName, lastName, dateOfBirth, phone, country }),
     })
     const data = await response.json()
     if (data.success) {
       setErrorMessage(null)
       setSuccessMessage(data.message)
       setTimeout(() => {
-        router.push("/sign-in")
+        router.push("/connexion")
       },2000)
       
       // show success toast
@@ -52,6 +60,7 @@ const SignUp = () => {
       // show error toast
       // not redirect
     }
+    // console.log({ email, password, firstName, lastName, dateOfBirth, phone, country })
   }
   return (
     <>
@@ -67,7 +76,7 @@ const SignUp = () => {
         <div className="bg-white w-full md:max-w-md lg:max-w-full  md:mx-0 md:w-1/2 xl:w-1/3 h-screen px-6 lg:px-16 xl:px-12 flex items-center justify-center">
           <div className="w-full h-100">
             <h1 className="text-xl md:text-2xl font-bold leading-tight mt-12 text-center md:text-left">
-              Créer votre compte
+              Inscription
             </h1>
             <form className="mt-6" onSubmit={handleSubmit}>
               <div>
@@ -125,8 +134,42 @@ const SignUp = () => {
                   className="w-full px-4 py-3 rounded-lg bg-gray-200 mt-2 border focus:border-blue-500 focus:bg-white focus:outline-none"
                   autoComplete=""
                   required={true}
-                  // pattern="^\+[1-9]{1}[0-9]{3,14}$"
+                  pattern="^\+[1-9]{1}[0-9]{3,14}$"
+                  title="Votre numero doit respecter le format suivant: ex: +224631000000"
                 />
+                {/* <PhoneInput
+                  // pattern="^\+[1-9]{1}[0-9]{3,14}$"
+                  country='gn'
+                  regions={['africa']}
+                  inputClass="w-full px-4 py-3 rounded-lg bg-gray-200 mt-2 border focus:border-blue-500 focus:bg-white focus:outline-none"
+                  placeholder="Entrez votre numéro téléphone"
+                  value={phone}
+                  onChange={setPhone}/> */}
+              </div>
+              <div>
+                  <label
+                    htmlFor="countries"
+                    className="block text-gray-700"
+                  >
+                    Pays
+                  </label>
+                  <select
+                    value={country}
+                    onChange={(event) => setCountry(event.target.value)}
+                    id="countries"
+                    // className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    className="w-full px-4 py-3 rounded-lg bg-gray-200 mt-2 border focus:border-blue-500 focus:bg-white focus:outline-none"
+                  >
+                    <option defaultValue="GIN">Choisir votre pays</option>
+                    <option value="GIN">Guinée</option>
+                    <option value="SEN">Sénégal</option>
+                    <option value="CIV">Côte d'ivoire</option>
+                    <option value="MLI">Mali</option>
+                    <option value="TGO">Togo</option>
+                    <option value="GAB">Gambie</option>
+                    <option value="BFA">Burkina Faso</option>
+                  </select>
+                
               </div>
               <div>
                 <label className="block text-gray-700">Email</label>
@@ -237,7 +280,7 @@ const SignUp = () => {
             </button> */}
             <p className="m-8 text-center">
               J'ai déjà un compte?{" "}
-              <Link href="/sign-in" className="text-blue-500 hover:text-blue-700 font-semibold">
+              <Link href="/connexion" className="text-blue-500 hover:text-blue-700 font-semibold">
                   Se connecter
               </Link>
             </p>

@@ -1,1 +1,85 @@
 # Service d'articles
+
+Pour cet exercice, nous allons utiliser un service web qui propose une base d'articles (fictifs) dans laquelle 
+on peut rechercher par nom d'auteur (nom partiel ou complet).
+
+## Documentation du web service d'articles
+
+### Endpoint
+
+[https://www.innotech-academy.com/api/articles](https://www.innotech-academy.com/api/articles)
+
+### Reponses
+Sauf erreur d'exécution non prévue, la répose du service est au format JSON. 
+Elle contient une clé result qui prend la valeur error ou success selon le cas.
+
+### Messages d'erreur
+
+En cas d'erreur, la réponse est sous la forme :
+
+```
+{
+    "result": "error",
+    "error": "Le message d'erreur de la réponse"
+}
+```
+
+### Reponse si succes
+
+Si tout s'est bien passé, la réponse est sous la forme :
+
+
+```
+{
+    "result": "success",
+    "articles": [
+      {
+        "publicId": "571fc236131a2ced26a6a31e",
+        "title":" Article 918",
+        "articleContent": "ceci est larticle 918..",
+        "creator": "Haley Morgan",
+        "creatorEmail": "haleymorgan@fortean.com",
+        "createdAt":"2015-02-22 11:29:19"
+      },
+      ...
+    ]
+}
+```
+
+## Interrogation du service web
+
+Clonez le projet de base :
+```js
+git clone https://github.com/Innotech-Academy-Corporation/articles.git
+```
+
+Compléter la fonction ```init()``` pour que le formulaire capte le ```submit```.
+
+Écrire la fonction ```recherche``` qui est déclenchée au ```submit``` du formulaire et qui va effectuer 
+la recherche d'articles en effectuant une requête XHR vers le service web. Attention penser à bloquer le ```submit``` avec ```preventDefault()``` 
+comme d'habitude.
+
+```Attention``` si le champ de recherche est vide ou ne contient que des espaces, 
+il ne faut pas interroger le service web et il faut afficher un message d'erreur comme ci-dessous.
+L'évènement ```load``` de la requête XHR déclenchera la fonction ```afficheReponse``` 
+(on pourra commencer en y mettant simplement un ```console.log``` de la réponse reçue).
+
+![alt img85](/images/courses/level1/img85.png)
+
+## Affichage des resultats de recherche
+
+Écrire la fonction ```afficheReponse``` qui affichera les résultats de l'interrogation du service web.
+```Attention``` il faut regarder si la réponse continet un message d'erreur ou non.
+
+Si la valeur contenue dans la clé ```result``` correspond à une erreur, afficher le message d'erreur dans le formulaire comme sur l'exemple ci-dessous.
+Pour tester cela il faudra mettre dans clés erronées dans l'URL de la requête XHR.
+
+![alt img86](/images/courses/level1/img86.png)
+
+Si la liste des résultats est vide, afficher comme sur l'exemple ci-dessous :
+
+![alt img87](/images/courses/level1/img87.png)
+
+Si la liste des résultats est non vide, afficher les articles en utilisant un élément section par article, comme sur l'exemple ci-dessous :
+
+![alt img88](/images/courses/level1/img88.png)
