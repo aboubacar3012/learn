@@ -394,6 +394,7 @@ const Dashboard = (props) => {
               <table className="w-full whitespace-nowrap">
                 <thead>
                   <tr>
+                    <th className="py-3 text-blue-900 bg-blue-300">N°</th>
                     <th className="py-3 text-blue-900 bg-blue-300">Matricule</th>
                     <th className="py-3 text-blue-900 bg-blue-300">Nom</th>
                     <th className="py-3 text-blue-900 bg-blue-300">Prenom</th>
@@ -410,6 +411,11 @@ const Dashboard = (props) => {
                   tabIndex={0}
                   className={`focus:outline-none h-16 border border-gray-100 rounded ${index % 2 === 0 ? 'bg-gray-50': ''}`}
                 >
+                  <td>
+                    <p className="text-base text-center font-medium leading-none text-gray-700 mr-2">
+                      {index + 1}
+                    </p>
+                  </td>
                   <td>
                     <p className="text-base text-center font-medium leading-none text-gray-700 mr-2">
                       {user.id}
