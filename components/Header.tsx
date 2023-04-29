@@ -140,7 +140,7 @@ export default function Header() {
               </div>
             </div>
             <div className="md:flex items-center hidden">
-              {auth.user && auth.user.role !== "admin" && (
+              {auth.user && auth.user.role === "admin" && (
                 <Link
                   href="/dashboard"
                   className="text-blue-800 text-sm font-semibold hover:text-purple-600 mr-4"
