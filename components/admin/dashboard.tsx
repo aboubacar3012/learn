@@ -9,7 +9,7 @@ const Dashboard = (props) => {
   const [usersToShow, setUsersToShow] = useState(null)
   const [search, setSearch] = useState("")
   const [filterIndex, setFilterIndex] = useState(1) // 1: Tous, 2: Debutant, 3: Props, 4: Experts, 5: Actifs, 6: Inactifs
-  const [showStudent, setShowStudent] = useState(false);
+  const [showStudent, setShowStudent] = useState(false)
   const [studentToShow, setStudentToShow] = useState(null)
 
   const getAllUsers = async () => {
@@ -196,7 +196,7 @@ const Dashboard = (props) => {
 
       {/* Table */}
       <div className="md:flex">
-        <div className={`px-2 ${showStudent ? 'md:w-3/4' : 'w-full'}`}>
+        <div className={`px-2 ${showStudent ? "md:w-3/4" : "w-full"}`}>
           {/*- more free and premium Tailwind CSS components at https://tailwinduikit.com/ -*/}
           <div className="px-2 md:px-10 py-4 md:py-7">
             <div className="flex items-center justify-between">
@@ -359,26 +359,40 @@ const Dashboard = (props) => {
                     </th>
                     <th className="sticky z-10 top-0 py-3 text-blue-900 bg-blue-300">E-mail</th>
                     <th className="sticky z-10 top-0 py-3 text-blue-900 bg-blue-300">Telephone</th>
-                    <th className="sticky z-10 top-0 py-3 text-blue-900 bg-blue-300">Status</th>
+                    <th className="sticky z-10 top-0 py-3 text-blue-900 bg-blue-300 text-left ">
+                      Dejà appelé
+                    </th>
+                    <th className="sticky z-10 top-0 py-3 text-blue-900 bg-blue-300 text-left ">
+                      Status
+                    </th>
                     <th className="sticky z-10 top-0 py-3 text-blue-900 bg-blue-300"></th>
                   </tr>
                 </thead>
                 <tbody>
                   {usersToShow.map((user, index) => (
-                    <UserRow user={user} index={index} key={user.id} showStudent={showStudent} setShowStudent={setShowStudent} setStudentToShow={setStudentToShow} />
+                    <UserRow
+                      user={user}
+                      index={index}
+                      key={user.id}
+                      showStudent={showStudent}
+                      setShowStudent={setShowStudent}
+                      setStudentToShow={setStudentToShow}
+                    />
                   ))}
                 </tbody>
               </table>
             </div>
           </div>
         </div>
-        {
-          showStudent && studentToShow && (
-            <div className="py-16 w-1/4 hidden md:block">
-          <div className="overflow-y-scroll  h-[47rem] p-8 bg-white shadow mt-6">
-          <button onClick={() => setShowStudent(false)} className="text-white py-1 px-2 uppercase rounded bg-red-400 hover:bg-red-500 shadow hover:shadow-lg font-medium transition transform hover:-translate-y-0.5">
-                  Fermer
-                </button>
+        {showStudent && studentToShow && (
+          <div className="py-16 w-1/4 hidden md:block">
+            <div className="overflow-y-scroll  h-[47rem] p-8 bg-white shadow mt-6">
+              <button
+                onClick={() => setShowStudent(false)}
+                className="text-white py-1 px-2 uppercase rounded bg-red-400 hover:bg-red-500 shadow hover:shadow-lg font-medium transition transform hover:-translate-y-0.5"
+              >
+                Fermer
+              </button>
               <div className="w-48 h-48 bg-indigo-100 mx-auto rounded-full shadow-2xl  flex items-center justify-center text-indigo-500">
                 <img
                   alt="..."
@@ -386,75 +400,55 @@ const Dashboard = (props) => {
                   className="shadow-xl rounded-full h-auto align-middle border-none -m-16 -ml-20 lg:-ml-16 max-w-150-px"
                 />
               </div>
-           
-            <div className=" border-b pb-12">
-              <div className="space-x-10 py-2 flex justify-around">
-                <button className="text-white py-2 px-4 uppercase rounded bg-blue-400 hover:bg-blue-500 shadow hover:shadow-lg font-medium transition transform hover:-translate-y-0.5">
-                  Modifier
-                </button>
-                <button className="text-white py-2 px-4 uppercase rounded bg-gray-700 hover:bg-gray-800 shadow hover:shadow-lg font-medium transition transform hover:-translate-y-0.5">
-                  Message
-                </button>
-              </div>
-              <h1 className="text-4xl text-center font-medium text-gray-700 mt-5">
-                {studentToShow.firstName} {studentToShow.lastName}
-              </h1>
-              <h1 className="text-xl  font-medium text-gray-700 mt-5">
-                Message de soumission:
-              </h1>
-              <p className="text-gray-600  py-3">
-                {studentToShow.submitMessage || 'unknown'}
-              </p>
-              <div className="flex py-1">
-                <div className="py-1 font-semibold">Metier:</div>
-                <div className="px-4 py-1">
-                  {studentToShow.job || 'unknown'}
+
+              <div className=" border-b pb-12">
+                <div className="space-x-10 py-2 flex justify-around">
+                  <button className="text-white py-2 px-4 uppercase rounded bg-blue-400 hover:bg-blue-500 shadow hover:shadow-lg font-medium transition transform hover:-translate-y-0.5">
+                    Modifier
+                  </button>
+                  <button className="text-white py-2 px-4 uppercase rounded bg-gray-700 hover:bg-gray-800 shadow hover:shadow-lg font-medium transition transform hover:-translate-y-0.5">
+                    Message
+                  </button>
                 </div>
-              </div>
-              <div className="flex py-1">
-                <div className="py-1 font-semibold">E-mail:</div>
-                <div className="px-4 py-1">
-                  {studentToShow.email || 'unknown'}
+                <h1 className="text-4xl text-center font-medium text-gray-700 mt-5">
+                  {studentToShow.firstName} {studentToShow.lastName}
+                </h1>
+                <h1 className="text-xl  font-medium text-gray-700 mt-5">Message de soumission:</h1>
+                <p className="text-gray-600  py-3">{studentToShow.submitMessage || "unknown"}</p>
+                <div className="flex py-1">
+                  <div className="py-1 font-semibold">Metier:</div>
+                  <div className="px-4 py-1">{studentToShow.job || "unknown"}</div>
                 </div>
-              </div>
-              <div className="flex py-1">
-                <div className="py-1 font-semibold">Telephone:</div>
-                <div className="px-4 py-1">
-                  {studentToShow.phone || 'unknown'}
+                <div className="flex py-1">
+                  <div className="py-1 font-semibold">E-mail:</div>
+                  <div className="px-4 py-1">{studentToShow.email || "unknown"}</div>
                 </div>
-              </div>
-              <div className="flex py-1">
-                <div className="py-1 font-semibold">Adresse:</div>
-                <div className="px-4 py-1">
-                  {studentToShow.address || 'unknown'}
+                <div className="flex py-1">
+                  <div className="py-1 font-semibold">Telephone:</div>
+                  <div className="px-4 py-1">{studentToShow.phone || "unknown"}</div>
                 </div>
-              </div>
-              <div className="flex py-1">
-                <div className="py-1 font-semibold">Genre:</div>
-                <div className="px-4 py-1">
-                  {studentToShow.gender || 'unknown'}
+                <div className="flex py-1">
+                  <div className="py-1 font-semibold">Adresse:</div>
+                  <div className="px-4 py-1">{studentToShow.address || "unknown"}</div>
                 </div>
-              </div>
-              <div className="flex py-1">
-                <div className="py-1 font-semibold">Type:</div>
-                <div className="px-4 py-1">
-                  {studentToShow.role || 'unknown'}
+                <div className="flex py-1">
+                  <div className="py-1 font-semibold">Genre:</div>
+                  <div className="px-4 py-1">{studentToShow.gender || "unknown"}</div>
                 </div>
-              </div>
-              <div className="flex py-1">
-                <div className="py-1 font-semibold">Pays:</div>
-                <div className="px-4 py-1">
-                  {studentToShow.country || 'unknown'}
+                <div className="flex py-1">
+                  <div className="py-1 font-semibold">Type:</div>
+                  <div className="px-4 py-1">{studentToShow.role || "unknown"}</div>
                 </div>
-              </div>
-              <div className="flex py-1">
-                <div className="py-1 font-semibold">Ville:</div>
-                <div className="px-4 py-1">
-                  {studentToShow.city || 'unknown'}
+                <div className="flex py-1">
+                  <div className="py-1 font-semibold">Pays:</div>
+                  <div className="px-4 py-1">{studentToShow.country || "unknown"}</div>
                 </div>
-              </div>
-             
-              {/* <div className="flex py-1">
+                <div className="flex py-1">
+                  <div className="py-1 font-semibold">Ville:</div>
+                  <div className="px-4 py-1">{studentToShow.city || "unknown"}</div>
+                </div>
+
+                {/* <div className="flex py-1">
                 <div className="px-4 py-2 font-semibold">Paiement niveau 1</div>
                 <div className="px-4 py-2">
                   <TogglePaiementLevelOne user={studentToShow} />
@@ -472,12 +466,10 @@ const Dashboard = (props) => {
                   <TogglePaiementLevelThree user={studentToShow} />
                 </div>
               </div> */}
+              </div>
             </div>
-            
           </div>
-        </div>
-          )
-        }
+        )}
       </div>
     </div>
   )

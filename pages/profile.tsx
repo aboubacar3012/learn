@@ -14,8 +14,8 @@ const Profile = () => {
     if (!isConnected) router.push("/")
   }, [isConnected])
 
-  if(!user) return <></>
-  
+  if (!user) return <></>
+
   return (
     <div className="container mx-auto my-5 p-5">
       <div className="md:flex justify-center  no-wrap md:-mx-2 ">
@@ -93,6 +93,10 @@ const Profile = () => {
               <span className="tracking-wide">Informations personnelles</span>
             </div>
             <div className="text-gray-700">
+              <div className="flex space-x-3">
+                <div className="px-4 py-2 font-semibold">Matricule:</div>
+                <div className="px-4 py-2">{user.id}</div>
+              </div>
               <div className="grid md:grid-cols-2 text-sm">
                 <div className="grid grid-cols-2">
                   <div className="px-4 py-2 font-semibold">Prénom</div>
@@ -133,7 +137,7 @@ const Profile = () => {
           {/* End of about section */}
           <div className="my-4" />
           {/* Experience and education */}
-          
+
           {/* End of profile tab */}
         </div>
       </div>

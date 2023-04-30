@@ -87,133 +87,133 @@ const Comptability = (props) => {
           </div>
         </div>
         <div className="relative bg-white py-4 md:py-7 px-4 md:px-8 xl:px-10">
-        <div className="sticky top-0 sm:flex items-center justify-between">
-              <div className="flex items-center">
+          <div className="sticky top-0 sm:flex items-center justify-between">
+            <div className="flex items-center">
+              <div
+                onClick={() => setFilterIndex(1)}
+                className="cursor-pointer rounded-full focus:outline-none focus:ring-2  focus:bg-indigo-50 focus:ring-indigo-800"
+              >
                 <div
-                  onClick={() => setFilterIndex(1)}
-                  className="cursor-pointer rounded-full focus:outline-none focus:ring-2  focus:bg-indigo-50 focus:ring-indigo-800"
+                  className={`py-2 px-5 ${
+                    filterIndex === 1 && "bg-indigo-100"
+                  } text-indigo-700 rounded-full`}
                 >
-                  <div
-                    className={`py-2 px-5 ${
-                      filterIndex === 1 && "bg-indigo-100"
-                    } text-indigo-700 rounded-full`}
-                  >
-                    <p>Tous</p>
-                  </div>
-                </div>
-                <div
-                  onClick={() => setFilterIndex(2)}
-                  className="cursor-pointer rounded-full focus:outline-none focus:ring-2 focus:bg-indigo-50 focus:ring-indigo-800 ml-4 sm:ml-8"
-                >
-                  <div
-                    className={`py-2 px-5 ${
-                      filterIndex === 2 && "bg-indigo-100"
-                    } text-indigo-700 rounded-full`}
-                  >
-                    <p>Débutants</p>
-                  </div>
-                </div>
-                <div
-                  onClick={() => setFilterIndex(3)}
-                  className="cursor-pointer rounded-full focus:outline-none focus:ring-2 focus:bg-indigo-50 focus:ring-indigo-800 ml-4 sm:ml-8"
-                >
-                  <div
-                    className={`py-2 px-5 ${
-                      filterIndex === 3 && "bg-indigo-100"
-                    } text-indigo-700 rounded-full`}
-                  >
-                    <p>Pros</p>
-                  </div>
-                </div>
-                <div
-                  onClick={() => setFilterIndex(4)}
-                  className="cursor-pointer rounded-full focus:outline-none focus:ring-2 focus:bg-indigo-50 focus:ring-indigo-800 ml-4 sm:ml-8"
-                >
-                  <div
-                    className={`py-2 px-5 ${
-                      filterIndex === 4 && "bg-indigo-100"
-                    } text-indigo-700 rounded-full`}
-                  >
-                    <p>Experts</p>
-                  </div>
-                </div>
-                <div
-                  onClick={() => setFilterIndex(5)}
-                  className="cursor-pointer rounded-full focus:outline-none focus:ring-2 focus:bg-indigo-50 focus:ring-indigo-800 ml-4 sm:ml-8"
-                >
-                  <div
-                    className={`py-2 px-5 ${
-                      filterIndex === 5 && "bg-indigo-100"
-                    } text-indigo-700 rounded-full`}
-                  >
-                    <p>Actifs</p>
-                  </div>
-                </div>
-                <div
-                  onClick={() => setFilterIndex(6)}
-                  className="cursor-pointer rounded-full focus:outline-none focus:ring-2 focus:bg-indigo-50 focus:ring-indigo-800 ml-4 sm:ml-8"
-                >
-                  <div
-                    className={`py-2 px-5 ${
-                      filterIndex === 6 && "bg-indigo-100"
-                    } text-indigo-700 rounded-full`}
-                  >
-                    <p>Inactifs</p>
-                  </div>
+                  <p>Tous</p>
                 </div>
               </div>
-
-              <form className="hidden md:block w-5/12" onSubmit={handleSubmitSearch}>
-                <label
-                  htmlFor="default-search"
-                  className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white"
+              <div
+                onClick={() => setFilterIndex(2)}
+                className="cursor-pointer rounded-full focus:outline-none focus:ring-2 focus:bg-indigo-50 focus:ring-indigo-800 ml-4 sm:ml-8"
+              >
+                <div
+                  className={`py-2 px-5 ${
+                    filterIndex === 2 && "bg-indigo-100"
+                  } text-indigo-700 rounded-full`}
                 >
-                  Search
-                </label>
-                <div className="relative">
-                  <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-                    <svg
-                      aria-hidden="true"
-                      className="w-5 h-5 text-gray-500 dark:text-gray-400"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        stroke-width="2"
-                        d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-                      ></path>
-                    </svg>
-                  </div>
-                  <input
-                    value={search}
-                    onChange={(event) => setSearch(event.target.value)}
-                    type="search"
-                    id="default-search"
-                    className="block w-full p-4 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                    placeholder="Rechercher par Matricule, Email ou Telephone"
-                    required
-                  />
-                  <button
-                    type="submit"
-                    className="text-white absolute right-2.5 bottom-2.5 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-                  >
-                    Rechercher
-                  </button>
+                  <p>Débutants</p>
                 </div>
-              </form>
+              </div>
+              <div
+                onClick={() => setFilterIndex(3)}
+                className="cursor-pointer rounded-full focus:outline-none focus:ring-2 focus:bg-indigo-50 focus:ring-indigo-800 ml-4 sm:ml-8"
+              >
+                <div
+                  className={`py-2 px-5 ${
+                    filterIndex === 3 && "bg-indigo-100"
+                  } text-indigo-700 rounded-full`}
+                >
+                  <p>Pros</p>
+                </div>
+              </div>
+              <div
+                onClick={() => setFilterIndex(4)}
+                className="cursor-pointer rounded-full focus:outline-none focus:ring-2 focus:bg-indigo-50 focus:ring-indigo-800 ml-4 sm:ml-8"
+              >
+                <div
+                  className={`py-2 px-5 ${
+                    filterIndex === 4 && "bg-indigo-100"
+                  } text-indigo-700 rounded-full`}
+                >
+                  <p>Experts</p>
+                </div>
+              </div>
+              <div
+                onClick={() => setFilterIndex(5)}
+                className="cursor-pointer rounded-full focus:outline-none focus:ring-2 focus:bg-indigo-50 focus:ring-indigo-800 ml-4 sm:ml-8"
+              >
+                <div
+                  className={`py-2 px-5 ${
+                    filterIndex === 5 && "bg-indigo-100"
+                  } text-indigo-700 rounded-full`}
+                >
+                  <p>Actifs</p>
+                </div>
+              </div>
+              <div
+                onClick={() => setFilterIndex(6)}
+                className="cursor-pointer rounded-full focus:outline-none focus:ring-2 focus:bg-indigo-50 focus:ring-indigo-800 ml-4 sm:ml-8"
+              >
+                <div
+                  className={`py-2 px-5 ${
+                    filterIndex === 6 && "bg-indigo-100"
+                  } text-indigo-700 rounded-full`}
+                >
+                  <p>Inactifs</p>
+                </div>
+              </div>
+            </div>
 
-              {/* <button
+            <form className="hidden md:block w-5/12" onSubmit={handleSubmitSearch}>
+              <label
+                htmlFor="default-search"
+                className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white"
+              >
+                Search
+              </label>
+              <div className="relative">
+                <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                  <svg
+                    aria-hidden="true"
+                    className="w-5 h-5 text-gray-500 dark:text-gray-400"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+                    ></path>
+                  </svg>
+                </div>
+                <input
+                  value={search}
+                  onChange={(event) => setSearch(event.target.value)}
+                  type="search"
+                  id="default-search"
+                  className="block w-full p-4 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                  placeholder="Rechercher par Matricule, Email ou Telephone"
+                  required
+                />
+                <button
+                  type="submit"
+                  className="text-white absolute right-2.5 bottom-2.5 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                >
+                  Rechercher
+                </button>
+              </div>
+            </form>
+
+            {/* <button
               // onclick="popuphandler(true)"
               className="focus:ring-2 focus:ring-offset-2 focus:ring-indigo-600 mt-4 sm:mt-0 inline-flex items-start justify-start px-6 py-3 bg-indigo-700 hover:bg-indigo-600 focus:outline-none rounded"
         >
             <p className="text-sm font-medium leading-none text-white">Ajouter un étudiants</p>
         </button> */}
-        </div>
-          <div className="mt-7 overflow-y-scroll  h-[48rem]">
+          </div>
+          <div className="mt-7 overflow-y-scroll  h-[45rem]">
             <table className="w-full whitespace-nowrap">
               <thead>
                 <tr className="">
@@ -286,7 +286,6 @@ const Comptability = (props) => {
                     <td className="">
                       <ToggleStatus user={user} />
                     </td>
-                    
                   </tr>
                 ))}
               </tbody>

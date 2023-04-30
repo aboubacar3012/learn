@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react"
 import ToggleStatus from "./toggleStatus"
+import ToggleIsAlreadyCalled from "./toggleIsAlreadyCalled"
 
 const UserRow = (props) => {
   const { user, index, setShowStudent, showStudent, setStudentToShow } = props
@@ -64,7 +65,21 @@ const UserRow = (props) => {
           {user.phone}
         </p>
       </td>
-      <td className="">
+      <td className="text-center">
+        {/* <div className="text-base text-center font-medium leading-none text-gray-700 mr-2">
+          <label className="relative inline-flex items-center cursor-pointer">
+            <input
+              checked={isChecked}
+              onChange={checkHandler}
+              type="checkbox"
+              className="sr-only peer"
+            />
+            <div className="w-11 h-6 bg-gray-200 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
+          </label>
+        </div> */}
+        <ToggleIsAlreadyCalled user={user} />
+      </td>
+      <td className="text-center">
         {/* <div className="text-base text-center font-medium leading-none text-gray-700 mr-2">
           <label className="relative inline-flex items-center cursor-pointer">
             <input
@@ -79,7 +94,13 @@ const UserRow = (props) => {
         <ToggleStatus user={user} />
       </td>
       <td className="">
-        <p onClick={() => {setShowStudent(true); setStudentToShow(user)}} className="cursor-pointer py-3 px-3 rounded-full bg-indigo-100 hover:bg-indigo-300 text-base text-center  font-medium leading-none text-gray-900 mr-2">
+        <p
+          onClick={() => {
+            setShowStudent(true)
+            setStudentToShow(user)
+          }}
+          className="cursor-pointer py-3 px-3 rounded-full bg-indigo-100 hover:bg-indigo-300 text-base text-center  font-medium leading-none text-gray-900 mr-2"
+        >
           Afficher
         </p>
       </td>
