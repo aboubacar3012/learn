@@ -7,7 +7,6 @@ import { login } from "../redux/slices/auth.slice"
 // import PhoneInput from 'react-phone-input-2'
 // import 'react-phone-input-2/lib/material.css'
 
-
 const SignUp = () => {
   const [firstName, setFirstName] = useState<string>("")
   const [lastName, setLastName] = useState<string>("")
@@ -16,10 +15,11 @@ const SignUp = () => {
   const [email, setEmail] = useState<string>("")
   const [password, setPassword] = useState<string>("")
   const [repeatPassword, setRepeatPassword] = useState<string>("")
-  const [country, setCountry] = useState<string>("")
+  const [country, setCountry] = useState<string>("GIN")
+  const [submitMessage, setSubmitMessage] = useState<string>("")
 
-  const [errorMessage, setErrorMessage] = useState<string>(null);
-  const [successMessage, setSuccessMessage] = useState<string>(null);
+  const [errorMessage, setErrorMessage] = useState<string>(null)
+  const [successMessage, setSuccessMessage] = useState<string>(null)
 
   const auth = useSelector((state: RootState) => state.auth)
   // const dispatch = useDispatch()
@@ -33,16 +33,25 @@ const SignUp = () => {
   const handleSubmit = async (event) => {
     const url = `${process.env.NEXT_PUBLIC_API_URL}/auth/signup`
     event.preventDefault()
-    if(password !== repeatPassword){
-      setErrorMessage("Les deux mot de passe ne correspondent pas");
-      return;
+    if (password !== repeatPassword) {
+      setErrorMessage("Les deux mot de passe ne correspondent pas")
+      return
     }
     const response = await fetch(url, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ email, password, firstName, lastName, dateOfBirth, phone, country }),
+      body: JSON.stringify({
+        email,
+        password,
+        firstName,
+        lastName,
+        dateOfBirth,
+        phone,
+        country,
+        submitMessage,
+      }),
     })
     const data = await response.json()
     if (data.success) {
@@ -50,8 +59,8 @@ const SignUp = () => {
       setSuccessMessage(data.message)
       setTimeout(() => {
         router.push("/connexion")
-      },2000)
-      
+      }, 2000)
+
       // show success toast
       // redirect to login page
     } else {
@@ -88,13 +97,13 @@ const SignUp = () => {
                   name=""
                   id=""
                   placeholder="Entrez votre prénom"
-                  className="w-full px-4 py-3 rounded-lg bg-gray-200 mt-2 border focus:border-blue-500 focus:bg-white focus:outline-none"
+                  className="w-full px-4  rounded-lg bg-gray-200  border focus:border-blue-500 focus:bg-white focus:outline-none"
                   autoComplete=""
                   required={true}
                 />
               </div>
               <div>
-                <label className="block text-gray-700">Nom</label>
+                <label className="block text-gray-700 pt-3">Nom</label>
                 <input
                   value={lastName}
                   onChange={(event) => setLastName(event.target.value)}
@@ -102,13 +111,13 @@ const SignUp = () => {
                   name=""
                   id=""
                   placeholder="Entrez votre nom"
-                  className="w-full px-4 py-3 rounded-lg bg-gray-200 mt-2 border focus:border-blue-500 focus:bg-white focus:outline-none"
+                  className="w-full px-4  rounded-lg bg-gray-200  border focus:border-blue-500 focus:bg-white focus:outline-none"
                   autoComplete=""
                   required={true}
                 />
               </div>
               <div>
-                <label className="block text-gray-700">Date de naissance</label>
+                <label className="block text-gray-700 pt-3">Date de naissance</label>
                 <input
                   value={dateOfBirth}
                   onChange={(event) => setDateOfBirth(event.target.value)}
@@ -116,14 +125,14 @@ const SignUp = () => {
                   name=""
                   id=""
                   placeholder="Entrez votre date de naissance"
-                  className="w-full px-4 py-3 rounded-lg bg-gray-200 mt-2 border focus:border-blue-500 focus:bg-white focus:outline-none"
+                  className="w-full px-4  rounded-lg bg-gray-200  border focus:border-blue-500 focus:bg-white focus:outline-none"
                   autoComplete=""
                   required={true}
                   max="2010-01-01"
                 />
               </div>
               <div>
-                <label className="block text-gray-700">Téléphone</label>
+                <label className="block text-gray-700 pt-3">Téléphone</label>
                 <input
                   value={phone}
                   onChange={(event) => setPhone(event.target.value)}
@@ -131,7 +140,7 @@ const SignUp = () => {
                   name=""
                   id=""
                   placeholder="Entrez votre numéro téléphone whatsapp"
-                  className="w-full px-4 py-3 rounded-lg bg-gray-200 mt-2 border focus:border-blue-500 focus:bg-white focus:outline-none"
+                  className="w-full px-4  rounded-lg bg-gray-200  border focus:border-blue-500 focus:bg-white focus:outline-none"
                   autoComplete=""
                   required={true}
                   pattern="^\+[1-9]{1}[0-9]{3,14}$"
@@ -147,32 +156,30 @@ const SignUp = () => {
                   onChange={setPhone}/> */}
               </div>
               <div>
-                  <label
-                    htmlFor="countries"
-                    className="block text-gray-700"
-                  >
-                    Pays
-                  </label>
-                  <select
-                    value={country}
-                    onChange={(event) => setCountry(event.target.value)}
-                    id="countries"
-                    // className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                    className="w-full px-4 py-3 rounded-lg bg-gray-200 mt-2 border focus:border-blue-500 focus:bg-white focus:outline-none"
-                  >
-                    <option defaultValue="GIN">Choisir votre pays</option>
-                    <option value="GIN">Guinée</option>
-                    <option value="SEN">Sénégal</option>
-                    <option value="CIV">Côte d'ivoire</option>
-                    <option value="MLI">Mali</option>
-                    <option value="TGO">Togo</option>
-                    <option value="GAB">Gambie</option>
-                    <option value="BFA">Burkina Faso</option>
-                  </select>
-                
+                <label htmlFor="countries" className="block text-gray-700 pt-3">
+                  Pays
+                </label>
+                <select
+                  value={country}
+                  onChange={(event) => setCountry(event.target.value)}
+                  id="countries"
+                  // className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                  className="w-full px-4  rounded-lg bg-gray-200  border focus:border-blue-500 focus:bg-white focus:outline-none"
+                >
+                  {/* <option defaultValue="GIN">Choisir votre pays</option> */}
+                  <option defaultValue="GIN" value="GIN">
+                    Guinée
+                  </option>
+                  <option value="SEN">Sénégal</option>
+                  <option value="CIV">Côte d'ivoire</option>
+                  <option value="MLI">Mali</option>
+                  <option value="TGO">Togo</option>
+                  <option value="GAB">Gambie</option>
+                  <option value="BFA">Burkina Faso</option>
+                </select>
               </div>
               <div>
-                <label className="block text-gray-700">Email</label>
+                <label className="block text-gray-700 pt-3">Email</label>
                 <input
                   value={email}
                   onChange={(event) => setEmail(event.target.value)}
@@ -180,13 +187,13 @@ const SignUp = () => {
                   name=""
                   id=""
                   placeholder="Entrez votre adresse email"
-                  className="w-full px-4 py-3 rounded-lg bg-gray-200 mt-2 border focus:border-blue-500 focus:bg-white focus:outline-none"
+                  className="w-full px-4  rounded-lg bg-gray-200  border focus:border-blue-500 focus:bg-white focus:outline-none"
                   autoComplete=""
                   required={true}
                 />
               </div>
-              <div className="mt-4">
-                <label className="block text-gray-700">Mot de passe</label>
+              <div>
+                <label className="block text-gray-700 pt-3">Mot de passe</label>
                 <input
                   value={password}
                   onChange={(event) => setPassword(event.target.value)}
@@ -195,12 +202,12 @@ const SignUp = () => {
                   id=""
                   placeholder="Entrez votre mot de passe"
                   minLength={6}
-                  className="w-full px-4 py-3 rounded-lg bg-gray-200 mt-2 border focus:border-blue-500 focus:bg-white focus:outline-none"
+                  className="w-full px-4  rounded-lg bg-gray-200  border focus:border-blue-500 focus:bg-white focus:outline-none"
                   required={true}
                 />
               </div>
-              <div className="mt-4">
-                <label className="block text-gray-700">Confirmer votre Mot de passe</label>
+              <div>
+                <label className="block text-gray-700 pt-3">Confirmer votre Mot de passe</label>
                 <input
                   value={repeatPassword}
                   onChange={(event) => setRepeatPassword(event.target.value)}
@@ -209,38 +216,51 @@ const SignUp = () => {
                   id=""
                   placeholder="Repetez votre mot de passe"
                   minLength={6}
-                  className="w-full px-4 py-3 rounded-lg bg-gray-200 mt-2 border focus:border-blue-500 focus:bg-white focus:outline-none"
+                  className="w-full px-4 rounded-lg bg-gray-200  border focus:border-blue-500 focus:bg-white focus:outline-none"
                   required={true}
                 />
               </div>
-              {
-                errorMessage && (
-                  <div className="p-2">
-                    <div className="inline-flex items-center bg-white leading-none text-red-600 rounded-full p-2 shadow text-teal text-md w-full">
-                      <span className="inline-flex bg-red-600 text-white rounded-full h-6 px-3 justify-center items-center">
-                        Erreur
-                      </span>
-                      <span className="inline-flex px-2">
-                        {errorMessage && <span>{errorMessage}</span>}
-                      </span>
-                    </div>
+              <div>
+                <label
+                  htmlFor="message"
+                  className="block mb-2 text-sm font-medium text-gray-900 dark:text-white pt-3"
+                >
+                  Parlez nous un peut de vous et de votre parcours ?
+                </label>
+                <textarea
+                  value={submitMessage}
+                  onChange={(event) => setSubmitMessage(event.target.value)}
+                  id="message"
+                  rows={5}
+                  className="w-full px-4 rounded-lg bg-gray-200  border focus:border-blue-500 focus:bg-white focus:outline-none"
+                  placeholder="Nous avons tous un parcours, parlez nous du votre ..."
+                  required={true}
+                ></textarea>
+              </div>
+              {errorMessage && (
+                <div className="p-2">
+                  <div className="inline-flex items-center bg-white leading-none text-red-600 rounded-full p-2 shadow text-teal text-md w-full">
+                    <span className="inline-flex bg-red-600 text-white rounded-full h-6 px-3 justify-center items-center">
+                      Erreur
+                    </span>
+                    <span className="inline-flex px-2">
+                      {errorMessage && <span>{errorMessage}</span>}
+                    </span>
                   </div>
-                )
-              }
-              {
-                successMessage && (
-                  <div className="p-2">
-                    <div className="inline-flex items-center bg-white leading-none text-green-600 rounded-full p-2 shadow text-teal text-md w-full">
-                      <span className="inline-flex bg-green-600 text-white rounded-full h-6 px-3 justify-center items-center">
-                        Success
-                      </span>
-                      <span className="inline-flex px-2">
-                        {successMessage && <span>{successMessage}</span>}
-                      </span>
-                    </div>
+                </div>
+              )}
+              {successMessage && (
+                <div className="p-2">
+                  <div className="inline-flex items-center bg-white leading-none text-green-600 rounded-full p-2 shadow text-teal text-md w-full">
+                    <span className="inline-flex bg-green-600 text-white rounded-full h-6 px-3 justify-center items-center">
+                      Success
+                    </span>
+                    <span className="inline-flex px-2">
+                      {successMessage && <span>{successMessage}</span>}
+                    </span>
                   </div>
-                )
-              }
+                </div>
+              )}
               <button
                 type="submit"
                 className="w-full block bg-indigo-500 hover:bg-indigo-400 focus:bg-indigo-400 text-white font-semibold rounded-lg
@@ -281,7 +301,7 @@ const SignUp = () => {
             <p className="m-8 text-center">
               J'ai déjà un compte?{" "}
               <Link href="/connexion" className="text-blue-500 hover:text-blue-700 font-semibold">
-                  Se connecter
+                Se connecter
               </Link>
             </p>
           </div>

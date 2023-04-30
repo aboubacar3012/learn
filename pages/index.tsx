@@ -56,13 +56,11 @@ export default function Home({ content, courses }) {
         <>
         <section className="bg-white dark:bg-gray-900">
   <div className="container px-6 py-10 mx-auto">
-    <h1 className="text-2xl font-semibold text-center text-gray-800 capitalize lg:text-3xl dark:text-white">
+    <h1 className="text-2xl py-5 font-semibold text-center text-gray-800 capitalize lg:text-3xl dark:text-white">
     Développeur full stack web & mobile
     </h1>
-    <p className="max-w-2xl mx-auto my-6 text-center text-gray-500 dark:text-gray-300">
-    ⚠ Cette formation est en cours d'éléboration, il ya une mise à jour toute les semaines
-    </p>
-    <div className="flex items-center justify-center">
+  
+    <div className="flex items-center justify-center  py-5">
       <div className="flex items-center p-1 border border-blue-600 dark:border-blue-400 rounded-xl">
         <button onClick={() => setLevel(1)} className={`px-4 py-2 text-sm font-medium capitalize ${level === 1 ? 'bg-blue-600 text-white' : 'transition-colors duration-300 text-blue-600 focus:outline-none hover:bg-blue-600 hover:text-white'} md:py-3 rounded-xl md:px-12`}>
           DEBUTANT
@@ -75,6 +73,7 @@ export default function Home({ content, courses }) {
         </button>
       </div>
     </div>
+    <hr/>
     <div className="grid grid-cols-1 gap-8 mt-8 xl:mt-16 md:grid-cols-2 xl:grid-cols-3">
     {courseToShow.map((course, index) => (
     <Link key={index} href={`/${course}`}>

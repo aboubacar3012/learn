@@ -16,7 +16,7 @@ function MyApp({ Component, pageProps }) {
   return (
     <Provider store={store}>
       <PersistGate persistor={persistor} loading={null}>
-        {router.pathname !== "/dashboard" && <Header />}
+        {router.pathname !== "/admin" && <Header />}
         <hr />
         <Component {...pageProps} />
         <Analytics />
