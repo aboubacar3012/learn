@@ -43,8 +43,8 @@ const SignUp = () => {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        email,
-        password,
+        email: email.toLowerCase(),
+        password: password.toLowerCase(),
         firstName,
         lastName,
         dateOfBirth,
@@ -269,7 +269,7 @@ const SignUp = () => {
                 Je m'inscris
               </button>
             </form>
-            <hr className="my-6 border-gray-300 w-full" />
+            <hr className=" border-gray-300 w-full" />
             {/* <button
               type="button"
               className="w-full block bg-white hover:bg-gray-100 focus:bg-gray-100 text-gray-900 font-semibold rounded-lg px-4 py-3 border border-gray-300"
@@ -298,7 +298,7 @@ const SignUp = () => {
                 <span className="ml-4">Se connecter avec Google</span>
               </div>
             </button> */}
-            <p className="m-8 text-center">
+            <p className="my-4 text-center">
               J'ai déjà un compte?{" "}
               <Link href="/connexion" className="text-blue-500 hover:text-blue-700 font-semibold">
                 Se connecter
