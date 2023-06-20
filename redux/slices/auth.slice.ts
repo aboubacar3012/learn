@@ -23,10 +23,13 @@ export const AuthSlice = createSlice({
       state.isConnected = false
       state.user = null
     },
+    clearAuth: (state) => {
+      return initialState
+    },
   },
 })
 
 // Action creators are generated for each case reducer function
-export const { login, logout } = AuthSlice.actions
+export const { login, logout, clearAuth } = AuthSlice.actions
 
 export default AuthSlice.reducer
