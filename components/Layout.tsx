@@ -17,7 +17,7 @@ export default function Layout({ children, content, courses, progressService }) 
 
   useEffect(() => {
     if (PACKAGE_VERSION && PACKAGE_VERSION !== version) {
-      localStorage.removeItem("persist:nojyk")
+      localStorage.removeItem("persist:innotech")
       dispatch(updateVersion({ version: PACKAGE_VERSION }))
     } else {
       dispatch(updateVersion({ version: PACKAGE_VERSION }))
