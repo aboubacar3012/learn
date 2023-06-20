@@ -21,11 +21,11 @@ const HomePlans = () => {
                 className="rounded-3xl w-20 h-20"
               />
               <div className="ml-5">
-                <span className="block text-2xl font-semibold">DEBUTANT</span>
                 <span>
-                  <span className="text-3xl font-bold">Gratuit</span>
+                  <span className="text-2xl font-bold">500 000 GNF (50€)</span>
                 </span>
-                <span className="text-gray-500 font-medium">/ 4 semaines</span>
+                <span className="text-gray-500 font-medium">/MOIS</span>
+                <span className="block text-2xl font-semibold">DEBUTANT</span>
               </div>
             </div>
             <ul className="mb-7 font-medium text-gray-500">
@@ -120,11 +120,11 @@ const HomePlans = () => {
                 className="rounded-3xl w-20 h-20"
               />
               <div className="ml-5">
-                <span className="block text-3xl font-semibold text-white">PRO</span>
                 <span>
-                  <span className="text-3xl font-bold text-white">500 000 GNF</span>
+                  <span className="text-2xl font-bold text-white">1 500 000 GNF(150€)</span>
                 </span>
-                <span className="font-medium">/ 4 semaines</span>
+                <span className="font-medium">/1 MOIS</span>
+                <span className="block text-3xl font-semibold text-white">PRO</span>
               </div>
             </div>
             <ul className="mb-10 font-medium text-xl">
@@ -210,11 +210,11 @@ const HomePlans = () => {
                 className="rounded-3xl w-20 h-20"
               />
               <div className="ml-5">
-                <span className="block text-2xl font-semibold">EXPERT</span>
                 <span>
-                  <span className="text-3xl font-bold">Pas encore disponible </span>
+                  <span className="text-2xl font-bold">5 000 000 GNF(500€)</span>
                 </span>
-                <span className="text-gray-500 font-medium">/ 24 semaines</span>
+                <span className="text-gray-500 font-medium">/1 MOIS</span>
+                <span className="block text-2xl font-semibold">EXPERT</span>
               </div>
             </div>
             <ul className="mb-7 font-medium text-gray-500">
@@ -264,7 +264,6 @@ const HomePlans = () => {
             <a
               href="/inscription"
               className="flex justify-center items-center px-12 py-4 text-md font-medium tracking-wider text-center text-white transition-colors duration-300 transform bg-blue-900 rounded-md hover:bg-blue-700"
-
             >
               Je postule
               <img

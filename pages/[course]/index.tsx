@@ -29,8 +29,11 @@ export default function SectionPage({
   return (
     <Layout content={content} courses={courses} progressService={progressService}>
       <Head>
-        <title>{title} | Testing Next.js Applications with Cypress</title>
-        <meta name="description" content={description} />
+        <title>Innotech Academy</title>
+        <meta
+          name="description"
+          content="Apprenez à créer des applications web et mobiles de qualité professionnelle."
+        />
       </Head>
 
       <CourseHero title={title} description={description} image={content[course].image} />

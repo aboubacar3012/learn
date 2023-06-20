@@ -3,10 +3,12 @@ import storage from "redux-persist/lib/storage"
 import { persistReducer } from "redux-persist"
 //reducers
 import authSlice from "./slices/auth.slice"
+import versionSlice from "./slices/version.slice"
 
 // reducers
 const reducers = combineReducers({
   auth: authSlice,
+  version: versionSlice,
 })
 
 const persistConfig = { key: "innotech", storage }

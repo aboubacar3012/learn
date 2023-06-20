@@ -108,11 +108,12 @@ export default function LessonPage({
   return (
     <Layout content={coursesJson} courses={courses} progressService={progressService}>
       <Head>
-        <title>{lessonData.title} | Testing Next.js Applications with Cypress</title>
-        <meta name="description" content={lessonData.description} />
+        <title>Innotech Academy</title>
+        <meta
+          name="description"
+          content="Apprenez à créer des applications web et mobiles de qualité professionnelle."
+        />
       </Head>
-
-      
       <LessonLayout
         toc={toc}
         source={source}

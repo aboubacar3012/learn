@@ -17,17 +17,14 @@ const AdminPage = () => {
   }, [auth])
 
   const [sidebarIndex, setSidebarIndex] = useState(1)
-  
+
   return (
     <div className="h-screen w-full flex overflow-hidden">
-      <nav className="w-24 flex flex-col items-center bg-white dark:bg-gray-800 py-4">
+      <nav className="w-24 flex flex-col items-center bg-white  py-4">
         {/* Left side NavBar */}
         <div>
           {/* App Logo */}
-          <svg
-            className="h-8 w-8 fill-current text-blue-600 dark:text-blue-300"
-            viewBox="0 0 24 24"
-          >
+          <svg className="h-8 w-8 fill-current text-blue-600 " viewBox="0 0 24 24">
             <path
               d="M12 3L1 9l4 2.18v6L12 21l7-3.82v-6l2-1.09V17h2V9L12 3m6.82
 					6L12 12.72 5.18 9 12 5.28 18.82 9M17 16l-5 2.72L7 16v-3.73L12
@@ -35,13 +32,13 @@ const AdminPage = () => {
             />
           </svg>
         </div>
-        <ul className="mt-2 text-gray-700 dark:text-gray-400 capitalize">
+        <ul className="mt-2 text-gray-700 capitalize">
           {/* Links */}
           <li
             onClick={() => setSidebarIndex(1)}
             className={`mt-3 p-2 ${
               sidebarIndex === 1 ? "text-blue-600" : "hover:text-blue-600"
-            } dark:text-blue-300 rounded-lg`}
+            }  rounded-lg`}
           >
             <a href="#" className=" flex flex-col items-center">
               <svg className="fill-current h-5 w-5" viewBox="0 0 24 24">
@@ -58,7 +55,7 @@ const AdminPage = () => {
             onClick={() => setSidebarIndex(2)}
             className={`mt-3 p-2 ${
               sidebarIndex === 2 ? "text-blue-600" : "hover:text-blue-600"
-            } dark:text-blue-300 rounded-lg`}
+            }  rounded-lg`}
           >
             <a href="#" className=" flex flex-col items-center">
               <svg className="fill-current h-5 w-5" viewBox="0 0 24 24">
@@ -77,7 +74,7 @@ const AdminPage = () => {
             onClick={() => setSidebarIndex(3)}
             className={`mt-3 p-2 ${
               sidebarIndex === 3 ? "text-blue-600" : "hover:text-blue-600"
-            } dark:text-blue-300 rounded-lg`}
+            } rounded-lg`}
           >
             <a href="#" className=" flex flex-col items-center">
               <svg className="fill-current h-5 w-5" viewBox="0 0 24 24">
@@ -95,7 +92,7 @@ const AdminPage = () => {
             onClick={() => setSidebarIndex(4)}
             className={`mt-3 p-2 ${
               sidebarIndex === 4 ? "text-blue-600" : "hover:text-blue-600"
-            } dark:text-blue-300 rounded-lg`}
+            }  rounded-lg`}
           >
             <a href="#" className=" flex flex-col items-center">
               <svg className="fill-current h-5 w-5" viewBox="0 0 512 512">
@@ -117,7 +114,7 @@ const AdminPage = () => {
             onClick={() => setSidebarIndex(5)}
             className={`mt-3 p-2 ${
               sidebarIndex === 5 ? "text-blue-600" : "hover:text-blue-600"
-            } dark:text-blue-300 rounded-lg`}
+            }  rounded-lg`}
           >
             <a href="#" className=" flex flex-col items-center">
               <svg className="fill-current h-5 w-5" viewBox="0 0 24 24">
@@ -135,7 +132,7 @@ const AdminPage = () => {
             onClick={() => setSidebarIndex(6)}
             className={`mt-3 p-2 ${
               sidebarIndex === 6 ? "text-blue-600" : "hover:text-blue-600"
-            } dark:text-blue-300 rounded-lg`}
+            } rounded-lg`}
           >
             <a href="#" className=" flex flex-col items-center">
               <svg className="fill-current h-5 w-5" viewBox="0 0 24 24">
@@ -148,7 +145,7 @@ const AdminPage = () => {
             </a>
           </li>
         </ul>
-        <div className="mt-auto flex items-center p-2 text-blue-700 bg-purple-200 dark:text-blue-500 rounded-full">
+        <div className="mt-auto flex items-center p-2 text-blue-700 bg-purple-200 rounded-full">
           {/* important action */}
           <a href="/">
             <svg
@@ -169,7 +166,7 @@ const AdminPage = () => {
         </div>
       </nav>
       {/* // Container */}
-      <main className="my-1 pt-2 pb-2 px-10 flex-1 bg-gray-200 dark:bg-black rounded-l-lg transition duration-500 ease-in-out overflow-y-auto">
+      <main className="my-1 pt-2 pb-2 px-10 flex-1 bg-gray-200  rounded-l-lg transition duration-500 ease-in-out overflow-y-auto">
         {sidebarIndex === 1 && <Dashboard />}
         {sidebarIndex === 2 && <Inbox />}
         {sidebarIndex === 3 && <Comptability />}

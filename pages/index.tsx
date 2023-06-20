@@ -54,14 +54,14 @@ export default function Home({ content, courses }) {
         </>
       ) : (
         <>
-          <section className="bg-white dark:bg-gray-900">
+          <section className="bg-white">
             <div className="container px-6 py-10 mx-auto">
-              <h1 className="text-2xl py-5 font-semibold text-center text-gray-800 capitalize lg:text-3xl dark:text-white">
+              <h1 className="text-2xl py-5 font-semibold text-center text-gray-800 capitalize lg:text-3xl">
                 Développeur full stack web & mobile
               </h1>
 
               <div className="flex items-center justify-center  py-5">
-                <div className="flex items-center p-1 border border-blue-600 dark:border-blue-400 rounded-xl">
+                <div className="flex items-center p-1 border border-blue-600 rounded-xl">
                   <button
                     onClick={() => setLevel(1)}
                     className={`px-4 py-2 text-sm font-medium capitalize ${
@@ -108,7 +108,7 @@ export default function Home({ content, courses }) {
                           />
                         </div>
                       </div>
-                      <h1 className="mt-4 text-2xl font-semibold text-gray-700 dark:text-white text-center">
+                      <h1 className="mt-4 text-2xl font-semibold text-gray-700  text-center">
                         {content[course].title}
                       </h1>
                     </div>
